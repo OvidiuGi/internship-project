@@ -11,7 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FirstController extends AbstractController
 {
     /**
-     *@Route ("/message")
+     *@Route("/message")
      */
     public function getMessage(Request $request): Response
     {
