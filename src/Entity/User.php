@@ -8,7 +8,7 @@ class User
 {
     private int $id;
 
-    private string $password = '';
+    public string $password = '';
 
     public string $cnp = '';
 
@@ -24,33 +24,30 @@ class User
 
     public function getId(): int
     {
-
         return $this->id;
     }
 
-    public function setRoles(Collection $roles): Collection
+    public function setRoles(Collection $roles): self
     {
         $this->roles = $roles;
 
-        return $this->roles;
+        return $this;
     }
 
     public function getRoles(): Collection
     {
-
         return $this->roles;
     }
 
-    public function setProgrammes(Collection $programmes): Collection
+    public function setProgrammes(Collection $programmes): self
     {
         $this->programmes = $programmes;
 
-        return $this->programmes;
+        return $this;
     }
 
     public function getProgrammes(): Collection
     {
-
         return $this->programmes;
     }
 }

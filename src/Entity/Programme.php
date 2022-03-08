@@ -26,75 +26,67 @@ class Programme
 
     public function getId(): int
     {
-
         return $this->id;
     }
 
-    public function getStartTime() : \DateTime
+    public function getStartTime(): \DateTime
     {
-
         return $this->startTime;
     }
 
-    public function setStartTime(\DateTime $startTime): \DateTime
+    public function setStartTime(\DateTime $startTime): self
     {
-
         $this->startTime = $startTime;
 
-        return $this->startTime;
+        return $this;
     }
 
-    public function getEndTime() : \DateTime
+    public function getEndTime(): \DateTime
     {
-
         return $this->endTime;
     }
 
-    public function setEndTime(\DateTime $endTime): \DateTime
+    public function setEndTime(\DateTime $endTime): self
     {
-
         $this->endTime = $endTime;
 
-        return $this->endTime;
+        return $this;
     }
 
-    public function getTrainer() : ?User
+    public function getTrainer(): ?User
     {
-
         return $this->trainer;
     }
 
-    public function setTrainer(?User $trainer) : ?User
+    public function setTrainer(?User $trainer): self
     {
         $this->trainer = $trainer;
 
-        return $this->trainer;
+        return $this;
     }
 
-    public function getRoom() : ?Room
+    public function getRoom(): Room
     {
-
         return $this->room;
     }
 
-    public function setRoom(?Room $room) : ?Room
+    public function setRoom(Room $room): self
     {
         $this->room = $room;
 
-        return $this->room;
+        return $this;
     }
 
-    public function getCustomers() : Collection
+    public function getCustomers(): Collection
     {
-
         return $this->customers;
     }
 
-    public function setCustomers(Collection $customers) : Collection
+    public function setCustomers(Collection $customers): self
     {
         $this->customers = $customers;
 
-        return $this->customers;
+        return $this;
     }
 }
 
