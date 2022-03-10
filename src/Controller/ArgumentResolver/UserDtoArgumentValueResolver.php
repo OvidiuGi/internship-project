@@ -26,7 +26,6 @@ class UserDtoArgumentValueResolver implements ArgumentValueResolverInterface
         $userDto->lastName = $decodedData['lastName'];
         $userDto->email = $decodedData['email'];
         $userDto->password = $decodedData['password'];
-        $userDto->confirmPassword = $decodedData['confirmPassword'];
 
         yield $userDto;
     }

@@ -10,17 +10,21 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Json;
+use Symfony\Component\Validator\ConstraintViolation;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 /**
  * @Route(path="/api/user")
  */
 class UserController
 {
+    private ValidatorInterface $validator;
     private EntityManagerInterface $entityManager;
 
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager, ValidatorInterface $validator)
     {
         $this->entityManager = $entityManager;
+        $this->validator = $validator;
     }
 //    /**
 //     * @Route(methods={"POST"})
@@ -50,13 +54,27 @@ class UserController
      */
     public function register(UserDto $userDto): Response
     {
-
         $user = User::createFromDto($userDto);
+
+        $errors = $this->validator->validate($user);
+        if(count($errors) > 0){
+            $errorArray = [];
+            foreach ($errors as $error) {
+                /**
+                 * @var ConstraintViolation $error
+                 */
+                $errorArray[$error->getPropertyPath()] = $error->getMessage();
+            }
+            return new JsonResponse($errorArray);
+        }
+
         $this->entityManager->persist($user);
         $this->entityManager->flush();
         $this->entityManager->refresh($user);
         $savedDto = UserDto::createFromUser($user);
 
         return new JsonResponse($savedDto, Response::HTTP_CREATED);
+
+
     }
 }

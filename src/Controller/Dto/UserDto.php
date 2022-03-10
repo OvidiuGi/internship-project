@@ -16,8 +16,6 @@ class UserDto
 
     public string $password;
 
-//    public string $confirmPassword;
-
     public string $cnp;
 
     public array $roles;
@@ -32,7 +30,6 @@ class UserDto
         $dto->email = $user->email;
         $dto->cnp = $user->cnp;
         $dto->password = $user->password;
-        $dto->confirmPassword = $user->confirmPassword;
 
         return $dto;
     }
