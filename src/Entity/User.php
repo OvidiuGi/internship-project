@@ -23,17 +23,26 @@ class User implements \JsonSerializable
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\Regex("/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/")
+     * @MyAssert\Password
      */
     public string $password = '';
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",size = 13)
+     * @Assert\Regex("/^([1-8])([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])(0[0-9]|[1-3]\d|4[0-8])(\d{3})([0-9])$/")
      * @MyAssert\Cnp
+     * @Assert\Length(
+     *     min = 13,
+     *     max = 13,
+     *     exactMessage = "The CNP must have 13 digits!"
+     * )
      */
     public string $cnp = '';
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\Email
      */
     public string $email = '';
 
@@ -72,7 +81,6 @@ class User implements \JsonSerializable
         if ($this->programmes->contains($programme)) {
             return $this;
         }
-
         $this->programmes->add($programme);
         $programme->addCustomer($this);
 

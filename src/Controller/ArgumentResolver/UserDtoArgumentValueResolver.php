@@ -19,7 +19,6 @@ class UserDtoArgumentValueResolver implements ArgumentValueResolverInterface
     {
         $data = $request->getContent();
         $decodedData = json_decode($data,true);
-
         $userDto = new UserDto();
         $userDto->cnp = $decodedData['cnp'];
         $userDto->firstName = $decodedData['firstName'];

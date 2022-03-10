@@ -74,7 +74,5 @@ class UserController
         $savedDto = UserDto::createFromUser($user);
 
         return new JsonResponse($savedDto, Response::HTTP_CREATED);
-
-
     }
 }
