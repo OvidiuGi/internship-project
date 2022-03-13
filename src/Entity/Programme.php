@@ -82,6 +82,18 @@ class Programme
         return $this;
     }
 
+    public function removeCustomer(User $customer): self
+    {
+        if(!$this->customers->contains($customer)){
+            return $this;
+
+        }
+
+        $this->customers->removeElement($customer);
+        $customer->removeProgramme($this);
+        return $this;
+    }
+
     public function getId(): int
     {
         return $this->id;

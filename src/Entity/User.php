@@ -12,14 +12,14 @@ use App\Validator as MyAssert;
 /**
  * @ORM\Entity()
  */
-class User implements \JsonSerializable
+class User
 {
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
-    private int $id = 0;
+    private int $id;
 
     /**
      * @ORM\Column(type="string")
@@ -29,14 +29,9 @@ class User implements \JsonSerializable
     public string $password = '';
 
     /**
-     * @ORM\Column(type="string",size = 13)
-     * @Assert\Regex("/^([1-8])([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])(0[0-9]|[1-3]\d|4[0-8])(\d{3})([0-9])$/")
+     * @ORM\Column(type="string", length=13)
      * @MyAssert\Cnp
-     * @Assert\Length(
-     *     min = 13,
-     *     max = 13,
-     *     exactMessage = "The CNP must have 13 digits!"
-     * )
+     * @Assert\NotBlank
      */
     public string $cnp = '';
 
@@ -87,6 +82,18 @@ class User implements \JsonSerializable
         return $this;
     }
 
+    public function removeProgramme(Programme $programme): self
+    {
+        if(!$this->programmes->contains($programme)){
+            return $this;
+        }
+
+        $this->programmes->removeElement($programme);
+        $programme->removeCustomer($this);
+
+        return $this;
+    }
+
     public function getId(): int
     {
         return $this->id;
@@ -116,18 +123,6 @@ class User implements \JsonSerializable
         return $this->programmes;
     }
 
-    public function jsonSerialize() : array
-    {
-        return [
-            "id" => $this->id,
-            "firstName" => $this->firstName,
-            "lastName" =>$this->lastName,
-            "email" =>$this->email,
-            "cnp" =>$this->cnp,
-            "roles" =>$this->roles,
-        ];
-    }
-
     public static function createFromDto(UserDto $userDto): self
     {
         $user = new self();
@@ -136,6 +131,7 @@ class User implements \JsonSerializable
         $user->email = $userDto->email;
         $user->lastName = $userDto->lastName;
         $user->firstName = $userDto->firstName;
+        $user->setRoles(['customer']);
 
         return $user;
     }

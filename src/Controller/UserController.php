@@ -4,7 +4,10 @@ namespace App\Controller;
 
 use App\Controller\Dto\UserDto;
 use App\Entity\User;
+use App\Validator\Cnp;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,8 +19,10 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 /**
  * @Route(path="/api/user")
  */
-class UserController
+class UserController implements LoggerAwareInterface
 {
+    use LoggerAwareTrait;
+
     private ValidatorInterface $validator;
     private EntityManagerInterface $entityManager;
 
@@ -26,34 +31,14 @@ class UserController
         $this->entityManager = $entityManager;
         $this->validator = $validator;
     }
-//    /**
-//     * @Route(methods={"POST"})
-//     */
-//    public function register_old(Request $request): Response
-//    {
-//        $data = $request->getContent();
-//        $decodedData = json_decode($data,true);
-//
-//        $user = new User();
-//        $user->cnp = $decodedData['cnp'];
-//        $user->firstName = $decodedData['firstName'];
-//        $user->lastName = $decodedData['lastName'];
-//        $user->email = $decodedData['email'];
-//        $user->password = $decodedData['password'];
-//        $user->setRoles(['customer']);
-//        $this->entityManager->persist($user);
-//
-//        $this->entityManager->flush();
-//
-//
-//        return new JsonResponse($user, Response::HTTP_CREATED);
-//    }
 
     /**
      * @Route(methods={"POST"})
      */
     public function register(UserDto $userDto): Response
     {
+        $this->logger->info('An user is registered');
+
         $user = User::createFromDto($userDto);
 
         $errors = $this->validator->validate($user);
