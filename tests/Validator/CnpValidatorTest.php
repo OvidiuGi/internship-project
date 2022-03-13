@@ -5,16 +5,13 @@ namespace App\Tests\Validator;
 use App\Validator\Cnp;
 use App\Validator\CnpValidator;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
-use function PHPUnit\Framework\assertSame;
 
 class CnpValidatorTest extends ConstraintValidatorTestCase
 {
     public function testCnpIsNull(): void
     {
-        if($this->validator->validate(null, new Cnp()) == false){
-            $this->buildViolation('This is not a valid CNP')->assertRaised();
-            return;
-        }
+        $this->validator->validate(null, new Cnp());
+        $this->buildViolation('This is not a valid CNP')->assertRaised();
     }
 
     /**
@@ -23,12 +20,11 @@ class CnpValidatorTest extends ConstraintValidatorTestCase
     public function testCnp(string $cnp, bool $expected): void
     {
         $this->validator->validate($cnp, new Cnp());
-        if($expected){
+        if ($expected) {
             $this->assertNoViolation();
-        } else{
+        } else {
             $this->buildViolation('This is not a valid CNP')->assertRaised();
         }
-
     }
 
     public function provideCnpValues(): array
@@ -46,7 +42,7 @@ class CnpValidatorTest extends ConstraintValidatorTestCase
         ];
     }
 
-    protected function createValidator()
+    protected function createValidator(): CnpValidator
     {
         return new CnpValidator();
     }

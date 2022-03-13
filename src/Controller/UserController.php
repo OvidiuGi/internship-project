@@ -4,15 +4,11 @@ namespace App\Controller;
 
 use App\Controller\Dto\UserDto;
 use App\Entity\User;
-use App\Validator\Cnp;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Json;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -42,7 +38,7 @@ class UserController implements LoggerAwareInterface
         $user = User::createFromDto($userDto);
 
         $errors = $this->validator->validate($user);
-        if(count($errors) > 0){
+        if (count($errors) > 0) {
             $errorArray = [];
             foreach ($errors as $error) {
                 /**
@@ -50,6 +46,7 @@ class UserController implements LoggerAwareInterface
                  */
                 $errorArray[$error->getPropertyPath()] = $error->getMessage();
             }
+
             return new JsonResponse($errorArray);
         }
 

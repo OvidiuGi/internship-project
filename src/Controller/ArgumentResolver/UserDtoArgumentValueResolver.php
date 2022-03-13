@@ -3,7 +3,6 @@
 namespace App\Controller\ArgumentResolver;
 
 use App\Controller\Dto\UserDto;
-use App\Entity\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;

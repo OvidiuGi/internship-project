@@ -15,13 +15,14 @@ class PasswordValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Password::class);
         }
 
-        if(strchr($value,' ',true)){
+        if (strchr($value,' ',true)) {
             $constraint->message='Password not valid!';
             $this->context->buildViolation($constraint->message)->addViolation();
+
             return;
         }
 
-        if(preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',$value,$matches) && !empty($matches[0])){
+        if (preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',$value,$matches) && !empty($matches[0])) {
             return;
         }
 

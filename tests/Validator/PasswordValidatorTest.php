@@ -4,8 +4,6 @@ namespace App\Tests\Validator;
 
 use App\Validator\Password;
 use App\Validator\PasswordValidator;
-
-use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class PasswordValidatorTest extends ConstraintValidatorTestCase
@@ -13,7 +11,6 @@ class PasswordValidatorTest extends ConstraintValidatorTestCase
     public function testPasswordIsNull(): void
     {
         $this->validator->validate(null, new Password());
-//        var_dump($result);
         $this->buildViolation('Password not valid!')->assertRaised();
     }
 
@@ -22,15 +19,15 @@ class PasswordValidatorTest extends ConstraintValidatorTestCase
      */
     public function testPassword(string $password, bool $expected): void
     {
-        $result = $this->validator->validate($password, new Password());
-        if($expected){
+        $this->validator->validate($password, new Password());
+        if ($expected) {
             $this->assertNoViolation();
-        } else{
+        } else {
             $this->buildViolation('Password not valid!')->assertRaised();
         }
     }
 
-    public function providePasswordValues()
+    public function providePasswordValues(): array
     {
         return[
             ['', false, ['test']],
@@ -38,11 +35,10 @@ class PasswordValidatorTest extends ConstraintValidatorTestCase
             ['parola!!!!!', false, ['test']],
             ['Parola11!@', true, ['test']],
             ['Parol a12!', false, ['test']],
-
         ];
     }
 
-    protected function createValidator()
+    protected function createValidator(): PasswordValidator
     {
         return new PasswordValidator();
     }

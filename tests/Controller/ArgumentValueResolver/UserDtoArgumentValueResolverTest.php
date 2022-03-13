@@ -5,14 +5,14 @@ namespace App\Tests\Controller\ArgumentValueResolver;
 use App\Controller\ArgumentResolver\UserDtoArgumentValueResolver;
 use App\Controller\Dto\UserDto;
 
-use App\Entity\User;
 use PHPUnit\Framework\TestCase;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
 
 class UserDtoArgumentValueResolverTest extends TestCase
 {
-    private $userDtoArgumentValueResolver;
+    private UserDtoArgumentValueResolver $userDtoArgumentValueResolver;
 
     protected function setUp(): void
     {
@@ -48,7 +48,8 @@ class UserDtoArgumentValueResolverTest extends TestCase
         );
         $dto = null;
         $argumentMetadata = new ArgumentMetadata('test',UserDto::class,true,true,true,true);
-        foreach($this->userDtoArgumentValueResolver->resolve($request,$argumentMetadata) as $result){
+
+        foreach ($this->userDtoArgumentValueResolver->resolve($request,$argumentMetadata) as $result) {
             $dto = $result;
         }
 

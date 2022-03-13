@@ -2,14 +2,12 @@
 
 namespace App\Validator;
 
-use phpDocumentor\Reflection\Types\Boolean;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class CnpValidator extends ConstraintValidator
 {
-
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof Cnp) {
@@ -17,12 +15,12 @@ class CnpValidator extends ConstraintValidator
         }
 
         $regexResponse = preg_match_all(
-            '/^([1-8])([0-9]{2})(0[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])(0[0-9]|[1-3]\d|4[0-8])(\d{3})([0-9])$/',
+            '/^([1-8])(\d{2})(0[1-9]|1[0-2])(0[1-9]|[1-2]\d|3[0-1])(0\d|[1-3]\d|4[0-8])(\d{3})(\d)$/',
             $value,
             $matches
         );
 
-        if(!empty($matches[0])) {
+        if (!empty($matches[0])) {
             $cnpConstant = "279146358279";
             $sum = 0;
             $length = strlen($value);

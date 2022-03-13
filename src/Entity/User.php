@@ -6,7 +6,6 @@ use App\Controller\Dto\UserDto;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator as MyAssert;
 
 /**
@@ -84,7 +83,7 @@ class User
 
     public function removeProgramme(Programme $programme): self
     {
-        if(!$this->programmes->contains($programme)){
+        if (!$this->programmes->contains($programme)) {
             return $this;
         }
 
