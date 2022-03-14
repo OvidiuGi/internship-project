@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route(path="/api/user")
@@ -33,7 +34,7 @@ class UserController implements LoggerAwareInterface
      */
     public function register(UserDto $userDto): Response
     {
-        $this->logger->info('An user is registered');
+
 
         $user = User::createFromDto($userDto);
 
@@ -54,6 +55,8 @@ class UserController implements LoggerAwareInterface
         $this->entityManager->flush();
         $this->entityManager->refresh($user);
         $savedDto = UserDto::createFromUser($user);
+
+        $this->logger->info('An user is registered');
 
         return new JsonResponse($savedDto, Response::HTTP_CREATED);
     }

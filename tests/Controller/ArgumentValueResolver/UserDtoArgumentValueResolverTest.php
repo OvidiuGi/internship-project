@@ -16,7 +16,6 @@ class UserDtoArgumentValueResolverTest extends TestCase
 
     protected function setUp(): void
     {
-        parent::setUp();
         $this->userDtoArgumentValueResolver  = new UserDtoArgumentValueResolver();
     }
 
@@ -46,6 +45,7 @@ class UserDtoArgumentValueResolverTest extends TestCase
                 'confirmPassword' => 'MySecretPassword',
                 'cnp' =>'5010911070069'])
         );
+
         $dto = null;
         $argumentMetadata = new ArgumentMetadata('test',UserDto::class,true,true,true,true);
 
