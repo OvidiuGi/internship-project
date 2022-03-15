@@ -33,5 +33,5 @@ jobs:
       - name: Install Dependencies
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
       - name: Execute CodeSniffer tests
-        run: vendor/bin/phpcs --standard=PSR12 --ignore=tests/bootstrap.php src tests
+        run: vendor/bin/phpcs --standard=PSR12
     
