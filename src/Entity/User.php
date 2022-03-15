@@ -43,7 +43,7 @@ class User
     {
         $this->programmes = $programmes;
 
-        return $this;
+        return $this; //test
     }
 
     public function getProgrammes(): Collection
