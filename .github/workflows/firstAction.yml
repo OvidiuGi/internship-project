@@ -1,5 +1,3 @@
-# This is a basic workflow to help you get started with Actions
-
 name: FirstAction
 
 # Controls when the workflow will run
@@ -9,9 +7,6 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -23,17 +18,20 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      
 
       # Runs a single command using the runners shell
-      - name: action-php-codesniffer
-        # You may pin to the exact commit or the version.
-        # uses: tinovyatkin/action-php-codesniffer@0043b33b3629611c37e8bc7ee8a4e061dc9a7ea2
-        uses: tinovyatkin/action-php-codesniffer@v1
-        
-
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      #  To automatically get bug fixes and new Php versions for shivammathur/setup-php,
+      # change this to (see https://github.com/shivammathur/setup-php#bookmark-versioning):
+      # uses: shivammathur/setup-php@v2
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+      - uses: actions/checkout@v2
+      - name: Copy .env.test.local
+        run: php -r "file_exists('.env.test.local') || copy('.env.test', '.env.test.local');"
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Execute CodeSniffer tests
+        run: vendor/bin/phpcs --standard=PSR12 --ignore=tests/bootstrap.php src tests
+    
