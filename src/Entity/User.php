@@ -27,7 +27,7 @@ class User
     public string $password = '';
 
     /**
-     * @ORM\Column(type="string", length=13)
+     * @ORM\Column(type="string", length=13, options={"fixed" = true})
      * @MyAssert\Cnp()
      * @Assert\NotBlank()
      */
