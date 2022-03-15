@@ -34,7 +34,7 @@ jobs:
       - name: PHP Code Style Fixer (php-cs-fixer)
         # You may pin to the exact commit or the version.
         # uses: StephaneBour/actions-php-cs-fixer@7859a1c7cf1fa71397960e2fe1c86bcbccfec21e
-        uses: StephaneBour/actions-php-cs-fixer@8.1
+        uses: StephaneBour/actions-php-cs-fixer@7.4
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
