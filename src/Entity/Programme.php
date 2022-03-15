@@ -4,8 +4,8 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
-
 
 /**
  * @ORM\Entity()
@@ -32,12 +32,12 @@ class Programme
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTime $startTime;
+    private DateTime $startTime;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private \DateTime $endTime;
+    private DateTime $endTime;
 
     /**
      * Many Programmes have One Trainer
@@ -72,7 +72,7 @@ class Programme
 
     public function addCustomer(User $customer): self
     {
-        if($this->customers->contains($customer)){
+        if ($this->customers->contains($customer)) {
             return $this;
         }
 
@@ -82,29 +82,41 @@ class Programme
         return $this;
     }
 
+    public function removeCustomer(User $customer): self
+    {
+        if (!$this->customers->contains($customer)) {
+            return $this;
+        }
+
+        $this->customers->removeElement($customer);
+        $customer->removeProgramme($this);
+
+        return $this;
+    }
+
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getStartTime(): \DateTime
+    public function getStartTime(): DateTime
     {
         return $this->startTime;
     }
 
-    public function setStartTime(\DateTime $startTime): self
+    public function setStartTime(DateTime $startTime): self
     {
         $this->startTime = $startTime;
 
         return $this;
     }
 
-    public function getEndTime(): \DateTime
+    public function getEndTime(): DateTime
     {
         return $this->endTime;
     }
 
-    public function setEndTime(\DateTime $endTime): self
+    public function setEndTime(DateTime $endTime): self
     {
         $this->endTime = $endTime;
 
@@ -147,4 +159,3 @@ class Programme
         return $this;
     }
 }
-
