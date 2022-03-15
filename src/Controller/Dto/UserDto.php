@@ -3,6 +3,8 @@
 namespace App\Controller\Dto;
 
 use App\Entity\User;
+use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator as MyAssert;
 
 class UserDto
 {

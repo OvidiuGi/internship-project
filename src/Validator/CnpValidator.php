@@ -15,7 +15,7 @@ class CnpValidator extends ConstraintValidator
         }
 
         $regexResponse = preg_match_all(
-            '/^([1-8])(\d{2})(0[1-9]|1[0-2])(0[1-9]|[1-2]\d|3[0-1])(0\d|[1-3]\d|4[0-8])(\d{3})(\d)$/',
+            '/^([1-8])(\d{2})(0[1-9]|1[0-2])(0[1-9]|[1-2]\d|3[0-1])(0\d|[1-3]\d|4[0-8]|5[1-2])(\d{3})(\d)$/',
             $value,
             $matches
         );

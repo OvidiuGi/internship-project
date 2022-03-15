@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\Collection;
 use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
-
 /**
  * @ORM\Entity()
  */
@@ -160,4 +159,3 @@ class Programme
         return $this;
     }
 }
-

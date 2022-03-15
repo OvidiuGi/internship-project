@@ -35,7 +35,7 @@ class Room
 
     public function getId(): int
     {
-        returN $this->id;
+        return $this->id;
     }
 
     public function getBuilding(): Building

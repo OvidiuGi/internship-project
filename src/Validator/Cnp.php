@@ -10,5 +10,4 @@ use Symfony\Component\Validator\Constraint;
 class Cnp extends Constraint
 {
     public string $message = "This is not a valid CNP";
-
 }
