@@ -2,12 +2,20 @@
 
 namespace App\Tests\Validator;
 
+use App\Validator\Cnp;
 use App\Validator\Password;
 use App\Validator\PasswordValidator;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Test\ConstraintValidatorTestCase;
 
 class PasswordValidatorTest extends ConstraintValidatorTestCase
 {
+    public function testCnpWithPassword(): void
+    {
+        self::expectException(UnexpectedTypeException::class);
+        $this->validator->validate('5010911070069', new Cnp());
+    }
+
     public function testPasswordIsNull(): void
     {
         $this->validator->validate(null, new Password());
