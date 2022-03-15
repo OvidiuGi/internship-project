@@ -2,27 +2,85 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
+
+/**
+ * @ORM\Entity()
+ */
 class Programme
 {
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
     private int $id;
 
+    /**
+    * @ORM\Column(type="string")
+    */
     public string $name = '';
 
+    /**
+     * @ORM\Column(type="string")
+     */
     public string $description = '';
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
     private \DateTime $startTime;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
     private \DateTime $endTime;
 
+    /**
+     * Many Programmes have One Trainer
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="trainer_id", referencedColumnName="id")
+     */
     private ?User $trainer;
 
+    /**
+     * Many Programmes have One Room
+     * @ORM\ManyToOne(targetEntity="Room")
+     * @ORM\JoinColumn(name="room_id", referencedColumnName="id")
+     */
     private Room $room;
 
+    /**
+     * Many Programmes have Many Users
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="programmes")
+     * @ORM\JoinTable(name="programmes_customers")
+     */
     private Collection $customers;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
     public bool $isOnline = false;
+
+    public function __construct()
+    {
+        $this->customers = new ArrayCollection();
+    }
+
+    public function addCustomer(User $customer): self
+    {
+        if($this->customers->contains($customer)){
+            return $this;
+        }
+
+        $this->customers->add($customer);
+        $customer->addProgramme($this);
+
+        return $this;
+    }
 
     public function getId(): int
     {
