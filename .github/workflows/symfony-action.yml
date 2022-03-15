@@ -2,9 +2,9 @@ name: Symfony
 
 on:
   push:
-    branches: [ master ]
+    branches: [ feature/Actions ]
   pull_request:
-    branches: [ master ]
+    branches: [ feature/Actions ]
 
 jobs:
   symfony-tests:
