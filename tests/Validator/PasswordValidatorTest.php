@@ -37,7 +37,7 @@ class PasswordValidatorTest extends ConstraintValidatorTestCase
 
     public function providePasswordValues(): array
     {
-        return[
+        return [
             ['', false, ['test']],
             ['parola', false, ['test']],
             ['parola!!!!!', false, ['test']],
