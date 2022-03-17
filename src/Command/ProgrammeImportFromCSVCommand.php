@@ -30,7 +30,7 @@ class ProgrammeImportFromCSVCommand extends Command
         string $programmeMinTimeInMinutes,
         string $programmeMaxTimeInMinutes,
         EntityManagerInterface $entityManager
-//        ValidatorInterface $validator
+        //        ValidatorInterface $validator
     ) {
         $this->programmeMaxTimeInMinutes = (int) $programmeMaxTimeInMinutes;
         $this->programmeMinTimeInMinutes = (int) $programmeMinTimeInMinutes;
@@ -44,13 +44,13 @@ class ProgrammeImportFromCSVCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        echo $this->programmeMinTimeInMinutes.PHP_EOL;
-        echo $this->programmeMaxTimeInMinutes.PHP_EOL;
+        echo $this->programmeMinTimeInMinutes . PHP_EOL;
+        echo $this->programmeMaxTimeInMinutes . PHP_EOL;
 
         $arr = [];
         try {
-            $pathHandler = __DIR__.'/file.txt';
-            $pathHandlerForMistakes = __DIR__.'/fileWithBadData.txt';
+            $pathHandler = __DIR__ . '/file.txt';
+            $pathHandlerForMistakes = __DIR__ . '/fileWithBadData.txt';
             if (file_exists($pathHandler)) {
                 $handler = fopen($pathHandler, 'r');
             } else {

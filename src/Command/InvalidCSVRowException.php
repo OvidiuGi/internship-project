@@ -19,5 +19,4 @@ class InvalidCSVRowException extends \Exception
     {
         return $this->csvRow;
     }
-
 }
