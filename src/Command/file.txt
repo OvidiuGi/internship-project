@@ -1,0 +1,4 @@
+Name|Description|Start Time|End Time|IsOnline
+Pilates|Relaxeaza-te cu noi|17.03.2022 16:00|17.03.2022 18:00|false
+Yoga|Hai sa te intinzi cu noi|18.03.2022 16:00|18.03.2022 18:00|false
+Kangoo Jumps|Hai sa sari cu noi|19.03.2022 15:00|19.03.2022 16:30|true
