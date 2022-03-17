@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 
 class StartDateValidator extends ConstraintValidator
 {
-
     public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof Date) {
