@@ -8,7 +8,7 @@ class InvalidPathToFileException extends \Exception
 {
     private string $pathToFile;
 
-    public function __construct($message = "", $code = 0, Throwable $previous = null, string $pathToFile)
+    public function __construct($message = '', $code = 0, Throwable $previous = null, string $pathToFile)
     {
         $this->pathToFile = $pathToFile;
 

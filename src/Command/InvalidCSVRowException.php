@@ -6,17 +6,17 @@ use Throwable;
 
 class InvalidCSVRowException extends \Exception
 {
-    private array $csvRow;
+    private array $row;
 
-    public function __construct($message = "", $code = 0, Throwable $previous = null, array $csvRow)
+    public function __construct($message = '', $code = 0, Throwable $previous = null, array $row)
     {
-        $this->csvRow = $csvRow;
+        $this->row = $row;
 
         parent::__construct($message, $code, $previous);
     }
 
-    public function getCsvRow(): array
+    public function getRow(): array
     {
-        return $this->csvRow;
+        return $this->row;
     }
 }

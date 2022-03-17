@@ -44,25 +44,29 @@ class ProgrammeImportFromCSVCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        $nrImported = 0;
+        $nrTotal = 0;
+
         echo $this->programmeMinTimeInMinutes . PHP_EOL;
         echo $this->programmeMaxTimeInMinutes . PHP_EOL;
 
         $arr = [];
         try {
-            $pathHandler = __DIR__ . '/file.txt';
-            $pathHandlerForMistakes = __DIR__ . '/fileWithBadData.txt';
+            $pathHandler = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/file.txt';
+            $handlerMistakes = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/fileWithBadData.txt';
             if (file_exists($pathHandler)) {
+                $nrTotal = count(file($pathHandler)) - 1;
                 $handler = fopen($pathHandler, 'r');
             } else {
                 throw new InvalidPathToFileException('Invalid path to file', 0, null, $pathHandler);
             }
-            if (file_exists($pathHandlerForMistakes)) {
-                $handlerForMistakes = fopen($pathHandlerForMistakes, 'a+');
+            if (file_exists($handlerMistakes)) {
+                $handlerForMistakes = fopen($handlerMistakes, 'a+');
             } else {
-                throw new InvalidPathToFileException('Invalid path to file', 0, null, $pathHandlerForMistakes);
+                throw new InvalidPathToFileException('Invalid path to file', 0, null, $handlerMistakes);
             }
 
-            $this->importFromCSV($handler, $handlerForMistakes);
+            $this->importFromCSV($handler, $handlerForMistakes, $nrImported);
         } catch (InvalidPathToFileException $e) {
             echo $e->getMessage();
             $io->error('Path to file not found! Fix the issue and try again!');
@@ -76,17 +80,19 @@ class ProgrammeImportFromCSVCommand extends Command
             fclose($handlerForMistakes);
             $io->info('Files closed succesfully!');
         }
-
-        $io->success('Programmes imported!');
+        $io->success('Succesfully imported ' . $nrImported . ' / ' . $nrTotal . ' programmes.');
 
         return Command::SUCCESS;
     }
 
-    private function importFromCSV($handler, $handlerForMistakes): void
-    {
+    private function importFromCSV(
+        $handler,
+        $handlerForMistakes,
+        &$nr_imported
+    ): void {
         fgetcsv($handler);
         while (($column = fgetcsv($handler, null, '|')) !== false) {
-            if (sizeof($column) < 5) {
+            if (sizeof($column) < 6) {
                 fputcsv($handlerForMistakes, $column, '|');
                 throw new InvalidCSVRowException('This row is not valid!', 0, null, $column);
             }
@@ -99,6 +105,7 @@ class ProgrammeImportFromCSVCommand extends Command
             $startTime = date_create_from_format('d.m.Y H:i', $line[2]);
             $endTime = date_create_from_format('d.m.Y H:i', $line[3]);
             $isOnline = filter_var($line[4], FILTER_VALIDATE_BOOLEAN);
+            $maxParticipants = (int) $line[5];
 
             $programme = new Programme();
             $programme->name = $name;
@@ -106,9 +113,11 @@ class ProgrammeImportFromCSVCommand extends Command
             $programme->setStartTime($startTime);
             $programme->setEndTime($endTime);
             $programme->isOnline = $isOnline;
+            $programme->maxParticipants = $maxParticipants;
 
             $this->entityManager->persist($programme);
             $this->entityManager->flush();
+            ++$nr_imported;
         }
     }
 }
