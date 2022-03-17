@@ -29,13 +29,13 @@ class ProgrammeImportFromCSVCommand extends Command
     public function __construct(
         string $programmeMinTimeInMinutes,
         string $programmeMaxTimeInMinutes,
-        EntityManagerInterface $entityManager,
-        ValidatorInterface $validator
+        EntityManagerInterface $entityManager
+//        ValidatorInterface $validator
     ) {
         $this->programmeMaxTimeInMinutes = (int) $programmeMaxTimeInMinutes;
         $this->programmeMinTimeInMinutes = (int) $programmeMinTimeInMinutes;
         $this->entityManager = $entityManager;
-        $this->validator = $validator;
+//        $this->validator = $validator;
 
         parent::__construct();
     }
