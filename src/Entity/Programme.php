@@ -25,7 +25,7 @@ class Programme
     public string $name = '';
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      */
     public string $description = '';
 
@@ -64,6 +64,11 @@ class Programme
      * @ORM\Column(type="boolean")
      */
     public bool $isOnline = false;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    public int $maxParticipants = 0;
 
     public function __construct()
     {
