@@ -44,8 +44,8 @@ class ProgrammeImportFromCSVCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $nrImported = 0;
-        $nrTotal = 0;
+        $totalNumberOfImportedLines = 0;
+        $totalNumberOfLines = 0;
 
         echo $this->programmeMinTimeInMinutes . PHP_EOL;
         echo $this->programmeMaxTimeInMinutes . PHP_EOL;
@@ -55,7 +55,7 @@ class ProgrammeImportFromCSVCommand extends Command
             $pathHandler = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/file.txt';
             $handlerMistakes = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/fileWithBadData.txt';
             if (file_exists($pathHandler)) {
-                $nrTotal = count(file($pathHandler)) - 1;
+                $totalNumberOfLines = count(file($pathHandler)) - 1;
                 $handler = fopen($pathHandler, 'r');
             } else {
                 throw new InvalidPathToFileException('Invalid path to file', 0, null, $pathHandler);
@@ -66,7 +66,7 @@ class ProgrammeImportFromCSVCommand extends Command
                 throw new InvalidPathToFileException('Invalid path to file', 0, null, $handlerMistakes);
             }
 
-            $this->importFromCSV($handler, $handlerForMistakes, $nrImported);
+            $this->importFromCSV($handler, $handlerForMistakes, $totalNumberOfImportedLines);
         } catch (InvalidPathToFileException $e) {
             echo $e->getMessage();
             $io->error('Path to file not found! Fix the issue and try again!');
@@ -80,7 +80,7 @@ class ProgrammeImportFromCSVCommand extends Command
             fclose($handlerForMistakes);
             $io->info('Files closed succesfully!');
         }
-        $io->success('Succesfully imported ' . $nrImported . ' / ' . $nrTotal . ' programmes.');
+        $io->success('Succesfully imported ' . $totalImportedLines . ' / ' . $totalNumberOfLines . ' programmes.');
 
         return Command::SUCCESS;
     }
@@ -96,10 +96,10 @@ class ProgrammeImportFromCSVCommand extends Command
                 fputcsv($handlerForMistakes, $column, '|');
                 throw new InvalidCSVRowException('This row is not valid!', 0, null, $column);
             }
-            $arr[] = $column;
+            $data[] = $column;
         }
 
-        foreach ($arr as $line) {
+        foreach ($data as $line) {
             $name = $line[0];
             $description = $line[1];
             $startTime = date_create_from_format('d.m.Y H:i', $line[2]);

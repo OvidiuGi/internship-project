@@ -33,11 +33,11 @@ class ProgrammeImportFromAPICommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
-        $arr = $this->fetchGitHubInformation();
+        $data= $this->fetchGitHubInformation();
 
         $nrImported = 0;
 
-        foreach ($arr as $line) {
+        foreach ($data as $line) {
             ++$nrImported;
             $name = CaesarCipher::decipher($line['name'], 8);
             $description = CaesarCipher::decipher($line['description'], 8);
@@ -58,7 +58,7 @@ class ProgrammeImportFromAPICommand extends Command
             $this->entityManager->flush();
         }
 
-        $io->success($nrImported . ' programmes imported!');
+        $io->success($nrImported . ' / ' . count($data) . ' programmes imported!');
         return Command::SUCCESS;
     }
 
