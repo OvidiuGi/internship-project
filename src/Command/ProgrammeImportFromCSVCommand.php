@@ -47,8 +47,8 @@ class ProgrammeImportFromCSVCommand extends Command
         $totalNumberOfImportedLines = 0;
         $totalNumberOfLines = 0;
 
-        echo $this->programmeMinTimeInMinutes . PHP_EOL;
-        echo $this->programmeMaxTimeInMinutes . PHP_EOL;
+        echo $this->programmeMinTimeInMinutes.PHP_EOL;
+        echo $this->programmeMaxTimeInMinutes.PHP_EOL;
 
         $arr = [];
         try {
@@ -80,7 +80,7 @@ class ProgrammeImportFromCSVCommand extends Command
             fclose($handlerForMistakes);
             $io->info('Files closed succesfully!');
         }
-        $io->success('Succesfully imported ' . $totalImportedLines . ' / ' . $totalNumberOfLines . ' programmes.');
+        $io->success('Succesfully imported '.$totalNumberOfImportedLines.' / '.$totalNumberOfLines.' programmes.');
 
         return Command::SUCCESS;
     }
