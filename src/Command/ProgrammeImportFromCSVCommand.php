@@ -44,8 +44,8 @@ class ProgrammeImportFromCSVCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $totalNumberImported = 0;
-        $totalNumberOfLines = 0;
+        $numberImported = 0;
+        $numberOfLines = 0;
 
         echo $this->programmeMinTimeInMinutes . PHP_EOL;
         echo $this->programmeMaxTimeInMinutes . PHP_EOL;
@@ -55,7 +55,7 @@ class ProgrammeImportFromCSVCommand extends Command
             $pathHandler = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/file.txt';
             $handlerMistakes = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/fileWithBadData.txt';
             if (file_exists($pathHandler)) {
-                $totalNumberOfLines = count(file($pathHandler)) - 1;
+                $numberOfLines = count(file($pathHandler)) - 1;
                 $handler = fopen($pathHandler, 'r');
             } else {
                 throw new InvalidPathToFileException('Invalid path to file', 0, null, $pathHandler);
@@ -66,7 +66,7 @@ class ProgrammeImportFromCSVCommand extends Command
                 throw new InvalidPathToFileException('Invalid path to file', 0, null, $handlerMistakes);
             }
 
-            $this->importFromCSV($handler, $handlerForMistakes, $totalNumberImported);
+            $this->importFromCSV($handler, $handlerForMistakes, $numberImported);
         } catch (InvalidPathToFileException $e) {
             echo $e->getMessage();
             $io->error('Path to file not found! Fix the issue and try again!');
@@ -80,7 +80,7 @@ class ProgrammeImportFromCSVCommand extends Command
             fclose($handlerForMistakes);
             $io->info('Files closed succesfully!');
         }
-        $io->success('Succesfully imported ' . $totalNumberImported . ' / ' . $totalNumberOfLines . ' programmes.');
+        $io->success('Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
 
         return Command::SUCCESS;
     }
