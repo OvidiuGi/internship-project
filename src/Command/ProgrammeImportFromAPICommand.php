@@ -58,7 +58,7 @@ class ProgrammeImportFromAPICommand extends Command
             $this->entityManager->flush();
         }
 
-        $io->success($nrImported.' / '.count($data).' programmes imported!');
+        $io->success($nrImported . ' / ' . count($data) . ' programmes imported!');
 
         return Command::SUCCESS;
     }

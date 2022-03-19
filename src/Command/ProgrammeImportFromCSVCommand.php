@@ -44,11 +44,11 @@ class ProgrammeImportFromCSVCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $totalNumberOfImportedLines = 0;
+        $totalNumberImported = 0;
         $totalNumberOfLines = 0;
 
-        echo $this->programmeMinTimeInMinutes.PHP_EOL;
-        echo $this->programmeMaxTimeInMinutes.PHP_EOL;
+        echo $this->programmeMinTimeInMinutes . PHP_EOL;
+        echo $this->programmeMaxTimeInMinutes . PHP_EOL;
 
         $arr = [];
         try {
@@ -66,7 +66,7 @@ class ProgrammeImportFromCSVCommand extends Command
                 throw new InvalidPathToFileException('Invalid path to file', 0, null, $handlerMistakes);
             }
 
-            $this->importFromCSV($handler, $handlerForMistakes, $totalNumberOfImportedLines);
+            $this->importFromCSV($handler, $handlerForMistakes, $totalNumberImported);
         } catch (InvalidPathToFileException $e) {
             echo $e->getMessage();
             $io->error('Path to file not found! Fix the issue and try again!');
@@ -80,7 +80,7 @@ class ProgrammeImportFromCSVCommand extends Command
             fclose($handlerForMistakes);
             $io->info('Files closed succesfully!');
         }
-        $io->success('Succesfully imported '.$totalNumberOfImportedLines.' / '.$totalNumberOfLines.' programmes.');
+        $io->success('Succesfully imported ' . $totalNumberImported . ' / ' . $totalNumberOfLines . ' programmes.');
 
         return Command::SUCCESS;
     }
