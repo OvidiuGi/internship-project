@@ -35,10 +35,10 @@ class ProgrammeImportFromAPICommand extends Command
         $io = new SymfonyStyle($input, $output);
         $data = $this->fetchGitHubInformation();
 
-        $nrImported = 0;
+        $numberImported = 0;
 
         foreach ($data as $line) {
-            ++$nrImported;
+            ++$numberImported;
             $name = CaesarCipher::decipher($line['name'], 8);
             $description = CaesarCipher::decipher($line['description'], 8);
             $startTime = date_create_from_format('d.m.Y H:i', $line['startDate']);
@@ -58,7 +58,7 @@ class ProgrammeImportFromAPICommand extends Command
             $this->entityManager->flush();
         }
 
-        $io->success($nrImported . ' / ' . count($data) . ' programmes imported!');
+        $io->success($numberImported . ' / ' . count($data) . ' programmes imported!');
 
         return Command::SUCCESS;
     }
