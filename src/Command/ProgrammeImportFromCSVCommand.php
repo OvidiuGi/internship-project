@@ -32,14 +32,10 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
     public function __construct(
         string $programmeMinTimeInMinutes,
         string $programmeMaxTimeInMinutes,
-        EntityManagerInterface $entityManager,
-        ValidatorInterface $validator,
         ProgrammeImportFunction $import
     ) {
         $this->programmeMaxTimeInMinutes = (int) $programmeMaxTimeInMinutes;
         $this->programmeMinTimeInMinutes = (int) $programmeMinTimeInMinutes;
-        $this->entityManager = $entityManager;
-        $this->validator = $validator;
         $this->import = $import;
 
         parent::__construct();
