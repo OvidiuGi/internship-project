@@ -163,4 +163,23 @@ class Programme
 
         return $this;
     }
+
+    public function assignDataToProgramme(
+        string $name,
+        string $description,
+        DateTime $startTime,
+        DateTime $endTime,
+        bool $isOnline,
+        int $maxParticipants
+    ): self {
+        $this->name = $name;
+        $this->description = $description;
+        $this->setStartTime($startTime);
+        $this->setEndTime($endTime);
+        $this->setTrainer(null);
+        $this->isOnline = $isOnline;
+        $this->maxParticipants = $maxParticipants;
+
+        return $this;
+    }
 }

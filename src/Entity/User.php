@@ -77,29 +77,6 @@ class User
         $this->programmes = new ArrayCollection();
     }
 
-//    public function addProgramme(Programme $programme): self
-//    {
-//        if ($this->programmes->contains($programme)) {
-//            return $this;
-//        }
-//        $this->programmes->add($programme);
-//        $programme->addCustomer($this);
-//
-//        return $this;
-//    }
-//
-//    public function removeProgramme(Programme $programme): self
-//    {
-//        if (!$this->programmes->contains($programme)) {
-//            return $this;
-//        }
-//
-//        $this->programmes->removeElement($programme);
-//        $programme->removeCustomer($this);
-//
-//        return $this;
-//    }
-
     public static function createFromDto(UserDto $userDto): self
     {
         $user = new self();
