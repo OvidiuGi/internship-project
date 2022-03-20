@@ -14,6 +14,7 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
+
     protected static $defaultName = 'app:programme:import-api';
 
     protected static $defaultDescription = 'Imports programmes from an external API.';
@@ -51,14 +52,14 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
             return Command::FAILURE;
         }
         if ($numberImported > 0) {
-            $io->success($numberImported.' / '.count($data).' programmes imported!');
-            $this->logger->info($numberImported.' / '.count($data).' programmes imported!');
+            $io->success($numberImported . ' / ' . count($data) . ' programmes imported!');
+            $this->logger->info($numberImported . ' / ' . count($data) . ' programmes imported!');
 
             return Command::SUCCESS;
         }
         if ($numberImported < 0) {
-            $io->error($numberImported.' / '.count($data).' programmes imported!');
-            $this->logger->error($numberImported.' / '.count($data).' programmes imported!');
+            $io->error($numberImported . ' / ' . count($data) . ' programmes imported!');
+            $this->logger->error($numberImported . ' / ' . count($data) . ' programmes imported!');
 
             return Command::FAILURE;
         }

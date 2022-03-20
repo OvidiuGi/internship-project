@@ -23,8 +23,8 @@ class ProgrammeRepository extends ServiceEntityRepository
             LEFT JOIN p.room r
             WHERE p.startTime < :endTime
              AND p.endTime > :startTime'
-        )->setParameter('endTime',$endTime);
-        $query->setParameter('startTime',$startTime);
+        )->setParameter('endTime', $endTime);
+        $query->setParameter('startTime', $startTime);
 
         return $query->getResult();
     }

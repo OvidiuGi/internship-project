@@ -45,8 +45,8 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
         $numberOfLines = 0;
 
-        echo $this->programmeMinTimeInMinutes.PHP_EOL;
-        echo $this->programmeMaxTimeInMinutes.PHP_EOL;
+        echo $this->programmeMinTimeInMinutes . PHP_EOL;
+        echo $this->programmeMaxTimeInMinutes . PHP_EOL;
 
         try {
             $pathHandler = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/file.txt';
@@ -79,7 +79,7 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
             fclose($handlerForMistakes);
             $io->info('Files closed succesfully!');
         }
-        $io->success('Succesfully imported '.$numberImported.' / '.$numberOfLines.' programmes.');
+        $io->success('Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
 
         return Command::SUCCESS;
     }
