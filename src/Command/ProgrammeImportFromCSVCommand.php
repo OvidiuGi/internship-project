@@ -47,8 +47,8 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
         $numberOfLines = 0;
 
-        echo $this->programmeMinTimeInMinutes.PHP_EOL;
-        echo $this->programmeMaxTimeInMinutes.PHP_EOL;
+        echo $this->programmeMinTimeInMinutes . PHP_EOL;
+        echo $this->programmeMaxTimeInMinutes . PHP_EOL;
 
         try {
             $pathHandler = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/file.txt';
