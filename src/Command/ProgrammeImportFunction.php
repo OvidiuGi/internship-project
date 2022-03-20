@@ -90,6 +90,9 @@ class ProgrammeImportFunction implements LoggerAwareInterface
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function importFromAPI(
         $data,
         int &$numberImported
@@ -124,21 +127,21 @@ class ProgrammeImportFunction implements LoggerAwareInterface
         }
     }
 
-    public function assignRoom($startTime, $endTime, $maxParticipants, $isOnline): Room
-    {
-//        $programmes = $this->programmeRepository->getOccupiedRoomId($startTime, $endTime);
-//        var_dump($programmes);
-//        if(count($programmes) ==)
-//        foreach ($rooms as $room) {
-//            $query = $this->entityManager->createQuery(
-//                'SELECT p.startTime,p.endTime
-//                FROM App\Entity\Programme p
-//                INNER JOIN :rooms r
-//                WHERE p.room_id = r.id'
-//            )->setParameter('rooms',$rooms);
-//            $result = $query->getResult();
-//            var_dump($result);
-//        }
-        return new Room();
-    }
+//    public function assignRoom($startTime, $endTime, $maxParticipants, $isOnline): Room
+//    {
+////        $programmes = $this->programmeRepository->getOccupiedRoomId($startTime, $endTime);
+////        var_dump($programmes);
+////        if(count($programmes) ==)
+////        foreach ($rooms as $room) {
+////            $query = $this->entityManager->createQuery(
+////                'SELECT p.startTime,p.endTime
+////                FROM App\Entity\Programme p
+////                INNER JOIN :rooms r
+////                WHERE p.room_id = r.id'
+////            )->setParameter('rooms',$rooms);
+////            $result = $query->getResult();
+////            var_dump($result);
+////        }
+//        return new Room();
+//    }
 }

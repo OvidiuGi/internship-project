@@ -71,9 +71,9 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
             $io->error('Programmes not imported! Fix the import file!');
 
             return Command::FAILURE;
-//        } catch (\Exception $exp) {
-//            $this->logger->error('Not able to import programme');
-//            $io->error('Programme not imported!');
+        } catch (\Exception $exp) {
+            $this->logger->error('Not able to import programme');
+            $io->error('Programme not imported!');
         } finally {
             fclose($handler);
             fclose($handlerForMistakes);
