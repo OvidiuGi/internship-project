@@ -5,10 +5,12 @@ namespace App\Command;
 use App\Command\CustomException\InvalidCSVRowException;
 use App\Decrypter\CaesarCipher;
 use App\Entity\Programme;
+use App\Entity\Room;
+use App\Repository\ProgrammeRepository;
+use App\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProgrammeImportFunction implements LoggerAwareInterface
@@ -19,16 +21,24 @@ class ProgrammeImportFunction implements LoggerAwareInterface
 
     private CaesarCipher $decode;
 
+    private RoomRepository $roomRepository;
+
+    private ProgrammeRepository $programmeRepository;
+
     private ValidatorInterface $validator;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         CaesarCipher $decode,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        RoomRepository $roomRepository,
+        ProgrammeRepository $programmeRepository
     ) {
         $this->entityManager = $entityManager;
         $this->decode = $decode;
         $this->validator = $validator;
+        $this->roomRepository = $roomRepository;
+        $this->programmeRepository = $programmeRepository;
     }
 
     /**
@@ -65,6 +75,8 @@ class ProgrammeImportFunction implements LoggerAwareInterface
                 $isOnline,
                 $maxParticipants
             );
+
+//            $programme->setRoom($this->assignRoom($startTime, $endTime, $maxParticipants, $isOnline));
             $violationList = $this->validator->validate($programme);
             if ($violationList->count() > 0) {
                 $message = 'Not able to import programme';
@@ -110,5 +122,23 @@ class ProgrammeImportFunction implements LoggerAwareInterface
             $this->entityManager->persist($programme);
             $this->entityManager->flush();
         }
+    }
+
+    public function assignRoom($startTime, $endTime, $maxParticipants, $isOnline): Room
+    {
+//        $programmes = $this->programmeRepository->getOccupiedRoomId($startTime, $endTime);
+//        var_dump($programmes);
+//        if(count($programmes) ==)
+//        foreach ($rooms as $room) {
+//            $query = $this->entityManager->createQuery(
+//                'SELECT p.startTime,p.endTime
+//                FROM App\Entity\Programme p
+//                INNER JOIN :rooms r
+//                WHERE p.room_id = r.id'
+//            )->setParameter('rooms',$rooms);
+//            $result = $query->getResult();
+//            var_dump($result);
+//        }
+        return new Room();
     }
 }

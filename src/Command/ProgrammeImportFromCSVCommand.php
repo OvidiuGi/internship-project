@@ -6,14 +6,12 @@ namespace App\Command;
 
 use App\Command\CustomException\InvalidCSVRowException;
 use App\Command\CustomException\InvalidPathToFileException;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterface
 {
@@ -47,8 +45,8 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
         $numberOfLines = 0;
 
-        echo $this->programmeMinTimeInMinutes . PHP_EOL;
-        echo $this->programmeMaxTimeInMinutes . PHP_EOL;
+        echo $this->programmeMinTimeInMinutes.PHP_EOL;
+        echo $this->programmeMaxTimeInMinutes.PHP_EOL;
 
         try {
             $pathHandler = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/file.txt';
@@ -73,15 +71,15 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
             $io->error('Programmes not imported! Fix the import file!');
 
             return Command::FAILURE;
-        } catch (\Exception $exp) {
-            $this->logger->error('Not able to import programme');
-            $io->error('Programme not imported!');
+//        } catch (\Exception $exp) {
+//            $this->logger->error('Not able to import programme');
+//            $io->error('Programme not imported!');
         } finally {
             fclose($handler);
             fclose($handlerForMistakes);
             $io->info('Files closed succesfully!');
         }
-        $io->success('Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
+        $io->success('Succesfully imported '.$numberImported.' / '.$numberOfLines.' programmes.');
 
         return Command::SUCCESS;
     }
