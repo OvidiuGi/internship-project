@@ -37,12 +37,12 @@ class ProgrammeImportFromAPICommand extends Command
             $io->error('Programme not imported! Fix the issue and try again!');
         }
         if ($numberImported > 0) {
-            $io->success($numberImported.' / '.count($data).' programmes imported!');
+            $io->success($numberImported . ' / ' . count($data) . ' programmes imported!');
 
             return Command::SUCCESS;
         }
         if ($numberImported < 0) {
-            $io->error($numberImported.' / '.count($data).' programmes imported!');
+            $io->error($numberImported . ' / ' . count($data) . ' programmes imported!');
 
             return Command::FAILURE;
         }

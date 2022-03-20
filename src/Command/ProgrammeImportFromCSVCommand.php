@@ -81,7 +81,7 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
             fclose($handlerForMistakes);
             $io->info('Files closed succesfully!');
         }
-        $io->success('Succesfully imported '.$numberImported.' / '.$numberOfLines.' programmes.');
+        $io->success('Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
 
         return Command::SUCCESS;
     }

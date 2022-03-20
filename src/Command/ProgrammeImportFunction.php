@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class ProgrammeImportFunction implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
+
     private EntityManagerInterface $entityManager;
 
     private CaesarCipher $decode;
