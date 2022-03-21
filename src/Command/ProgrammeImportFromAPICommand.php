@@ -57,7 +57,7 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
 
             return Command::SUCCESS;
         }
-        if ($numberImported < 0) {
+        if ($numberImported == 0) {
             $io->error($numberImported . ' / ' . count($data) . ' programmes imported!');
             $this->logger->error($numberImported . ' / ' . count($data) . ' programmes imported!');
 
