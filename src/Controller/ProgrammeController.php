@@ -71,5 +71,4 @@ class ProgrammeController implements LoggerAwareInterface
 
         return new JsonResponse($serializedData, Response::HTTP_OK, [], true);
     }
-
 }
