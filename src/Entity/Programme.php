@@ -61,7 +61,7 @@ class Programme
      * @ORM\JoinColumn(name="room_id", referencedColumnName="id")
      * @Groups({"api:programme:all"})
      */
-    private ?Room $room;
+    private Room $room;
 
     /**
      * Many Programmes have Many Users.
@@ -153,12 +153,12 @@ class Programme
         return $this;
     }
 
-    public function getRoom(): ?Room
+    public function getRoom(): Room
     {
         return $this->room;
     }
 
-    public function setRoom(?Room $room): self
+    public function setRoom(Room $room): self
     {
         $this->room = $room;
 

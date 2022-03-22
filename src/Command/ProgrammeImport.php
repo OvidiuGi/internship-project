@@ -47,37 +47,36 @@ class ProgrammeImport implements LoggerAwareInterface
      * @throws InvalidPathToFileException
      */
     public function importFromCSV(
-        $handler,
-        $handlerMistakes,
-        &$nr_imported,
-        &$numberOfLines
+        string $handler,
+        string $handlerMistakes,
+        int &$nr_imported,
+        int &$numberOfLines
     ): void {
-        if (file_exists($handler)) {
-            $numberOfLines = count(file($handler)) - 1;
-            $handler = fopen($handler, 'r');
-        } else {
+        if (!file_exists($handler)) {
             throw new InvalidPathToFileException('Invalid path to file', 0, null, $handler);
         }
-        if (file_exists($handlerMistakes)) {
-            $handlerMistakes = fopen($handlerMistakes, 'a+');
-        } else {
+
+        if (!file_exists($handlerMistakes)) {
             throw new InvalidPathToFileException('Invalid path to file', 0, null, $handlerMistakes);
         }
+        $numberOfLines = count(file($handler)) - 1;
+        $handler = fopen($handler, 'r');
+
+        $handlerMistakes = fopen($handlerMistakes, 'a+');
+
         fgetcsv($handler);
         while (($column = fgetcsv($handler, null, '|')) !== false) {
             if (sizeof($column) < 6) {
                 fputcsv($handlerMistakes, $column, '|');
-                throw new InvalidCSVRowException('This row is not valid!', 0, null, $column);
+
+                continue;
             }
-            $data[] = $column;
-        }
-        foreach ($data as $line) {
-            $name = $line[0];
-            $description = $line[1];
-            $startTime = date_create_from_format('d.m.Y H:i', $line[2]);
-            $endTime = date_create_from_format('d.m.Y H:i', $line[3]);
-            $isOnline = filter_var($line[4], FILTER_VALIDATE_BOOLEAN);
-            $maxParticipants = (int) $line[5];
+            $name = $column[0];
+            $description = $column[1];
+            $startTime = \DateTime::createFromFormat('d.m.Y H:i', $column[2]);
+            $endTime = \DateTime::createFromFormat('d.m.Y H:i', $column[3]);
+            $isOnline = filter_var($column[4], FILTER_VALIDATE_BOOLEAN);
+            $maxParticipants = (int) $column[5];
 
             $programme = new Programme();
             $programme->assignDataToProgramme(
@@ -89,15 +88,25 @@ class ProgrammeImport implements LoggerAwareInterface
                 $maxParticipants
             );
 
-//            $programme->setRoom($this->roomRepository->assignRoom($startTime, $endTime, $maxParticipants, $isOnline));
+            if (0 == count($this->programmeRepository->getAll())) {
+                $foundRoom = $this->roomRepository->findFirstRoom();
+            } else {
+                $foundRoom = $this->roomRepository->findFirstAvailable(
+                    $startTime,
+                    $endTime,
+                    $maxParticipants,
+                    $isOnline
+                );
+            }
+            $programme->setRoom($foundRoom);
 
             $this->entityManager->persist($programme);
             $this->entityManager->flush();
             ++$nr_imported;
-
-            fclose($handler);
-            fclose($handlerMistakes);
         }
+
+        fclose($handler);
+        fclose($handlerMistakes);
     }
 
     /**
@@ -129,7 +138,8 @@ class ProgrammeImport implements LoggerAwareInterface
                 $maxParticipants
             );
 
-//            $programme->setRoom($this->roomRepository->assignRoom($startTime, $endTime, $maxParticipants, $isOnline));
+            $foundRoom = $this->roomRepository->findFirstAvailable($startTime, $endTime, $maxParticipants, $isOnline);
+            $programme->setRoom($foundRoom);
 
             $this->entityManager->persist($programme);
             $this->entityManager->flush();

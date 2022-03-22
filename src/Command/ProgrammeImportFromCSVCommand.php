@@ -6,6 +6,7 @@ namespace App\Command;
 
 use App\Command\CustomException\InvalidCSVRowException;
 use App\Command\CustomException\InvalidPathToFileException;
+use Doctrine\ORM\NoResultException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
@@ -45,6 +46,8 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
         $numberOfLines = 0;
 
+        $numberImported = 0;
+
         $handler = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/file.txt';
 
         $handlerMistakes = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/fileWithBadData.txt';
@@ -61,10 +64,15 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
             $io->error($exception->getMessage());
 
             return Command::FAILURE;
+        } catch (NoResultException $noResultException) {
+            $this->logger->info($noResultException->getMessage());
+            $io->error($noResultException->getMessage());
+
+            return Command::FAILURE;
         } finally {
             $io->info('Files closed succesfully!');
         }
-        $io->success('Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
+        $io->info('Succesfully imported '.$numberImported.' / '.$numberOfLines.' programmes.');
 
         return Command::SUCCESS;
     }

@@ -19,11 +19,35 @@ class ProgrammeRepository extends ServiceEntityRepository
 
     public function getAll(): array
     {
-        $query = $this->entityManager
+        return $this->entityManager
             ->createQueryBuilder()
             ->select('p')
-            ->from('App\Entity\Programme', 'p');
+            ->from('App\Entity\Programme', 'p')
+            ->getQuery()
+            ->execute();
+    }
 
-        return $query->getQuery()->execute();
+    public function exactSearchByName($str): array
+    {
+        return $this->entityManager
+            ->createQueryBuilder()
+            ->select('DISTINCT p')
+            ->from('App\Entity\Programme', 'p')
+            ->where('p.name LIKE :str')
+            ->setParameter('str', $str)
+            ->getQuery()
+            ->execute();
+    }
+
+    public function partialSearchByName($str): array
+    {
+        return $this->entityManager
+            ->createQueryBuilder()
+            ->select('DISTINCT p')
+            ->from('App\Entity\Programme', 'p')
+            ->where('p.name LIKE :str')
+            ->setParameter('str', '%'.$str.'%')
+            ->getQuery()
+            ->execute();
     }
 }
