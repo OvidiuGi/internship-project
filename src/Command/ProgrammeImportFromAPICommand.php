@@ -21,9 +21,9 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
 
     private FetchFromApi $client;
 
-    private ProgrammeImportFunction $import;
+    private ProgrammeImport $import;
 
-    public function __construct(FetchFromApi $client, ProgrammeImportFunction $import)
+    public function __construct(FetchFromApi $client, ProgrammeImport $import)
     {
         $this->client = $client;
         $this->import = $import;
@@ -37,17 +37,9 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
             $data = $this->client->fetchData();
             $numberImported = 0;
             $this->import->importFromAPI($data, $numberImported);
-            if (0 == count($data)) {
-                throw new EmptyAPIException('API empty! Nothing to import!', 0, null, $data);
-            }
         } catch (EmptyAPIException $apiException) {
-            $this->logger->error('API empty! Nothing to import!');
-            $io->error('API empty! Nothing to import!');
-
-            return Command::FAILURE;
-        } catch (\Exception $e) {
-            $io->error('Programme not imported! Fix the issue and try again!');
-            $this->logger->error('Programme not imported! Fix the issue and try again!');
+            $this->logger->error($apiException->getMessage());
+            $io->error($apiException->getMessage());
 
             return Command::FAILURE;
         }
@@ -57,7 +49,7 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
 
             return Command::SUCCESS;
         }
-        if ($numberImported == 0) {
+        if (0 == $numberImported) {
             $io->error($numberImported . ' / ' . count($data) . ' programmes imported!');
             $this->logger->error($numberImported . ' / ' . count($data) . ' programmes imported!');
 

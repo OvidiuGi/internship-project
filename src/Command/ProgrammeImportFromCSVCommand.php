@@ -25,12 +25,12 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
     private int $programmeMaxTimeInMinutes;
 
-    private ProgrammeImportFunction $import;
+    private ProgrammeImport $import;
 
     public function __construct(
         string $programmeMinTimeInMinutes,
         string $programmeMaxTimeInMinutes,
-        ProgrammeImportFunction $import
+        ProgrammeImport $import
     ) {
         $this->programmeMaxTimeInMinutes = (int) $programmeMaxTimeInMinutes;
         $this->programmeMinTimeInMinutes = (int) $programmeMinTimeInMinutes;
@@ -45,38 +45,23 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
         $numberOfLines = 0;
 
-        echo $this->programmeMinTimeInMinutes . PHP_EOL;
-        echo $this->programmeMaxTimeInMinutes . PHP_EOL;
+        $handler = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/file.txt';
+
+        $handlerMistakes = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/fileWithBadData.txt';
 
         try {
-            $pathHandler = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/file.txt';
-            $handlerMistakes = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/fileWithBadData.txt';
-            if (file_exists($pathHandler)) {
-                $numberOfLines = count(file($pathHandler)) - 1;
-                $handler = fopen($pathHandler, 'r');
-            } else {
-                throw new InvalidPathToFileException('Invalid path to file', 0, null, $pathHandler);
-            }
-            if (file_exists($handlerMistakes)) {
-                $handlerForMistakes = fopen($handlerMistakes, 'a+');
-            } else {
-                throw new InvalidPathToFileException('Invalid path to file', 0, null, $handlerMistakes);
-            }
-            $this->import->importFromCSV($handler, $handlerForMistakes, $numberImported);
+            $this->import->importFromCSV($handler, $handlerMistakes, $numberImported, $numberOfLines);
         } catch (InvalidPathToFileException $e) {
-            echo $e->getMessage();
-            $io->error('Path to file not found! Fix the issue and try again!');
-        } catch (InvalidCSVRowException $exception) {
-            echo $exception->getMessage();
-            $io->error('Programmes not imported! Fix the import file!');
+            $this->logger->info($e->getMessage(), ['path' => json_encode($e->getPathToFile())]);
+            $io->error($e->getMessage());
 
             return Command::FAILURE;
-        } catch (\Exception $exp) {
-            $this->logger->error('Not able to import programme');
-            $io->error('Programme not imported!');
+        } catch (InvalidCSVRowException $exception) {
+            $this->logger->info($exception->getMessage(), ['row' => json_encode($exception->getRow())]);
+            $io->error($exception->getMessage());
+
+            return Command::FAILURE;
         } finally {
-            fclose($handler);
-            fclose($handlerForMistakes);
             $io->info('Files closed succesfully!');
         }
         $io->success('Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');

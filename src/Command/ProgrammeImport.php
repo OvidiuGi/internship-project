@@ -2,10 +2,11 @@
 
 namespace App\Command;
 
+use App\Command\CustomException\EmptyAPIException;
 use App\Command\CustomException\InvalidCSVRowException;
+use App\Command\CustomException\InvalidPathToFileException;
 use App\Decrypter\CaesarCipher;
 use App\Entity\Programme;
-use App\Entity\Room;
 use App\Repository\ProgrammeRepository;
 use App\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,7 +14,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ProgrammeImportFunction implements LoggerAwareInterface
+class ProgrammeImport implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
@@ -43,21 +44,33 @@ class ProgrammeImportFunction implements LoggerAwareInterface
 
     /**
      * @throws InvalidCSVRowException
+     * @throws InvalidPathToFileException
      */
     public function importFromCSV(
         $handler,
-        $handlerForMistakes,
-        &$nr_imported
+        $handlerMistakes,
+        &$nr_imported,
+        &$numberOfLines
     ): void {
+        if (file_exists($handler)) {
+            $numberOfLines = count(file($handler)) - 1;
+            $handler = fopen($handler, 'r');
+        } else {
+            throw new InvalidPathToFileException('Invalid path to file', 0, null, $handler);
+        }
+        if (file_exists($handlerMistakes)) {
+            $handlerMistakes = fopen($handlerMistakes, 'a+');
+        } else {
+            throw new InvalidPathToFileException('Invalid path to file', 0, null, $handlerMistakes);
+        }
         fgetcsv($handler);
         while (($column = fgetcsv($handler, null, '|')) !== false) {
             if (sizeof($column) < 6) {
-                fputcsv($handlerForMistakes, $column, '|');
+                fputcsv($handlerMistakes, $column, '|');
                 throw new InvalidCSVRowException('This row is not valid!', 0, null, $column);
             }
             $data[] = $column;
         }
-
         foreach ($data as $line) {
             $name = $line[0];
             $description = $line[1];
@@ -76,17 +89,14 @@ class ProgrammeImportFunction implements LoggerAwareInterface
                 $maxParticipants
             );
 
-//            $programme->setRoom($this->assignRoom($startTime, $endTime, $maxParticipants, $isOnline));
-            $violationList = $this->validator->validate($programme);
-            if ($violationList->count() > 0) {
-                $message = 'Not able to import programme';
-                $this->logger->warning($message);
+//            $programme->setRoom($this->roomRepository->assignRoom($startTime, $endTime, $maxParticipants, $isOnline));
 
-                throw new \Exception($message);
-            }
             $this->entityManager->persist($programme);
             $this->entityManager->flush();
             ++$nr_imported;
+
+            fclose($handler);
+            fclose($handlerMistakes);
         }
     }
 
@@ -97,6 +107,9 @@ class ProgrammeImportFunction implements LoggerAwareInterface
         $data,
         int &$numberImported
     ): void {
+        if (0 == count($data)) {
+            throw new EmptyAPIException('API empty! Nothing to import!', 0, null);
+        }
         foreach ($data as $line) {
             ++$numberImported;
             $name = $this->decode->decipher($line['name'], 8);
@@ -115,33 +128,11 @@ class ProgrammeImportFunction implements LoggerAwareInterface
                 $isOnline,
                 $maxParticipants
             );
-            $violationList = $this->validator->validate($programme);
-            if ($violationList->count() > 0) {
-                $message = 'Not able to import programme';
-                $this->logger->warning($message);
 
-                throw new \Exception($message);
-            }
+//            $programme->setRoom($this->roomRepository->assignRoom($startTime, $endTime, $maxParticipants, $isOnline));
+
             $this->entityManager->persist($programme);
             $this->entityManager->flush();
         }
     }
-
-//    public function assignRoom($startTime, $endTime, $maxParticipants, $isOnline): Room
-//    {
-////        $programmes = $this->programmeRepository->getOccupiedRoomId($startTime, $endTime);
-////        var_dump($programmes);
-////        if(count($programmes) ==)
-////        foreach ($rooms as $room) {
-////            $query = $this->entityManager->createQuery(
-////                'SELECT p.startTime,p.endTime
-////                FROM App\Entity\Programme p
-////                INNER JOIN :rooms r
-////                WHERE p.room_id = r.id'
-////            )->setParameter('rooms',$rooms);
-////            $result = $query->getResult();
-////            var_dump($result);
-////        }
-//        return new Room();
-//    }
 }

@@ -12,20 +12,4 @@ class ProgrammeRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Programme::class);
     }
-
-    public function getOccupiedRoomId($startTime, $endTime): array
-    {
-        $entityManager = $this->getEntityManager();
-
-        $query = $entityManager->createQuery(
-            'SELECT DISTINCT r.id
-            FROM App\Entity\Programme p
-            LEFT JOIN p.room r
-            WHERE p.startTime < :endTime
-             AND p.endTime > :startTime'
-        )->setParameter('endTime', $endTime);
-        $query->setParameter('startTime', $startTime);
-
-        return $query->getResult();
-    }
 }
