@@ -47,7 +47,7 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->select('DISTINCT p')
             ->from('App\Entity\Programme', 'p')
             ->where('p.name LIKE :str')
-            ->setParameter('str', '%'.$str.'%')
+            ->setParameter('str', '%' . $str . '%')
             ->getQuery()
             ->execute();
     }
@@ -69,7 +69,7 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->createQueryBuilder()
             ->select('p')
             ->from('App\Entity\Programme', 'p')
-            ->setFirstResult(($page * $limit)-$limit)
+            ->setFirstResult(($page * $limit) - $limit)
             ->setMaxResults($limit)
             ->getQuery()
             ->execute();
