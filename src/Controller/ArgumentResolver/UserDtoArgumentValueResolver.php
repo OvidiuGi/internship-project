@@ -12,10 +12,10 @@ class UserDtoArgumentValueResolver implements ArgumentValueResolverInterface
 {
     private SerializerInterface $serializer;
 
-//    public function __construct(SerializerInterface $serializer)
-//    {
-//        $this->serializer = $serializer;
-//    }
+    public function __construct(SerializerInterface $serializer)
+    {
+        $this->serializer = $serializer;
+    }
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
@@ -25,16 +25,7 @@ class UserDtoArgumentValueResolver implements ArgumentValueResolverInterface
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $data = $request->getContent();
-//        $userDto = $this->serializer->deserialize($data, UserDto::class, 'json');
-        $decodedData = json_decode($data, true);
-        $userDto = new UserDto();
-
-        $userDto->cnp = $decodedData['cnp'];
-        $userDto->firstName = $decodedData['firstName'];
-        $userDto->lastName = $decodedData['lastName'];
-        $userDto->email = $decodedData['email'];
-        $userDto->password = $decodedData['password'];
-        $userDto->confirmPassword = $decodedData['confirmPassword'];
+        $userDto = $this->serializer->deserialize($data, UserDto::class, 'json');
 
         yield $userDto;
     }

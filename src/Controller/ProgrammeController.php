@@ -37,8 +37,6 @@ class ProgrammeController implements LoggerAwareInterface
     {
         $programme = $this->programmeRepository->getAll();
 
-//        var_dump($partial);
-//        die;
         $serializedData = $this->serializer->serialize($programme, 'json', ['groups' => 'api:programme:all']);
 
         return new JsonResponse($serializedData, Response::HTTP_OK, [], true);

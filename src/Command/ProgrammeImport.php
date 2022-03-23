@@ -113,7 +113,7 @@ class ProgrammeImport implements LoggerAwareInterface
      * @throws \Exception
      */
     public function importFromAPI(
-        $data,
+        array $data,
         int &$numberImported
     ): void {
         if (0 == count($data)) {
