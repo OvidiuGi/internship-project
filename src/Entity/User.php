@@ -3,11 +3,12 @@
 namespace App\Entity;
 
 use App\Controller\Dto\UserDto;
-use Doctrine\ORM\Mapping as ORM;
 use App\Validator as MyAssert;
-use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity()
@@ -43,6 +44,7 @@ class User
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      * @Assert\Regex("/^[A-Z][a-z]+$/")
+     * @Groups({"api:programme:all"})
      */
     public string $firstName = '';
 
@@ -50,6 +52,7 @@ class User
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      * @Assert\Regex("/^[A-Z][a-z]+$/")
+     * @Groups({"api:programme:all"})
      */
     public string $lastName = '';
 
@@ -57,6 +60,7 @@ class User
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"api:programme:all"})
      */
     private int $id;
 
@@ -67,7 +71,8 @@ class User
     private array $roles = [];
 
     /**
-     * Many Users have Many Programmes
+     * Many Users have Many Programmes.
+     *
      * @ORM\ManyToMany(targetEntity="Programme",mappedBy="customers")
      */
     private Collection $programmes;
@@ -76,29 +81,6 @@ class User
     {
         $this->programmes = new ArrayCollection();
     }
-
-//    public function addProgramme(Programme $programme): self
-//    {
-//        if ($this->programmes->contains($programme)) {
-//            return $this;
-//        }
-//        $this->programmes->add($programme);
-//        $programme->addCustomer($this);
-//
-//        return $this;
-//    }
-//
-//    public function removeProgramme(Programme $programme): self
-//    {
-//        if (!$this->programmes->contains($programme)) {
-//            return $this;
-//        }
-//
-//        $this->programmes->removeElement($programme);
-//        $programme->removeCustomer($this);
-//
-//        return $this;
-//    }
 
     public static function createFromDto(UserDto $userDto): self
     {

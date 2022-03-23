@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command;
+namespace App\Command\CustomException;
 
 use Throwable;
 
@@ -8,8 +8,12 @@ class InvalidPathToFileException extends \Exception
 {
     private string $pathToFile;
 
-    public function __construct($message = '', $code = 0, Throwable $previous = null, string $pathToFile)
-    {
+    public function __construct(
+        $message = 'The file does not exist',
+        $code = 0,
+        Throwable $previous = null,
+        string $pathToFile
+    ) {
         $this->pathToFile = $pathToFile;
 
         parent::__construct($message, $code, $previous);
