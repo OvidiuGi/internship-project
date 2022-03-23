@@ -24,10 +24,16 @@ class ProgrammeController implements LoggerAwareInterface
 
     private SerializerInterface $serializer;
 
-    public function __construct(ProgrammeRepository $programmeRepository, SerializerInterface $serializer)
-    {
+    private int $maxPerPage;
+
+    public function __construct(
+        ProgrammeRepository $programmeRepository,
+        SerializerInterface $serializer,
+        int $maxPerPage
+    ) {
         $this->programmeRepository = $programmeRepository;
         $this->serializer = $serializer;
+        $this->maxPerPage = $maxPerPage;
     }
 
     /**
@@ -66,6 +72,36 @@ class ProgrammeController implements LoggerAwareInterface
         $partial = $this->programmeRepository->exactSearchByName($nameForSearch);
 
         $serializedData = $this->serializer->serialize($partial, 'json', ['groups' => 'api:programme:all']);
+
+        return new JsonResponse($serializedData, Response::HTTP_OK, [], true);
+    }
+
+    /**
+     * @Route(path="/sort/participants", methods={"GET"})
+     */
+    public function showSortedByCertainField(Request $request): Response
+    {
+        $sortType = $request->query->get('sort');
+
+        $field = $request->query->get('field');
+
+        $sorted = $this->programmeRepository->getSorted($field, $sortType);
+
+        $serializedData = $this->serializer->serialize($sorted, 'json', ['groups' => 'api:programme:all']);
+
+        return new JsonResponse($serializedData, Response::HTTP_OK, [], true);
+    }
+
+    /**
+     * @Route(path="/paginate", methods={"GET"})
+     */
+    public function showPaginated(Request $request): Response
+    {
+        $page = (int) $request->query->get('page');
+
+        $paginated = $this->programmeRepository->getPaginated($page, $this->maxPerPage);
+
+        $serializedData = $this->serializer->serialize($paginated, 'json', ['groups' => 'api:programme:all']);
 
         return new JsonResponse($serializedData, Response::HTTP_OK, [], true);
     }
