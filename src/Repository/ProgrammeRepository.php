@@ -5,7 +5,6 @@ namespace App\Repository;
 use App\Entity\Programme;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 class ProgrammeRepository extends ServiceEntityRepository
@@ -28,14 +27,14 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->execute();
     }
 
-    public function exactSearchByName($str): array
+    public function exactSearchByName($exactName): array
     {
         return $this->entityManager
             ->createQueryBuilder()
-            ->select('DISTINCT p')
+            ->select('p')
             ->from('App\Entity\Programme', 'p')
             ->where('p.name LIKE :str')
-            ->setParameter('str', $str)
+            ->setParameter('exactName', $exactName)
             ->getQuery()
             ->execute();
     }
@@ -73,5 +72,37 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->setMaxResults($limit)
             ->getQuery()
             ->execute();
+    }
+
+    public function getPaginatedFilteredSorted(
+        array $paginate,
+        array $filters,
+        string $sort,
+        string $direction
+    ): array {
+        $query = $this->entityManager
+            ->createQueryBuilder()
+            ->select('p')
+            ->from('App\Entity\Programme', 'p')
+            ->setFirstResult(($paginate['currentPage'] * $paginate['maxPerPage']) - $paginate['maxPerPage'])
+            ->setMaxResults($paginate['maxPerPage']);
+
+        foreach ($filters as $key => $value) {
+            if ('' != $value) {
+                $query = $query->where("p.$key = :$key");
+                $query->setParameter(':key', $value);
+            }
+        }
+        $direction = strtoupper($direction);
+
+        if (!in_array($direction, ['ASC', 'DESC'])) {
+            $direction = 'ASC';
+        }
+
+        if ('' != $sort) {
+            $query = $query->orderBy("p.$sort", $direction);
+        }
+
+        return $query->getQuery()->getResult();
     }
 }
