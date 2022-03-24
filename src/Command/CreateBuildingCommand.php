@@ -17,9 +17,8 @@ class CreateBuildingCommand extends Command
 
     private EntityManagerInterface $entityManager;
 
-    public function __construct(
-        EntityManagerInterface $entityManager
-    ) {
+    public function __construct(EntityManagerInterface $entityManager)
+    {
         $this->entityManager = $entityManager;
 
         parent::__construct();
