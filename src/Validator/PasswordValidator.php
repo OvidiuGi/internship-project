@@ -21,11 +21,12 @@ class PasswordValidator extends ConstraintValidator
             return;
         }
 
-        if (preg_match(
-            '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
-            $value,
-            $matches
-        ) && !empty($matches[0])
+        if (
+            preg_match(
+                '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
+                $value,
+                $matches
+            ) && !empty($matches[0])
         ) {
             return;
         }
