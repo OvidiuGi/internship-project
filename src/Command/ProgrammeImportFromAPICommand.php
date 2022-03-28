@@ -44,14 +44,14 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
             return Command::FAILURE;
         }
         if ($numberImported > 0) {
-            $io->success($numberImported . ' / ' . count($data) . ' programmes imported!');
-            $this->logger->info($numberImported . ' / ' . count($data) . ' programmes imported!');
+            $io->success($numberImported.' / '.count($data).' programmes imported!');
+            $this->logger->info($numberImported.' / '.count($data).' programmes imported!');
 
             return Command::SUCCESS;
         }
         if (0 == $numberImported) {
-            $io->error($numberImported . ' / ' . count($data) . ' programmes imported!');
-            $this->logger->error($numberImported . ' / ' . count($data) . ' programmes imported!');
+            $io->error($numberImported.' / '.count($data).' programmes imported!');
+            $this->logger->error($numberImported.' / '.count($data).' programmes imported!');
 
             return Command::FAILURE;
         }
