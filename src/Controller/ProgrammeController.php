@@ -35,26 +35,24 @@ class ProgrammeController implements LoggerAwareInterface
         $this->serializer = $serializer;
         $this->maxPerPage = $maxPerPage;
     }
-
+    //TODO - CHANGE DEFAULT AND MORE
     /**
      * @Route(methods={"GET"})
      */
     public function showPaginatedFilteredSorted(Request $request): Response
     {
         $paginate = [];
-        $paginate['currentPage'] = $request->query->get('page', 1);
-        $paginate['maxPerPage'] = $request->query->get('size', $this->maxPerPage);
+        $paginate['page'] = $request->query->get('page', 1);
+        $paginate['size'] = $request->query->get('size', $this->maxPerPage);
 
         $filters = [];
-        $filters['name'] = $request->query->get('name', '');
-        $filters['id'] = $request->query->get('id', '');
-        $filters['isOnline'] = $request->query->get('isOnline', '');
-        if ('' !== $filters['isOnline']) {
-            $filters['isOnline'] = $request->query->getBoolean('isOnline');
-        }
+        $filters['name'] = $request->query->get('name');
+        $filters['id'] = $request->query->get('id');
+        $filters['isOnline'] = $request->query->getBoolean('isOnline');
+        $filters['description'] = $request->query->get('description');
 
-        $sortBy = $request->query->get('sortBy', '');
-        $direction = $request->query->get('sortType', '');
+        $sortBy = $request->query->get('sortBy');
+        $direction = $request->query->get('direction');
 
         $resultedProgrammes = $this->programmeRepository->getPaginatedFilteredSorted(
             $paginate,
@@ -71,4 +69,5 @@ class ProgrammeController implements LoggerAwareInterface
 
         return new JsonResponse($serializedData, Response::HTTP_OK, [], true);
     }
+
 }

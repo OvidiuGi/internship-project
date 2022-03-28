@@ -6,7 +6,6 @@ namespace App\Command;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
-use PHPUnit\Util\Xml\Validator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -14,6 +13,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CreateAccountCommand extends Command
@@ -27,12 +27,16 @@ class CreateAccountCommand extends Command
 
     private ValidatorInterface $validator;
 
+    private UserPasswordHasherInterface $passwordHasher;
+
     public function __construct(
         EntityManagerInterface $entityManager,
-        ValidatorInterface $validator
+        ValidatorInterface $validator,
+        UserPasswordHasherInterface $passwordHasher
     ) {
         $this->validator = $validator;
         $this->entityManager = $entityManager;
+        $this->passwordHasher = $passwordHasher;
 
         parent::__construct();
     }
@@ -48,8 +52,8 @@ class CreateAccountCommand extends Command
                 'role',
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
-                'User role',
-                ['ROLE_ADMIN']
+                'UserToBeDeleted role',
+                ['ROLE_USER']
             );
     }
 
@@ -65,21 +69,15 @@ class CreateAccountCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $firstName = $input->getArgument('firstName');
-        $lastName = $input->getArgument('lastName');
-        $cnp = $input->getArgument('cnp');
-        $email = $input->getArgument('email');
-        $roles = $input->getOption('role');
-
         $user = new User();
 
-        $user->firstName = $firstName;
-        $user->lastName = $lastName;
-        $user->cnp = $cnp;
-        $user->email = $email;
-        $user->setRoles($roles);
-        $user->password = $this->plainPassword;
-
+        $user->firstName = $input->getArgument('firstName');
+        $user->lastName = $input->getArgument('lastName');
+        $user->cnp = $input->getArgument('cnp');
+        $user->email = $input->getArgument('email');
+        $user->setRoles($input->getOption('role'));
+        $user->plainPassword = $this->plainPassword;
+        $user->setPassword($this->passwordHasher->hashPassword($user, $this->plainPassword));
         $violationList = $this->validator->validate($user);
         if ($violationList->count() > 0) {
             foreach ($violationList as $violation) {

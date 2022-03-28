@@ -52,7 +52,7 @@ class Programme
      * @ORM\JoinColumn(name="trainer_id", referencedColumnName="id")
      * @Groups({"api:programme:all"})
      */
-    private ?User $trainer;
+    private ?UserToBeDeleted $trainer;
 
     /**
      * Many Programmes have One Room.
@@ -88,7 +88,21 @@ class Programme
         $this->customers = new ArrayCollection();
     }
 
-    public function addCustomer(User $customer): self
+    public static function createFromArray(array $array): self
+    {
+        $programme = new self();
+
+        $programme->name = $array[0];
+        $programme->description = $array[1];
+        $programme->setStartTime(\DateTime::createFromFormat('d.m.Y H:i', $array[2]));
+        $programme->setEndTime(\DateTime::createFromFormat('d.m.Y H:i', $array[3]));
+        $programme->isOnline = filter_var($array[4], FILTER_VALIDATE_BOOLEAN);
+        $programme->maxParticipants = (int) $array[5];
+
+        return $programme;
+    }
+
+    public function addCustomer(UserToBeDeleted $customer): self
     {
         if ($this->customers->contains($customer)) {
             return $this;
@@ -100,7 +114,7 @@ class Programme
         return $this;
     }
 
-    public function removeCustomer(User $customer): self
+    public function removeCustomer(UserToBeDeleted $customer): self
     {
         if (!$this->customers->contains($customer)) {
             return $this;
@@ -141,12 +155,12 @@ class Programme
         return $this;
     }
 
-    public function getTrainer(): ?User
+    public function getTrainer(): ?UserToBeDeleted
     {
         return $this->trainer;
     }
 
-    public function setTrainer(?User $trainer): self
+    public function setTrainer(?UserToBeDeleted $trainer): self
     {
         $this->trainer = $trainer;
 

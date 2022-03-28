@@ -71,31 +71,16 @@ class ProgrammeImport implements LoggerAwareInterface
 
                 continue;
             }
-            $name = $column[0];
-            $description = $column[1];
-            $startTime = \DateTime::createFromFormat('d.m.Y H:i', $column[2]);
-            $endTime = \DateTime::createFromFormat('d.m.Y H:i', $column[3]);
-            $isOnline = filter_var($column[4], FILTER_VALIDATE_BOOLEAN);
-            $maxParticipants = (int) $column[5];
-
-            $programme = new Programme();
-            $programme->assignDataToProgramme(
-                $name,
-                $description,
-                $startTime,
-                $endTime,
-                $isOnline,
-                $maxParticipants
-            );
+            $programme = Programme::createFromArray($column);
 
             if (0 == count($this->programmeRepository->getAll())) {
                 $foundRoom = $this->roomRepository->findFirstRoom();
             } else {
                 $foundRoom = $this->roomRepository->findFirstAvailable(
-                    $startTime,
-                    $endTime,
-                    $maxParticipants,
-                    $isOnline
+                    \DateTime::createFromFormat('d.m.Y H:i', $column[2]),
+                    \DateTime::createFromFormat('d.m.Y H:i', $column[3]),
+                    (int) $column[5],
+                    filter_var($column[4], FILTER_VALIDATE_BOOLEAN)
                 );
             }
             $programme->setRoom($foundRoom);

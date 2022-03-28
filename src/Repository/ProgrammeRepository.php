@@ -11,6 +11,17 @@ class ProgrammeRepository extends ServiceEntityRepository
 {
     private EntityManagerInterface $entityManager;
 
+    public const PROGRAMME_FIELDS = [
+        'id',
+        'description',
+        'startTime',
+        'endTime',
+        'trainer',
+        'room',
+        'isOnline',
+        'maxParticipants',
+    ];
+
     public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -46,7 +57,7 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->select('DISTINCT p')
             ->from('App\Entity\Programme', 'p')
             ->where('p.name LIKE :str')
-            ->setParameter('str', '%' . $str . '%')
+            ->setParameter('str', '%'.$str.'%')
             ->getQuery()
             ->execute();
     }
@@ -77,20 +88,20 @@ class ProgrammeRepository extends ServiceEntityRepository
     public function getPaginatedFilteredSorted(
         array $paginate,
         array $filters,
-        string $sort,
-        string $direction
+        ?string $sort,
+        ?string $direction
     ): array {
         $query = $this->entityManager
             ->createQueryBuilder()
             ->select('p')
             ->from('App\Entity\Programme', 'p')
-            ->setFirstResult(($paginate['currentPage'] * $paginate['maxPerPage']) - $paginate['maxPerPage'])
-            ->setMaxResults($paginate['maxPerPage']);
+            ->setFirstResult($paginate['size'] * ($paginate['page'] - 1))
+            ->setMaxResults($paginate['size']);
 
         foreach ($filters as $key => $value) {
-            if ('' != $value) {
-                $query = $query->where("p.$key = :$key");
-                $query->setParameter(':key', $value);
+            if (null != $value) {
+                $query->where("p.$key = :value");
+                $query->setParameter(':value', $value);
             }
         }
         $direction = strtoupper($direction);
@@ -99,8 +110,9 @@ class ProgrammeRepository extends ServiceEntityRepository
             $direction = 'ASC';
         }
 
-        if ('' != $sort) {
-            $query = $query->orderBy("p.$sort", $direction);
+        if (null != $sort) {
+            $query
+                ->orderBy("p.$sort", $direction);
         }
 
         return $query->getQuery()->getResult();

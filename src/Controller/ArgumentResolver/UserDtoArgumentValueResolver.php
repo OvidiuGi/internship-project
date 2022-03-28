@@ -19,14 +19,13 @@ class UserDtoArgumentValueResolver implements ArgumentValueResolverInterface
 
     public function supports(Request $request, ArgumentMetadata $argument): bool
     {
-        return $argument->getType() === UserDto::class;
+        return UserDto::class === $argument->getType();
     }
 
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $data = $request->getContent();
-        $userDto = $this->serializer->deserialize($data, UserDto::class, 'json');
 
-        yield $userDto;
+        yield $this->serializer->deserialize($data, UserDto::class, 'json');
     }
 }

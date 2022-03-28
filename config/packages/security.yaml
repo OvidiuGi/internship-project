@@ -1,28 +1,53 @@
 security:
     enable_authenticator_manager: true
-    # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
+
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+        App\Entity\User:
+            algorithm: auto
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_TRAINER
+        ROLE_TRAINER: ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
     providers:
-        users_in_memory: { memory: null }
+        user_email_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+        user_token_provider:
+            entity:
+                class: App\Entity\User
+                property: apiToken
+        all_users:
+            chain:
+                providers: ['user_email_provider','user_token_provider']
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        token_login:
+            lazy: true
+            provider: all_users
+            stateless: true
+            json_login:
+                check_path: api_login
+            guard:
+             authenticators:
+                - App\Security\TokenAuthenticator
+#            entry_point: security.authenticator.json_login.token_login
         main:
             lazy: true
-            provider: users_in_memory
+            provider: all_users
+            stateless: true
+            http_basic:
+                realm: Secured Area
 
-            # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
-
-            # https://symfony.com/doc/current/security/impersonating_user.html
-            # switch_user: true
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
+        - { path: ^/api/programmes, roles: ROLE_ADMIN }
+        - { path: ^/api/users, roles: ROLE_ADMIN }
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
