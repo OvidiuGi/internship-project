@@ -52,7 +52,7 @@ class CreateAccountCommand extends Command
                 'role',
                 null,
                 InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY,
-                'UserToBeDeleted role',
+                'User role',
                 ['ROLE_USER']
             );
     }
