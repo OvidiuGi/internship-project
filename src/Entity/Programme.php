@@ -52,7 +52,7 @@ class Programme
      * @ORM\JoinColumn(name="trainer_id", referencedColumnName="id")
      * @Groups({"api:programme:all"})
      */
-    private ?UserToBeDeleted $trainer;
+    private ?User $trainer;
 
     /**
      * Many Programmes have One Room.
@@ -102,7 +102,7 @@ class Programme
         return $programme;
     }
 
-    public function addCustomer(UserToBeDeleted $customer): self
+    public function addCustomer(User $customer): self
     {
         if ($this->customers->contains($customer)) {
             return $this;
@@ -114,7 +114,7 @@ class Programme
         return $this;
     }
 
-    public function removeCustomer(UserToBeDeleted $customer): self
+    public function removeCustomer(User $customer): self
     {
         if (!$this->customers->contains($customer)) {
             return $this;
@@ -155,12 +155,12 @@ class Programme
         return $this;
     }
 
-    public function getTrainer(): ?UserToBeDeleted
+    public function getTrainer(): ?User
     {
         return $this->trainer;
     }
 
-    public function setTrainer(?UserToBeDeleted $trainer): self
+    public function setTrainer(?User $trainer): self
     {
         $this->trainer = $trainer;
 

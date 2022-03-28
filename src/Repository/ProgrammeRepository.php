@@ -57,7 +57,7 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->select('DISTINCT p')
             ->from('App\Entity\Programme', 'p')
             ->where('p.name LIKE :str')
-            ->setParameter('str', '%'.$str.'%')
+            ->setParameter('str', '%' . $str . '%')
             ->getQuery()
             ->execute();
     }
