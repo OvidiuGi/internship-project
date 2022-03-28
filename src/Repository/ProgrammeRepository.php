@@ -13,6 +13,7 @@ class ProgrammeRepository extends ServiceEntityRepository
 
     public const PROGRAMME_FIELDS = [
         'id',
+        'name',
         'description',
         'startTime',
         'endTime',
@@ -57,7 +58,7 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->select('DISTINCT p')
             ->from('App\Entity\Programme', 'p')
             ->where('p.name LIKE :str')
-            ->setParameter('str', '%' . $str . '%')
+            ->setParameter('str', '%'.$str.'%')
             ->getQuery()
             ->execute();
     }
@@ -99,9 +100,9 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->setMaxResults($paginate['size']);
 
         foreach ($filters as $key => $value) {
-            if (null != $value) {
-                $query->where("p.$key = :value");
-                $query->setParameter(':value', $value);
+            if (in_array($key, self::PROGRAMME_FIELDS) && null != $value) {
+                $query->andWhere("p.$key LIKE :value");
+                $query->setParameter(':value', '%'.$value.'%');
             }
         }
         $direction = strtoupper($direction);
@@ -110,7 +111,7 @@ class ProgrammeRepository extends ServiceEntityRepository
             $direction = 'ASC';
         }
 
-        if (null != $sort) {
+        if (in_array($sort, self::PROGRAMME_FIELDS) && null != $sort) {
             $query
                 ->orderBy("p.$sort", $direction);
         }

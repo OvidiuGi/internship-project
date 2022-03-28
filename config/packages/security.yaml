@@ -37,7 +37,6 @@ security:
             guard:
              authenticators:
                 - App\Security\TokenAuthenticator
-#            entry_point: security.authenticator.json_login.token_login
         main:
             lazy: true
             provider: all_users
@@ -48,8 +47,6 @@ security:
     access_control:
         - { path: ^/api/programmes, roles: ROLE_ADMIN }
         - { path: ^/api/users, roles: ROLE_ADMIN }
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
     security:
