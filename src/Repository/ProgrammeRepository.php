@@ -50,7 +50,7 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->select('DISTINCT p')
             ->from('App\Entity\Programme', 'p')
             ->where('p.name LIKE :str')
-            ->setParameter('str', '%'.$str.'%')
+            ->setParameter('str', '%' . $str . '%')
             ->getQuery()
             ->execute();
     }
@@ -93,7 +93,7 @@ class ProgrammeRepository extends ServiceEntityRepository
 
         foreach ($filters as $key => $value) {
             if (in_array($key, self::PROGRAMME_FIELDS_STRING) && null != $value) {
-                $query->andWhere("p.$key LIKE :value")->setParameter(':value', '%'.$value.'%');
+                $query->andWhere("p.$key LIKE :value")->setParameter(':value', '%' . $value . '%');
             }
             if (in_array($key, self::PROGRAMME_FIELDS_INTEGER) && null != $value) {
                 $query->andWhere("p.$key = :value")->setParameter(':value', $value);
