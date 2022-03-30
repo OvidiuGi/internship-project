@@ -9,6 +9,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
 /**
  * @ORM\Entity()
@@ -77,6 +78,13 @@ class User
      */
     private Collection $programmes;
 
+    /**
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     */
+    public string $forgotPasswordToken = '';
+
+    private DateTime $forgotPasswordTokenTime;
+
     public function __construct()
     {
         $this->programmes = new ArrayCollection();
@@ -124,6 +132,18 @@ class User
     public function setProgrammes(Collection $programmes): self
     {
         $this->programmes = $programmes;
+
+        return $this;
+    }
+
+    public function getForgotPasswordTokenTime(): DateTime
+    {
+        return $this->forgotPasswordTokenTime;
+    }
+
+    public function setForgotPasswordTokenTime(DateTime $forgotPasswordTokenTime): self
+    {
+        $this->forgotPasswordTokenTime = $forgotPasswordTokenTime;
 
         return $this;
     }
