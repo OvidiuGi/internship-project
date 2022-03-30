@@ -10,6 +10,8 @@ use App\Entity\Programme;
 use App\Repository\ProgrammeRepository;
 use App\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\UnexpectedResultException;
+use Exception;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -43,8 +45,7 @@ class ProgrammeImport implements LoggerAwareInterface
     }
 
     /**
-     * @throws InvalidCSVRowException
-     * @throws InvalidPathToFileException
+     * @throws InvalidPathToFileException|UnexpectedResultException
      */
     public function importFromCSV(
         string $handler,
@@ -95,7 +96,7 @@ class ProgrammeImport implements LoggerAwareInterface
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function importFromAPI(
         array $data,

@@ -1,7 +1,0 @@
-#index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
-
-#App:
-#    resource: '@App/Controller/'
-#    type: annotation

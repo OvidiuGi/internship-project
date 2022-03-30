@@ -30,7 +30,8 @@ class Room
     public int $capacity = 0;
 
     /**
-     * Many Rooms have One Building
+     * Many Rooms have One Building.
+     *
      * @ORM\ManyToOne(targetEntity="Building")
      * @ORM\JoinColumn(name="building_id", referencedColumnName="id")
      */
