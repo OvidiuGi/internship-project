@@ -35,7 +35,7 @@ class ProgrammeController implements LoggerAwareInterface
         $this->serializer = $serializer;
         $this->maxPerPage = $maxPerPage;
     }
-    //TODO - CHANGE DEFAULT AND MORE
+
     /**
      * @Route(methods={"GET"})
      */

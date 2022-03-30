@@ -112,8 +112,7 @@ class ProgrammeRepository extends ServiceEntityRepository
         }
 
         if (in_array($sort, self::PROGRAMME_FIELDS) && null != $sort) {
-            $query
-                ->orderBy("p.$sort", $direction);
+            $query->orderBy("p.$sort", $direction);
         }
 
         return $query->getQuery()->getResult();
