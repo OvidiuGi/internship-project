@@ -50,6 +50,7 @@ class ProgrammeController implements LoggerAwareInterface
         $filters['id'] = $request->query->get('id');
         $filters['isOnline'] = $request->query->getBoolean('isOnline');
         $filters['description'] = $request->query->get('description');
+        $filters['maxParticipants'] = $request->query->get('maxParticipants');
 
         $sortBy = $request->query->get('sortBy');
         $direction = $request->query->get('direction');
