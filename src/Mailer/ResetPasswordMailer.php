@@ -36,12 +36,9 @@ class ResetPasswordMailer implements LoggerAwareInterface
             ->from('gireadaovidiu123@gmail.com')
             ->to($givenEmail)
             ->subject('OvidiuGym passowrd change request')
-            ->text("We've received a password change request.")
-            ->text('This link will expire in 1 hour.')
+            ->text("We've received a password change request.\n This link will expire in 1 hour.")
             ->html("<a href=$changePasswordUrl>To change your password, click the link!</a>");
 
         $this->mailer->send($email);
-
-        $this->logger->info('Password change request sent to ' . $givenEmail);
     }
 }
