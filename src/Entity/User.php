@@ -97,7 +97,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public string $forgotPasswordToken = '';
 
-    private DateTime $forgotPasswordTokenTime;
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private ?DateTime $forgotPasswordTokenTime;
 
     public function __construct()
     {
@@ -208,12 +211,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getForgotPasswordTokenTime(): DateTime
+    public function getForgotPasswordTokenTime(): ?DateTime
     {
         return $this->forgotPasswordTokenTime;
     }
 
-    public function setForgotPasswordTokenTime(DateTime $forgotPasswordTokenTime): self
+    public function setForgotPasswordTokenTime(?DateTime $forgotPasswordTokenTime): self
     {
         $this->forgotPasswordTokenTime = $forgotPasswordTokenTime;
 
