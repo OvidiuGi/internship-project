@@ -25,8 +25,7 @@ class UserDtoArgumentValueResolver implements ArgumentValueResolverInterface
     public function resolve(Request $request, ArgumentMetadata $argument): iterable
     {
         $data = $request->getContent();
-        $userDto = $this->serializer->deserialize($data, UserDto::class, 'json');
 
-        yield $userDto;
+        yield $this->serializer->deserialize($data, UserDto::class, 'json');
     }
 }
