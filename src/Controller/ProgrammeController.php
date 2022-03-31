@@ -52,19 +52,18 @@ class ProgrammeController implements LoggerAwareInterface
             return new Response('', Response::HTTP_BAD_REQUEST);
         }
         $paginate = [];
-        $paginate['currentPage'] = $request->query->get('page', 1);
-        $paginate['maxPerPage'] = $request->query->get('size', $this->maxPerPage);
+        $paginate['page'] = $request->query->get('page', 1);
+        $paginate['size'] = $request->query->get('size', $this->maxPerPage);
 
         $filters = [];
-        $filters['name'] = $request->query->get('name', '');
-        $filters['id'] = $request->query->get('id', '');
-        $filters['isOnline'] = $request->query->get('isOnline', '');
-        if ('' !== $filters['isOnline']) {
-            $filters['isOnline'] = $request->query->getBoolean('isOnline');
-        }
+        $filters['name'] = $request->query->get('name');
+        $filters['id'] = $request->query->get('id');
+        $filters['isOnline'] = $request->query->getBoolean('isOnline');
+        $filters['description'] = $request->query->get('description');
+        $filters['maxParticipants'] = $request->query->get('maxParticipants');
 
-        $sortBy = $request->query->get('sortBy', '');
-        $direction = $request->query->get('sortType', '');
+        $sortBy = $request->query->get('sortBy');
+        $direction = $request->query->get('direction');
 
         $resultedProgrammes = $this->programmeRepository->getPaginatedFilteredSorted(
             $paginate,

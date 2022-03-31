@@ -10,6 +10,8 @@ use App\Entity\Programme;
 use App\Repository\ProgrammeRepository;
 use App\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\UnexpectedResultException;
+use Exception;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -43,8 +45,7 @@ class ProgrammeImport implements LoggerAwareInterface
     }
 
     /**
-     * @throws InvalidCSVRowException
-     * @throws InvalidPathToFileException
+     * @throws InvalidPathToFileException|UnexpectedResultException
      */
     public function importFromCSV(
         string $handler,
@@ -71,31 +72,16 @@ class ProgrammeImport implements LoggerAwareInterface
 
                 continue;
             }
-            $name = $column[0];
-            $description = $column[1];
-            $startTime = \DateTime::createFromFormat('d.m.Y H:i', $column[2]);
-            $endTime = \DateTime::createFromFormat('d.m.Y H:i', $column[3]);
-            $isOnline = filter_var($column[4], FILTER_VALIDATE_BOOLEAN);
-            $maxParticipants = (int) $column[5];
-
-            $programme = new Programme();
-            $programme->assignDataToProgramme(
-                $name,
-                $description,
-                $startTime,
-                $endTime,
-                $isOnline,
-                $maxParticipants
-            );
+            $programme = Programme::createFromArray($column);
 
             if (0 == count($this->programmeRepository->getAll())) {
                 $foundRoom = $this->roomRepository->findFirstRoom();
             } else {
                 $foundRoom = $this->roomRepository->findFirstAvailable(
-                    $startTime,
-                    $endTime,
-                    $maxParticipants,
-                    $isOnline
+                    \DateTime::createFromFormat('d.m.Y H:i', $column[2]),
+                    \DateTime::createFromFormat('d.m.Y H:i', $column[3]),
+                    (int) $column[5],
+                    filter_var($column[4], FILTER_VALIDATE_BOOLEAN)
                 );
             }
             $programme->setRoom($foundRoom);
@@ -110,7 +96,7 @@ class ProgrammeImport implements LoggerAwareInterface
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function importFromAPI(
         array $data,
