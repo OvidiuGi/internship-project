@@ -90,7 +90,7 @@ class UserController implements LoggerAwareInterface
         }
         $this->userRepository->remove($user);
 
-        $this->logger->info('Account soft deleted: '.$email);
+        $this->logger->info('Account soft deleted: ' . $email);
 
         return new JsonResponse('Account deleted.', Response::HTTP_FOUND, [], true);
     }
@@ -113,7 +113,7 @@ class UserController implements LoggerAwareInterface
         $this->entityManager->persist($recoveredUser);
         $this->entityManager->flush();
 
-        $this->logger->info('Account recovered when soft deleted: '.$email);
+        $this->logger->info('Account recovered when soft deleted: ' . $email);
 
         return new JsonResponse('Account restored.', Response::HTTP_FOUND, [], true);
     }
