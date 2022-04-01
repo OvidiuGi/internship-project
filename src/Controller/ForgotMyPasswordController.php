@@ -83,14 +83,14 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
         if (null === $user) {
             $this->logger->info('No user found for token:' . $request->query->all()['token']);
 
-            return new Response('The token is not valid', Response::HTTP_NOT_FOUND);
+            return new Response('The token is not valid', Response::HTTP_UNAUTHORIZED);
         }
         $form = $this->createForm(ResetPasswordType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (date_diff(new \DateTime('now'), $user->getForgotPasswordTokenTime())->i > 60) {
-                return new Response('The link expired', Response::HTTP_METHOD_NOT_ALLOWED);
+                return new Response('The link expired', Response::HTTP_UNAUTHORIZED);
             }
 
             $password = $form->getData()['password'];
