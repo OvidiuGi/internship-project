@@ -79,8 +79,6 @@ class UserController implements LoggerAwareInterface
      */
     public function softDelete(string $email)
     {
-        $this->entityManager->getFilters()->enable('softdeleteable');
-
         $user = $this->userRepository->findOneBy(['email' => $email]);
 
         if (null === $user) {
@@ -108,10 +106,7 @@ class UserController implements LoggerAwareInterface
 
             return new JsonResponse('No account associated with email', Response::HTTP_NOT_FOUND, [], true);
         }
-        $recoveredUser->setDeletedAt(null);
-
-        $this->entityManager->persist($recoveredUser);
-        $this->entityManager->flush();
+        $this->userRepository->recover($recoveredUser);
 
         $this->logger->info('Account recovered when soft deleted: ' . $email);
 
