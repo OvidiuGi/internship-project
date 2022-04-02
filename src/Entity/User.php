@@ -12,6 +12,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -91,6 +92,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $apiToken;
 
+    /**
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     */
+    public string $forgotPasswordToken = '';
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private ?DateTime $forgotPasswordTokenTime;
+
     public function __construct()
     {
         $this->programmes = new ArrayCollection();
@@ -109,7 +120,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $user;
     }
 
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -196,6 +207,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProgrammes(Collection $programmes): self
     {
         $this->programmes = $programmes;
+
+        return $this;
+    }
+
+    public function getForgotPasswordTokenTime(): ?DateTime
+    {
+        return $this->forgotPasswordTokenTime;
+    }
+
+    public function setForgotPasswordTokenTime(?DateTime $forgotPasswordTokenTime): self
+    {
+        $this->forgotPasswordTokenTime = $forgotPasswordTokenTime;
 
         return $this;
     }
