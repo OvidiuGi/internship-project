@@ -11,6 +11,10 @@ class ProgrammeRepository extends ServiceEntityRepository
 {
     private EntityManagerInterface $entityManager;
 
+    public const PROGRAMME_FIELDS_STRING = ['name', 'description'];
+
+    public const PROGRAMME_FIELDS_INTEGER = ['id', 'isOnline', 'maxParticipants'];
+
     public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -77,20 +81,22 @@ class ProgrammeRepository extends ServiceEntityRepository
     public function getPaginatedFilteredSorted(
         array $paginate,
         array $filters,
-        string $sort,
-        string $direction
+        ?string $sort,
+        ?string $direction
     ): array {
         $query = $this->entityManager
             ->createQueryBuilder()
             ->select('p')
             ->from('App\Entity\Programme', 'p')
-            ->setFirstResult(($paginate['currentPage'] * $paginate['maxPerPage']) - $paginate['maxPerPage'])
-            ->setMaxResults($paginate['maxPerPage']);
+            ->setFirstResult($paginate['size'] * ($paginate['page'] - 1))
+            ->setMaxResults($paginate['size']);
 
         foreach ($filters as $key => $value) {
-            if ('' != $value) {
-                $query = $query->where("p.$key = :$key");
-                $query->setParameter(':key', $value);
+            if (in_array($key, self::PROGRAMME_FIELDS_STRING) && null != $value) {
+                $query->andWhere("p.$key LIKE :value")->setParameter(':value', '%' . $value . '%');
+            }
+            if (in_array($key, self::PROGRAMME_FIELDS_INTEGER) && null != $value) {
+                $query->andWhere("p.$key = :value")->setParameter(':value', $value);
             }
         }
         $direction = strtoupper($direction);
@@ -99,8 +105,11 @@ class ProgrammeRepository extends ServiceEntityRepository
             $direction = 'ASC';
         }
 
-        if ('' != $sort) {
-            $query = $query->orderBy("p.$sort", $direction);
+        if (in_array($sort, self::PROGRAMME_FIELDS_STRING) && null != $sort) {
+            $query->orderBy("p.$sort", $direction);
+        }
+        if (in_array($sort, self::PROGRAMME_FIELDS_INTEGER) && null != $sort) {
+            $query->orderBy("p.$sort", $direction);
         }
 
         return $query->getQuery()->getResult();

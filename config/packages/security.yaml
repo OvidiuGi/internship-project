@@ -3,18 +3,51 @@ security:
 
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+        App\Entity\User:
+            algorithm: auto
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_TRAINER
+        ROLE_TRAINER: ROLE_USER
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
 
     providers:
-        users_in_memory: { memory: null }
+        user_email_provider:
+            entity:
+                class: App\Entity\User
+                property: email
+        user_token_provider:
+            entity:
+                class: App\Entity\User
+                property: apiToken
+        all_users:
+            chain:
+                providers: ['user_email_provider','user_token_provider']
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        token_login:
+            lazy: true
+            provider: all_users
+            stateless: true
+            json_login:
+                check_path: api_login
+            guard:
+             authenticators:
+                - App\Security\TokenAuthenticator
         main:
             lazy: true
-            provider: users_in_memory
+            provider: all_users
+            stateless: true
+            http_basic:
+                realm: Secured Area
 
     access_control:
+        - { path: ^/api/programmes, roles: ROLE_ADMIN }
+        - { path: ^/api/users, roles: ROLE_ADMIN }
 
 when@test:
     security:

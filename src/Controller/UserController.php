@@ -9,6 +9,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -21,11 +22,16 @@ class UserController implements LoggerAwareInterface
 
     private ValidatorInterface $validator;
     private EntityManagerInterface $entityManager;
+    private UserPasswordHasherInterface $passwordHasher;
 
-    public function __construct(EntityManagerInterface $entityManager, ValidatorInterface $validator)
-    {
+    public function __construct(
+        EntityManagerInterface $entityManager,
+        ValidatorInterface $validator,
+        UserPasswordHasherInterface $passwordHasher
+    ) {
         $this->entityManager = $entityManager;
         $this->validator = $validator;
+        $this->passwordHasher = $passwordHasher;
     }
 
     /**
@@ -34,6 +40,7 @@ class UserController implements LoggerAwareInterface
     public function register(UserDto $userDto): Response
     {
         $user = User::createFromDto($userDto);
+        $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPlainPassword()));
 
         $errors = $this->validator->validate($user);
         if (count($errors) > 0) {
