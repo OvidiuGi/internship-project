@@ -47,6 +47,9 @@ security:
     access_control:
         - { path: ^/api/programmes, roles: ROLE_ADMIN }
         - { path: ^/api/users, roles: ROLE_ADMIN }
+        - { path: ^/api/users/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/users/forgot-password, roles: PUBLIC_ACCESS }
+        - { path: ^/api/users/reset-password, roles: PUBLIC_ACCESS }
 
 when@test:
     security:
