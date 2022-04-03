@@ -20,9 +20,9 @@ services:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
 
-    App\EventSubscriber\TrainerSoftDeleteSubscriber:
-        tags:
-            - { name: kernel.event_subscriber, event: trainer.soft.delete }
+#    App\EventSubscriber\TrainerSoftDeleteSubscriber:
+#        tags:
+#            - { name: kernel.event_subscriber, event: trainer.soft.delete }
     App\EventSubscriber\UserSoftDeleteSubscriber:
         tags:
             - { name: kernel.event_subscriber, event: user.soft.delete }

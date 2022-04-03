@@ -4,6 +4,7 @@ namespace App\EventSubscriber;
 
 use App\Event\TrainerSoftDeleteEvent;
 use App\Event\UserSoftDeleteEvent;
+use App\Repository\ProgrammeRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -19,12 +20,16 @@ class UserSoftDeleteSubscriber implements EventSubscriberInterface
 
     private UserRepository $userRepository;
 
+    private ProgrammeRepository $programmeRepository;
+
     public function __construct(
         EventDispatcherInterface $eventDispatcher,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        ProgrammeRepository $programmeRepository
     ) {
         $this->eventDispatcher = $eventDispatcher;
         $this->userRepository = $userRepository;
+        $this->programmeRepository = $programmeRepository;
     }
 
     public static function getSubscribedEvents(): array
@@ -41,8 +46,7 @@ class UserSoftDeleteSubscriber implements EventSubscriberInterface
     {
         $user = $event->getUser();
         if (in_array('ROLE_TRAINER', $user->getRoles())) {
-            $this->eventDispatcher->dispatch(new TrainerSoftDeleteEvent($user), TrainerSoftDeleteEvent::NAME);
-            $event->stopPropagation();
+            $this->programmeRepository->removeTrainerById($user->getId());
         }
     }
 
