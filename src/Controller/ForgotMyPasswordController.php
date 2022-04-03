@@ -49,6 +49,10 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
         if ($form->isSubmitted() && $form->isValid()) {
             $givenEmail = $form->getData()['email'];
 
+            $this->logger->info(
+                'Started forgot my password send email form for user: ' . $form->getData()['email']
+            );
+
             $user = $this->userRepository->findOneBy(['email' => $givenEmail]);
             if (null === $user) {
                 $this->logger->info('Email does not exist in database');
@@ -80,6 +84,10 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
     public function reset(Request $request): Response
     {
         $user = $this->userRepository->findOneBy(['forgotPasswordToken' => $request->query->all()['token']]);
+        $this->logger->info(
+            'Started reset my password with token: ' . $request->query->all()['token']
+        );
+
         if (null === $user) {
             $this->logger->info('No user found for token:' . $request->query->all()['token']);
 

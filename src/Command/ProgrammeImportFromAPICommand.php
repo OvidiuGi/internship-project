@@ -33,6 +33,11 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+
+        $this->logger->info(
+            'Started importing programmes from API with command: ' . ProgrammeImportFromAPICommand::$defaultName
+        );
+
         try {
             $data = $this->client->fetchData();
             $numberImported = 0;

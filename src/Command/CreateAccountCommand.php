@@ -72,6 +72,8 @@ class CreateAccountCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
+        $this->logger->info('Started creating account with command: ' . CreateAccountCommand::$defaultName);
+
         $user = new User();
 
         $user->firstName = $input->getArgument('firstName');

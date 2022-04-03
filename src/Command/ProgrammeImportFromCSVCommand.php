@@ -44,6 +44,10 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
     {
         $io = new SymfonyStyle($input, $output);
 
+        $this->logger->info(
+            'Started importing programmes from CSV with command: ' . ProgrammeImportFromCSVCommand::$defaultName
+        );
+
         $numberOfLines = 0;
 
         $numberImported = 0;
