@@ -95,6 +95,7 @@ class ProgrammeRepository extends ServiceEntityRepository
             if (in_array($key, self::PROGRAMME_FIELDS_STRING) && null != $value) {
                 $query->andWhere("p.$key LIKE :value")->setParameter(':value', '%' . $value . '%');
             }
+
             if (in_array($key, self::PROGRAMME_FIELDS_INTEGER) && null != $value) {
                 $query->andWhere("p.$key = :value")->setParameter(':value', $value);
             }
@@ -108,6 +109,7 @@ class ProgrammeRepository extends ServiceEntityRepository
         if (in_array($sort, self::PROGRAMME_FIELDS_STRING) && null != $sort) {
             $query->orderBy("p.$sort", $direction);
         }
+
         if (in_array($sort, self::PROGRAMME_FIELDS_INTEGER) && null != $sort) {
             $query->orderBy("p.$sort", $direction);
         }

@@ -21,7 +21,9 @@ class UserController implements LoggerAwareInterface
     use LoggerAwareTrait;
 
     private ValidatorInterface $validator;
+
     private EntityManagerInterface $entityManager;
+
     private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(
@@ -52,6 +54,7 @@ class UserController implements LoggerAwareInterface
                 $errorArray[$error->getPropertyPath()] = $error->getMessage();
             }
             $this->logger->info('Failed registering a user.');
+
             return new JsonResponse($errorArray);
         }
 

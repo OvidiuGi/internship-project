@@ -21,7 +21,9 @@ use DateTime;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public const ROLE_USER = 'ROLE_USER';
+
     public const ROLE_ADMIN = 'ROLE_ADMIN';
+
     public const ROLE_TRAINER = 'ROLE_TRAINER';
 
     public const ROLES = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_TRAINER'];
