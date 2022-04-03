@@ -52,6 +52,7 @@ class UserController implements LoggerAwareInterface
                 $errorArray[$error->getPropertyPath()] = $error->getMessage();
             }
             $this->logger->info('Failed registering a user.');
+
             return new JsonResponse($errorArray);
         }
 

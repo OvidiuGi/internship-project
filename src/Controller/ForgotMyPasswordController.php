@@ -90,6 +90,8 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (date_diff(new \DateTime('now'), $user->getForgotPasswordTokenTime())->i > 60) {
+                $this->logger->info('The reset password link expired for user with email: '.$user->email);
+
                 return new Response('The link expired', Response::HTTP_UNAUTHORIZED);
             }
 
