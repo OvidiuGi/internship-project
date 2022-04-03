@@ -54,7 +54,7 @@ class ApiLoginController extends AbstractController
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->logger->info('Successful login of user with id: '.$user->getId());
+        $this->logger->info('Successful login of user with id: ' . $user->getId());
 
         return $this->json([
             'user' => $user->getUserIdentifier(),

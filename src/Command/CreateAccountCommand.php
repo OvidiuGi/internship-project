@@ -87,7 +87,7 @@ class CreateAccountCommand extends Command
                 $io->error($violation);
             }
             $this->logger->warning(
-                'Failed creating account by command! with email: '.$user->email,
+                'Failed creating account by command! with email: ' . $user->email,
                 ['violations' => $violationList]
             );
 
@@ -97,7 +97,7 @@ class CreateAccountCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->logger->info('Successfully created account by command with email: '.$user->email);
+        $this->logger->info('Successfully created account by command with email: ' . $user->email);
 
         $io->success('Account was successfully created!');
 

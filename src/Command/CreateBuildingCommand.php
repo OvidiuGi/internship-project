@@ -49,7 +49,7 @@ class CreateBuildingCommand extends Command
         $this->entityManager->persist($building);
         $this->entityManager->flush();
 
-        $this->logger->info('Successfully created building by command with id: '.$building->getId());
+        $this->logger->info('Successfully created building by command with id: ' . $building->getId());
 
         $io->success('Building was successfully created!');
 
