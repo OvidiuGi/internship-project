@@ -47,7 +47,7 @@ security:
     access_control:
         - { path: ^/api/programmes, roles: ROLE_ADMIN }
         - { path: ^/api/users, roles: ROLE_ADMIN }
-
+        - { path: ^/api/newsletter, roles: ROLE_ADMIN }
 when@test:
     security:
         password_hashers:

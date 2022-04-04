@@ -3,8 +3,9 @@
 namespace App\Controller\Dto;
 
 use App\Entity\User;
-use Symfony\Component\Validator\Constraints as Assert;
 use App\Validator as MyAssert;
+use DateTime;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class UserDto
 {
@@ -41,6 +42,14 @@ class UserDto
 
     public array $roles = [];
 
+    public ?string $apiToken = '';
+
+    public ?string $forgotPasswordToken = '';
+
+    public ?DateTime $forgotPasswordTokenTime;
+
+    public string $telephoneNr = '';
+
     public static function createFromUser(User $user): self
     {
         $dto = new self();
@@ -51,6 +60,10 @@ class UserDto
         $dto->email = $user->email;
         $dto->cnp = $user->cnp;
         $dto->password = $user->password;
+        $dto->apiToken = $user->getApiToken();
+        $dto->forgotPasswordToken = $user->forgotPasswordToken;
+//        $dto->forgotPasswordTokenTime = $user->getForgotPasswordTokenTime();
+        $dto->telephoneNr = $user->telephoneNr;
 
         return $dto;
     }
