@@ -16,6 +16,8 @@ framework:
                 headers:
                     - name: 'X-API-KEY'
                       value: '%env(resolve:SMS_API_KEY)%'
+            import.programme.api.client:
+                base_uri: '%env(resolve:IMPORT_PROGRAMMES_URI)%'
     #esi: true
     #fragments: true
     php_errors:

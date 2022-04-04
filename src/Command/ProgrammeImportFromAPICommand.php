@@ -3,7 +3,7 @@
 namespace App\Command;
 
 use App\Command\CustomException\EmptyAPIException;
-use App\HttpClient\FetchProgrammeFromApi;
+use App\HttpClient\ImportProgrammeApiClient;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
@@ -19,11 +19,11 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
 
     protected static $defaultDescription = 'Imports programmes from an external API.';
 
-    private FetchProgrammeFromApi $client;
+    private ImportProgrammeApiClient $client;
 
     private ProgrammeImport $import;
 
-    public function __construct(FetchProgrammeFromApi $client, ProgrammeImport $import)
+    public function __construct(ImportProgrammeApiClient $client, ProgrammeImport $import)
     {
         $this->client = $client;
         $this->import = $import;

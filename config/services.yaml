@@ -10,6 +10,7 @@ services:
             $programmeMaxTimeInMinutes: '%env(PROGRAMME_MAX_TIME_IN_MINUTES)%'
             $maxPerPage: '%env(MAX_PER_PAGE)%'
             $smsUri: '%env(SMS_URI)%'
+            $importFromApiUri: '%env(IMPORT_PROGRAMMES_URI)%'
     App\:
         resource: '../src/'
         exclude:
