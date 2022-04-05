@@ -41,8 +41,9 @@ class NewsletterController implements LoggerAwareInterface
      */
     public function sendNewsletterToOneAction(Request $request, MessageBusInterface $messageBus): Response
     {
-        $telephoneNr = $request->toArray()['receiver'];
-        $body = $request->toArray()['body'];
+        $data = $request->toArray();
+        $telephoneNr = $data['receiver'];
+        $body = $data['body'];
 
         $user = $this->userRepository->findOneBy(['telephoneNr' => $telephoneNr]);
         if (null === $user) {
