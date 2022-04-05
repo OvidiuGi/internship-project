@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Mailer\NewsletterMailer;
+use App\Message\EmailNotification;
 use App\Message\SmsNotification;
 use App\Repository\UserRepository;
+use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route(path="api/newsletter")
  */
-class NewsletterController
+class NewsletterController implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
@@ -46,17 +48,18 @@ class NewsletterController
 
         $user = $this->userRepository->findOneBy(['telephoneNr' => $telephoneNr]);
         if (null === $user) {
-            $this->logger->warning('User not found with telephone number: ' . $telephoneNr);
+            $this->logger->warning('User not found with telephone number: '.$telephoneNr);
 
             return new JsonResponse('Not found', Response::HTTP_NOT_FOUND, [], true);
         }
 
-        $this->newsletterMailer->sendEmail($user->email, $body);
+        $emailMessage = new EmailNotification($user->email, $body);
+        $messageBus->dispatch($emailMessage);
 
-        $message = new SmsNotification($telephoneNr, $body);
-        $messageBus->dispatch($message);
+        $smsMessage = new SmsNotification($telephoneNr, $body);
+        $messageBus->dispatch($smsMessage);
 
-        $this->logger->info('The SMS and Email sent to user with email: ' . $user->email);
+        $this->logger->info('The SMS and Email sent to user with email: '.$user->email);
 
         return new JsonResponse('SMS and Email sent', Response::HTTP_OK, [], true);
     }
