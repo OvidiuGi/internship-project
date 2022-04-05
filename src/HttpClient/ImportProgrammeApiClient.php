@@ -11,16 +11,13 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class ImportProgrammeApiClient
 {
-    public string $importFromApiUri;
-
     public string $protocol = 'GET';
 
     private HttpClientInterface $client;
 
-    public function __construct(HttpClientInterface $importProgrammeApiClient, string $importFromApiUri)
+    public function __construct(HttpClientInterface $importProgrammeApiClient)
     {
         $this->client = $importProgrammeApiClient;
-        $this->importFromApiUri = $importFromApiUri;
     }
 
     /**
@@ -34,7 +31,7 @@ class ImportProgrammeApiClient
     {
         $response = $this->client->request(
             $this->protocol,
-            $this->importFromApiUri
+            '/api/sport-programs'
         );
         $fetchedData = $response->toArray();
 
