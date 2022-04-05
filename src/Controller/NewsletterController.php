@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Mailer\NewsletterMailer;
-use App\Message\EmailNotification;
 use App\Message\SmsNotification;
 use App\Repository\UserRepository;
 use Psr\Log\LoggerAwareInterface;
@@ -38,11 +37,10 @@ class NewsletterController implements LoggerAwareInterface
      * @Route(methods={"POST"})
      *
      * @throws TransportExceptionInterface
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function sendAction(Request $request, MessageBusInterface $messageBus): Response
+    public function sendNewsletterToOneAction(Request $request, MessageBusInterface $messageBus): Response
     {
-        $this->logger->info('Starting action to send newsletter to user');
-
         $telephoneNr = $request->toArray()['receiver'];
         $body = $request->toArray()['body'];
 
@@ -53,14 +51,27 @@ class NewsletterController implements LoggerAwareInterface
             return new JsonResponse('Not found', Response::HTTP_NOT_FOUND, [], true);
         }
 
-        $emailMessage = new EmailNotification($user->email, $body);
-        $messageBus->dispatch($emailMessage);
+        $this->newsletterMailer->sendEmail($user->email, $body);
 
-        $smsMessage = new SmsNotification($telephoneNr, $body);
-        $messageBus->dispatch($smsMessage);
-
-        $this->logger->info('The SMS and Email sent to user with email: ' . $user->email);
+        $messageBus->dispatch(new SmsNotification($telephoneNr, $body));
 
         return new JsonResponse('SMS and Email sent', Response::HTTP_OK, [], true);
+    }
+
+    /**
+     * @Route(path="/all",methods={"POST"})
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
+    public function sendNewsletterToAllAction(Request $request, MessageBusInterface $messageBus): Response
+    {
+        $body = $request->toArray()['body'];
+
+        $users = $this->userRepository->findAll();
+        foreach ($users as $user) {
+            $this->newsletterMailer->sendEmail($user->email, $body);
+
+            $messageBus->dispatch(new SmsNotification($user->telephoneNr, $body));
+        }
+        return new JsonResponse('SMS and Email sent to all users', Response::HTTP_OK, [], true);
     }
 }

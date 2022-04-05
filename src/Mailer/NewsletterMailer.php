@@ -2,6 +2,7 @@
 
 namespace App\Mailer;
 
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
@@ -14,6 +15,9 @@ class NewsletterMailer
         $this->mailer = $mailer;
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function sendEmail(string $givenEmail, string $message): void
     {
         $email = (new Email())
