@@ -62,7 +62,6 @@ class UserDto
         $dto->password = $user->password;
         $dto->apiToken = $user->getApiToken();
         $dto->forgotPasswordToken = $user->forgotPasswordToken;
-//        $dto->forgotPasswordTokenTime = $user->getForgotPasswordTokenTime();
         $dto->telephoneNr = $user->telephoneNr;
 
         return $dto;
