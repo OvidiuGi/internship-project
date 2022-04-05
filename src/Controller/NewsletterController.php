@@ -48,7 +48,7 @@ class NewsletterController implements LoggerAwareInterface
 
         $user = $this->userRepository->findOneBy(['telephoneNr' => $telephoneNr]);
         if (null === $user) {
-            $this->logger->warning('User not found with telephone number: '.$telephoneNr);
+            $this->logger->warning('User not found with telephone number: ' . $telephoneNr);
 
             return new JsonResponse('Not found', Response::HTTP_NOT_FOUND, [], true);
         }
@@ -59,7 +59,7 @@ class NewsletterController implements LoggerAwareInterface
         $smsMessage = new SmsNotification($telephoneNr, $body);
         $messageBus->dispatch($smsMessage);
 
-        $this->logger->info('The SMS and Email sent to user with email: '.$user->email);
+        $this->logger->info('The SMS and Email sent to user with email: ' . $user->email);
 
         return new JsonResponse('SMS and Email sent', Response::HTTP_OK, [], true);
     }
