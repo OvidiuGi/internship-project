@@ -247,8 +247,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(?\DateTime $deletedAt): void
+    public function setDeletedAt(?\DateTime $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 }

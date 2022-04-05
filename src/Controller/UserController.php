@@ -11,6 +11,7 @@ use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
@@ -80,44 +81,48 @@ class UserController implements LoggerAwareInterface
     }
 
     /**
-     * @Route(path="/delete/{email}", methods={"DELETE"})
+     * @Route(path="/delete/{id}", methods={"DELETE"})
      */
-    public function softDelete(string $email): Response
+    public function softDelete(int $id): Response
     {
-        $user = $this->userRepository->findOneBy(['email' => $email]);
+        $user = $this->userRepository->findOneBy(['id' => $id]);
 
         if (null === $user) {
-            $this->logger->info('Soft delete failed: no account for such email');
+            $this->logger->info('Soft delete failed: no account for such id');
 
-            return new JsonResponse('No account associated with email', Response::HTTP_NOT_FOUND, [], true);
+            return new JsonResponse('No account associated with this id', Response::HTTP_NOT_FOUND, [], true);
         }
         $this->eventDispatcher->dispatch(new UserSoftDeleteEvent($user), UserSoftDeleteEvent::NAME);
 
-        $this->logger->info('Account soft deleted: ' . $email);
+        $this->userRepository->remove($user);
+
+        $this->logger->info('Account soft deleted: ' . $id);
 
         return new JsonResponse('Account deleted.', Response::HTTP_FOUND, [], true);
     }
 
     /**
-     * @Route(path="/recover/{email}", methods={"GET"})
+     * @Route(path="/recover", methods={"POST"})
      */
-    public function softRecover(string $email): Response
+    public function recover(Request $request): Response
     {
-        $this->entityManager->getFilters()->disable('softdeleteable');
-        $recoveredUser = $this->userRepository->findOneBy(['email' => $email]);
+        $email = $request->toArray()['email'];
 
-        if (null === $recoveredUser) {
+        $this->entityManager->getFilters()->disable('softdeleteable');
+        $userToBeRecovered = $this->userRepository->findOneBy(['email' => $email]);
+
+        if (null === $userToBeRecovered) {
             $this->logger->info('Soft delete recover failed: no account for such email');
 
             return new JsonResponse('No account associated with email', Response::HTTP_NOT_FOUND, [], true);
         }
 
-        if (null === $recoveredUser->getDeletedAt()) {
+        if (null === $userToBeRecovered->getDeletedAt()) {
             $this->logger->info('Recover failed: the account is active: ' . $email);
 
             return new JsonResponse('The account is already active!', Response::HTTP_OK, [], true);
         }
-        $this->userRepository->recover($recoveredUser);
+        $this->userRepository->recover($userToBeRecovered);
 
         $this->logger->info('Account recovered when soft deleted: ' . $email);
 
@@ -125,7 +130,7 @@ class UserController implements LoggerAwareInterface
     }
 
     /**
-     * @Route(path="/show", methods={"GET"})
+     * @Route(methods={"GET"})
      */
     public function show(): Response
     {

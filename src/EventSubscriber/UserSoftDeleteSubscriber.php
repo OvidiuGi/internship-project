@@ -2,12 +2,9 @@
 
 namespace App\EventSubscriber;
 
-use App\Event\TrainerSoftDeleteEvent;
 use App\Event\UserSoftDeleteEvent;
 use App\Repository\ProgrammeRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\OptimisticLockException;
-use Doctrine\ORM\ORMException;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -37,7 +34,6 @@ class UserSoftDeleteSubscriber implements EventSubscriberInterface
         return [
             UserSoftDeleteEvent::NAME => [
                 ['checkIfTrainer', 10],
-                ['softDeleteUser', 9],
             ],
         ];
     }
@@ -46,17 +42,7 @@ class UserSoftDeleteSubscriber implements EventSubscriberInterface
     {
         $user = $event->getUser();
         if (in_array('ROLE_TRAINER', $user->getRoles())) {
-            $this->programmeRepository->removeTrainerById($user->getId());
+            $this->programmeRepository->removeTrainerByIdFromProgrammes($user->getId());
         }
-    }
-
-    /**
-     * @throws OptimisticLockException
-     * @throws ORMException
-     */
-    public function softDeleteUser(UserSoftDeleteEvent $event): void
-    {
-        $user = $event->getUser();
-        $this->userRepository->remove($user);
     }
 }
