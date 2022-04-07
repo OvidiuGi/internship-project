@@ -2,47 +2,48 @@
 
 namespace App\EventSubscriber;
 
-use App\Event\UserSoftDeleteEvent;
+use App\Entity\User;
 use App\Repository\ProgrammeRepository;
-use App\Repository\UserRepository;
-use Psr\EventDispatcher\EventDispatcherInterface;
+use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+use Gedmo\SoftDeleteable\SoftDeleteableListener;
 use Psr\Log\LoggerAwareTrait;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 class UserSoftDeleteSubscriber implements EventSubscriberInterface
 {
     use LoggerAwareTrait;
 
-    private EventDispatcherInterface $eventDispatcher;
-
-    private UserRepository $userRepository;
+    private EntityManagerInterface $entityManager;
 
     private ProgrammeRepository $programmeRepository;
 
     public function __construct(
-        EventDispatcherInterface $eventDispatcher,
-        UserRepository $userRepository,
-        ProgrammeRepository $programmeRepository
+        ProgrammeRepository $programmeRepository,
+        EntityManagerInterface $entityManager
     ) {
-        $this->eventDispatcher = $eventDispatcher;
-        $this->userRepository = $userRepository;
         $this->programmeRepository = $programmeRepository;
+        $this->entityManager = $entityManager;
     }
 
-    public static function getSubscribedEvents(): array
+    public function getSubscribedEvents(): array
     {
-        return [
-            UserSoftDeleteEvent::NAME => [
-                ['checkIfTrainer', 10],
-            ],
-        ];
+        return [SoftDeleteableListener::POST_SOFT_DELETE];
     }
 
-    public function checkIfTrainer(UserSoftDeleteEvent $event): void
+    public function postSoftDelete(LifecycleEventArgs $args): void
     {
-        $user = $event->getUser();
+        $user = $args->getObject();
+        if (!$user instanceof User) {
+            return;
+        }
+
         if (in_array('ROLE_TRAINER', $user->getRoles())) {
-            $this->programmeRepository->removeTrainerByIdFromProgrammes($user->getId());
+            $programmes = $this->programmeRepository->removeTrainerByIdFromProgrammes($user->getId());
+            foreach ($programmes as $programme) {
+                $programme->setTrainer(null);
+            }
+            $this->entityManager->flush();
         }
     }
 }

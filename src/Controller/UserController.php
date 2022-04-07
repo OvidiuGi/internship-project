@@ -4,12 +4,10 @@ namespace App\Controller;
 
 use App\Controller\Dto\UserDto;
 use App\Entity\User;
-use App\Event\UserSoftDeleteEvent;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,22 +28,19 @@ class UserController implements LoggerAwareInterface
     private UserPasswordHasherInterface $passwordHasher;
     private UserRepository $userRepository;
     private SerializerInterface $serializer;
-    private EventDispatcherInterface $eventDispatcher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ValidatorInterface $validator,
         UserPasswordHasherInterface $passwordHasher,
         UserRepository $userRepository,
-        SerializerInterface $serializer,
-        EventDispatcherInterface $eventDispatcher
+        SerializerInterface $serializer
     ) {
         $this->entityManager = $entityManager;
         $this->validator = $validator;
         $this->passwordHasher = $passwordHasher;
         $this->userRepository = $userRepository;
         $this->serializer = $serializer;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -92,11 +87,10 @@ class UserController implements LoggerAwareInterface
 
             return new JsonResponse('No account associated with this id', Response::HTTP_NOT_FOUND, [], true);
         }
-        $this->eventDispatcher->dispatch(new UserSoftDeleteEvent($user), UserSoftDeleteEvent::NAME);
 
         $this->userRepository->remove($user);
 
-        $this->logger->info('Account soft deleted: ' . $id);
+        $this->logger->info('Account soft deleted: '.$id);
 
         return new JsonResponse('Account deleted.', Response::HTTP_FOUND, [], true);
     }
@@ -118,13 +112,13 @@ class UserController implements LoggerAwareInterface
         }
 
         if (null === $userToBeRecovered->getDeletedAt()) {
-            $this->logger->info('Recover failed: the account is active: ' . $email);
+            $this->logger->info('Recover failed: the account is active: '.$email);
 
             return new JsonResponse('The account is already active!', Response::HTTP_OK, [], true);
         }
         $this->userRepository->recover($userToBeRecovered);
 
-        $this->logger->info('Account recovered when soft deleted: ' . $email);
+        $this->logger->info('Account recovered when soft deleted: '.$email);
 
         return new JsonResponse('Account restored.', Response::HTTP_FOUND, [], true);
     }

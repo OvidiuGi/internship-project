@@ -115,9 +115,9 @@ class ProgrammeRepository extends ServiceEntityRepository
         return $query->getQuery()->getResult();
     }
 
-    public function removeTrainerByIdFromProgrammes(int $id): void
+    public function removeTrainerByIdFromProgrammes(int $id): array
     {
-        $programmes = $this->entityManager
+        return $this->entityManager
             ->createQueryBuilder()
             ->select('p')
             ->from('App\Entity\Programme', 'p')
@@ -126,10 +126,5 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->setParameter('givenId', $id)
             ->getQuery()
             ->execute();
-
-        foreach ($programmes as $programme) {
-            $programme->setTrainer(null);
-        }
-        $this->entityManager->flush();
     }
 }
