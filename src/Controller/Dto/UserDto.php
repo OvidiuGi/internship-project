@@ -42,12 +42,6 @@ class UserDto
 
     public array $roles = [];
 
-    public ?string $apiToken = '';
-
-    public ?string $forgotPasswordToken = '';
-
-    public ?DateTime $forgotPasswordTokenTime;
-
     public string $telephoneNr = '';
 
     public static function createFromUser(User $user): self
@@ -60,8 +54,6 @@ class UserDto
         $dto->email = $user->email;
         $dto->cnp = $user->cnp;
         $dto->password = $user->password;
-        $dto->apiToken = $user->getApiToken();
-        $dto->forgotPasswordToken = $user->forgotPasswordToken;
         $dto->telephoneNr = $user->telephoneNr;
 
         return $dto;
