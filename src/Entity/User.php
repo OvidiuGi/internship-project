@@ -67,6 +67,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public string $cnp = '';
 
     /**
+     * @ORM\Column(type="string", unique="true")
+     */
+    public string $telephoneNr = '';
+
+    /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      * @Assert\Regex("/^[A-Z][a-z]+$/")
@@ -97,15 +102,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", unique=true, nullable=true)
      */
-    private $apiToken;
+    private ?string $apiToken;
 
     /**
      * @ORM\Column(type="string", unique=true, nullable=true)
      */
-    public string $forgotPasswordToken = '';
+    public ?string $forgotPasswordToken;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private ?DateTime $forgotPasswordTokenTime;
 
@@ -123,6 +128,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $user->lastName = $userDto->lastName;
         $user->firstName = $userDto->firstName;
         $user->setRoles($userDto->roles);
+//        $user->setApiToken($userDto->apiToken);
+//        $user->forgotPasswordToken = $userDto->forgotPasswordToken;
+//        $user->setForgotPasswordTokenTime($userDto->forgotPasswordTokenTime);
+        $user->telephoneNr = $userDto->telephoneNr;
 
         return $user;
     }
@@ -230,7 +239,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setApiToken($token): self
+    public function setApiToken(?string $token): self
     {
         $this->apiToken = $token;
 

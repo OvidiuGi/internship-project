@@ -9,17 +9,15 @@ use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class FetchFromApi
+class ImportProgrammeApiClient
 {
-    public string $url = 'http://evozon-internship-data-wh.herokuapp.com/api/sport-programs';
-
     public string $protocol = 'GET';
 
     private HttpClientInterface $client;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(HttpClientInterface $importProgrammeApiClient)
     {
-        $this->client = $client;
+        $this->client = $importProgrammeApiClient;
     }
 
     /**
@@ -33,7 +31,7 @@ class FetchFromApi
     {
         $response = $this->client->request(
             $this->protocol,
-            $this->url
+            '/api/sport-programs'
         );
         $fetchedData = $response->toArray();
 
