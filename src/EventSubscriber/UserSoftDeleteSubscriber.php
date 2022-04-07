@@ -37,13 +37,14 @@ class UserSoftDeleteSubscriber implements EventSubscriberInterface
         if (!$user instanceof User) {
             return;
         }
-
-        if (in_array('ROLE_TRAINER', $user->getRoles())) {
-            $programmes = $this->programmeRepository->removeTrainerByIdFromProgrammes($user->getId());
-            foreach ($programmes as $programme) {
-                $programme->setTrainer(null);
-            }
-            $this->entityManager->flush();
+        if (!in_array('ROLE_TRAINER', $user->getRoles(), true)) {
+            return;
         }
+
+        $programmes = $this->programmeRepository->removeTrainerByIdFromProgrammes($user->getId());
+        foreach ($programmes as $programme) {
+            $programme->setTrainer(null);
+        }
+        $this->entityManager->flush();
     }
 }
