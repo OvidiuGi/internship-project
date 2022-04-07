@@ -121,7 +121,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $user->lastName = $userDto->lastName;
         $user->firstName = $userDto->firstName;
         $user->setRoles($userDto->roles);
-        $user->telephoneNr = $userDto->telephoneNr;
+        $user->telephoneNr = '';
 
         return $user;
     }

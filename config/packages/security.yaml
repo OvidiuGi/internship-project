@@ -32,7 +32,6 @@ security:
             lazy: true
             pattern: ^/admin
             provider: all_users
-            stateless: true
             form_login:
                 login_path: admin_login
                 check_path: admin_login
