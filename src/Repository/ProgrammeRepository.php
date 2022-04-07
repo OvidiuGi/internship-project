@@ -114,4 +114,17 @@ class ProgrammeRepository extends ServiceEntityRepository
 
         return $query->getQuery()->getResult();
     }
+
+    public function removeTrainerByIdFromProgrammes(int $id): array
+    {
+        return $this->entityManager
+            ->createQueryBuilder()
+            ->select('p')
+            ->from('App\Entity\Programme', 'p')
+            ->join('App\Entity\User', 'u')
+            ->where('u.id = :givenId')
+            ->setParameter('givenId', $id)
+            ->getQuery()
+            ->execute();
+    }
 }
