@@ -11,6 +11,7 @@ security:
         ROLE_TRAINER: ROLE_USER
         ROLE_SUPER_ADMIN: ROLE_ADMIN
 
+
     providers:
         user_email_provider:
             entity:
@@ -59,6 +60,7 @@ security:
 when@test:
     security:
         password_hashers:
+
             Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface:
                 algorithm: auto
                 cost: 4
