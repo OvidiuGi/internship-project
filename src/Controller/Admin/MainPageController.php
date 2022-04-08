@@ -16,6 +16,6 @@ class MainPageController extends AbstractController
      */
     public function load(): Response
     {
-        return $this->render('admin/main_page.html.twig', []);
+        return $this->render('admin/main_page/main_page.html.twig', []);
     }
 }
