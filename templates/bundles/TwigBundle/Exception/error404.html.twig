@@ -1,0 +1,18 @@
+{% extends '/bundles/TwigBundle/Exception/base_error.html.twig' %}
+
+{% block body %}
+    <div class="face">
+        <div class="band">
+            <div class="red"></div>
+            <div class="white"></div>
+            <div class="blue"></div>
+        </div>
+        <div class="eyes"></div>
+        <div class="dimples"></div>
+        <div class="mouth"></div>
+    </div>
+
+    <h1>Oops, {{ status_code }}! {{ status_text }}!</h1>
+    <h1> We can't seem to find the page you're looking for. </h1>
+    <div class="btn"><a href="http://internship-project.local/admin">Return to Home</a></div>
+{% endblock %}
