@@ -128,10 +128,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $user->lastName = $userDto->lastName;
         $user->firstName = $userDto->firstName;
         $user->setRoles($userDto->roles);
-//        $user->setApiToken($userDto->apiToken);
-//        $user->forgotPasswordToken = $userDto->forgotPasswordToken;
-//        $user->setForgotPasswordTokenTime($userDto->forgotPasswordTokenTime);
-        $user->telephoneNr = $userDto->telephoneNr;
+        $user->telephoneNr = '';
 
         return $user;
     }

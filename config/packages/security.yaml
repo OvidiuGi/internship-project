@@ -3,8 +3,8 @@ security:
 
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-        App\Entity\User:
-            algorithm: auto
+#        App\Entity\User:
+#            algorithm: auto
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_TRAINER
@@ -28,6 +28,13 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            lazy: true
+            pattern: ^/admin
+            provider: all_users
+            form_login:
+                login_path: admin_login
+                check_path: admin_login
         token_login:
             lazy: true
             provider: all_users
@@ -48,6 +55,7 @@ security:
         - { path: ^/api/programmes, roles: ROLE_ADMIN }
         - { path: ^/api/users, roles: PUBLIC_ACCESS }
         - { path: ^/api/newsletter, roles: ROLE_ADMIN }
+        - { path: ^api/login, roles: PUBLIC_ACCESS }
 when@test:
     security:
         password_hashers:
