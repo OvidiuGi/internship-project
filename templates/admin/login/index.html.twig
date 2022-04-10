@@ -9,6 +9,8 @@
     <body class="text-center">
 
     <main class="form-signin">
+        <img src="{{ asset('build/images/app_logo.png') }}" class="center"
+        />
         <form action="{{ path('admin_login') }}" method="post" >
             <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
 
@@ -26,7 +28,7 @@
                     <input type="checkbox" value="remember-me"> Remember me
                 </label>
             </div>
-            <input type="hidden" name="_target_path" value="/admin"/>#}
+            <input type="hidden" name="_target_path" value="/admin"/>
             <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
             <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
         </form>

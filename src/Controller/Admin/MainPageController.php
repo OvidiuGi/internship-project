@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class MainPageController extends AbstractController
 {
     /**
-     * @Route(methods={"GET"})
+     * @Route(methods={"GET"}, name="main_page")
      */
     public function load(): Response
     {

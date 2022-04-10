@@ -1,6 +1,5 @@
-import '../styles/app.scss';
+import '../styles/login.scss';
 import $ from 'jquery';
-import greet from '../greet';
 import 'bootstrap';
 
 // const $ = require('jquery');
@@ -9,6 +8,5 @@ import 'bootstrap';
 require('bootstrap');
 
 $(document).ready(function() {
-    $('body').prepend('<h1>'+greet()+'</h1>');
     $('[data-toggle="popover"]').popover();
 });
