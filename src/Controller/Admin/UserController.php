@@ -23,28 +23,41 @@ class UserController extends AbstractController implements LoggerAwareInterface
 
     private UserRepository $userRepository;
 
-    public function __construct(UserRepository $userRepository, EntityManagerInterface $entityManager)
-    {
+    private int $maxPerPage;
+
+    public function __construct(
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager,
+        int $maxPerPage
+    ) {
         $this->userRepository = $userRepository;
         $this->entityManager = $entityManager;
+        $this->maxPerPage = $maxPerPage;
     }
 
     /**
-     * @Route(methods={"GET"}, name="users_page")
+     * @Route(methods={"GET"}, name="show_users")
      */
-    public function load(): Response
+    public function showUsers(Request $request): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
+        $paginate = [];
+        $paginate['page'] = $request->query->get('page', 1);
+        $paginate['size'] = $request->query->get('size', 10);
 
-        $users = $this->userRepository->findAll();
+        $users = $this->userRepository->getPaginated($paginate['page'], $paginate['size']);
+        $totalPages = ceil(count($this->userRepository->findAll()) / $paginate['size']);
 
         return $this->render('admin/main_page/users/users_page.html.twig', [
             'users' => $users,
+            'page' => $paginate['page'],
+            'size' => $paginate['size'],
+            'totalPages' => $totalPages,
         ]);
     }
 
     /**
-     * @Route("/update/{id}")
+     * @Route(path="/update/{id}", methods={"GET","POST"}, name="update_user")
      */
     public function update(int $id, Request $request): Response
     {
@@ -72,8 +85,12 @@ class UserController extends AbstractController implements LoggerAwareInterface
             $user->telephoneNr = $telephoneNr;
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+            $this->addFlash(
+                'success',
+                'Succesffully edited user'
+            );
 
-            return $this->redirectToRoute('users_page');
+            return $this->redirectToRoute('show_users');
         }
 
         return $this->renderForm('admin/main_page/users/update.user.html.twig', [
@@ -82,16 +99,23 @@ class UserController extends AbstractController implements LoggerAwareInterface
     }
 
     /**
-     * @Route("/delete/{id}")
+     * @Route(path="/delete/{id}",methods={"GET"}, name="delete_user")
      */
     public function delete(int $id): Response
     {
         $user = $this->userRepository->findOneBy(['id' => $id]);
         if (null === $user) {
-            var_dump('denied');
+            $this->addFlash(
+                'error',
+                'User does not exist',
+            );
+            return $this->redirectToRoute('show_users');
         }
         $this->userRepository->remove($user);
-
-        return $this->redirectToRoute('main_page');
+        $this->addFlash(
+            'success',
+            'Succesffully deleted user'
+        );
+        return $this->redirectToRoute('show_users');
     }
 }
