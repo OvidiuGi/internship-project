@@ -66,10 +66,6 @@ class UserController extends AbstractController implements LoggerAwareInterface
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $firstName = $form->getData()['firstname'];
-            $lastName = $form->getData()['lastname'];
-            $email = $form->getData()['email'];
-            $telephoneNr = $form->getData()['telephoneNr'];
             $user = $this->userRepository->findOneBy(['id' => $id]);
             if (null === $user) {
                 $this->logger->info('Cannot update user, it does not exist', ['id' => $id]);
@@ -79,10 +75,10 @@ class UserController extends AbstractController implements LoggerAwareInterface
                 ]);
             }
 
-            $user->firstName = $firstName;
-            $user->lastName = $lastName;
-            $user->email = $email;
-            $user->telephoneNr = $telephoneNr;
+            $user->firstName = $form->getData()['firstname'];
+            $user->lastName = $form->getData()['lastname'];
+            $user->email = $form->getData()['email'];
+            $user->telephoneNr = $form->getData()['telephoneNr'];
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash(
