@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Programme;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Exception;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -126,5 +127,25 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->setParameter('givenId', $id)
             ->getQuery()
             ->execute();
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function showBusiestDay(): array
+    {
+        $conn = $this->entityManager->getConnection();
+
+        $sql = "
+            SELECT concat(DATE_FORMAT(p.start_time,'%W/%M/%Y %H:%i'),' - ',DATE_FORMAT(p.end_time,'%H:%i')) as data,
+            COUNT(pc.user_id) AS nrParticipants,
+            p.id
+            FROM programme p INNER JOIN programmes_customers pc on p.id = pc.programme_id
+            GROUP BY data,p.id
+            ORDER BY nrParticipants DESC
+            LIMIT 5
+        ";
+
+        return $conn->prepare($sql)->executeQuery()->fetchAllAssociative();
     }
 }
