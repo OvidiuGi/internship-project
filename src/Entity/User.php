@@ -5,15 +5,15 @@ namespace App\Entity;
 use App\Controller\Dto\UserDto;
 use App\Repository\UserRepository;
 use App\Validator as MyAssert;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use DateTime;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -50,12 +50,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string")
-     * @MyAssert\Password()
      */
     public string $password = '';
 
     /**
-     * @MyAssert\Password()
+     * @MyAssert\Password(groups={"create-user"})
      */
     public string $plainPassword;
 
@@ -246,12 +245,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->apiToken;
     }
 
-    public function getDeletedAt(): ?\DateTime
+    public function getDeletedAt(): ?DateTime
     {
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(?\DateTime $deletedAt): self
+    public function setDeletedAt(?DateTime $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
 

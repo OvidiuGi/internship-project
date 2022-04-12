@@ -36,6 +36,9 @@ security:
             form_login:
                 login_path: admin_login
                 check_path: admin_login
+            logout:
+                path: app_logout
+                target: admin_login
         token_login:
             lazy: true
             provider: all_users
@@ -57,6 +60,8 @@ security:
         - { path: ^/api/users, roles: PUBLIC_ACCESS }
         - { path: ^/api/newsletter, roles: ROLE_ADMIN }
         - { path: ^api/login, roles: PUBLIC_ACCESS }
+        - { path: ^admin, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
+        - { path: ^admin/login, roles: PUBLIC_ACCESS }
 when@test:
     security:
         password_hashers:

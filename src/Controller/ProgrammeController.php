@@ -32,6 +32,8 @@ class ProgrammeController implements LoggerAwareInterface
 
     private int $maxPerPage;
 
+    private int $defaultPage;
+
     public function __construct(
         ProgrammeRepository $programmeRepository,
         SerializerInterface $serializer,
