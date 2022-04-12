@@ -74,19 +74,6 @@ class UserController extends AbstractController implements LoggerAwareInterface
         }
 
         if ($form->isSubmitted() && $form->isValid()) {
-//            $user = $this->userRepository->findOneBy(['id' => $id]);
-
-//            if (null === $user) {
-//                $this->logger->info('Cannot update user, it does not exist', ['id' => $id]);
-//
-//                return $this->renderForm('admin/main_page/users/update.user.html.twig', [
-//                    'form' => $form,
-//                ]);
-//            }
-//            $user->firstName = $form->getData()['firstName'];
-//            $user->lastName = $form->getData()['lastName'];
-//            $user->email = $form->getData()['email'];
-//            $user->telephoneNr = $form->getData()['telephoneNr'];
             $user = $form->getData();
 
             $this->entityManager->persist($user);
