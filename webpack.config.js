@@ -22,6 +22,7 @@ Encore
      */
     .addEntry('app', './assets/js/app.js')
     .addEntry('admin_login', './assets/js/admin_login.js')
+    .addEntry('error', './assets/js/error.js')
 
     .enableSassLoader()
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
