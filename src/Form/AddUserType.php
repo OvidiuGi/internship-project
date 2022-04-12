@@ -9,6 +9,7 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AddUserType extends AbstractType
 {
@@ -18,7 +19,7 @@ class AddUserType extends AbstractType
             ->add('lastname', TextType::class)
             ->add('email', EmailType::class)
             ->add('telephoneNr', TextType::class)
-            ->add('password', RepeatedType::class, [
+            ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'The pasword fields must match.',
                 'required' => true,
@@ -28,5 +29,13 @@ class AddUserType extends AbstractType
             ->add('cnp', TextType::class)
             ->add('role', TextType::class)
             ->add('submit', SubmitType::class);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        //trebuie sa mai adaug grupuri
+        $resolver->setDefaults([
+            'validation_groups' => ['create-user'],
+        ]);
     }
 }

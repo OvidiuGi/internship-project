@@ -2,6 +2,7 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\User;
 use App\Form\UpdateUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,24 +62,33 @@ class UserController extends AbstractController implements LoggerAwareInterface
      */
     public function update(int $id, Request $request): Response
     {
-        $form = $this->createForm(UpdateUserType::class);
-
+        $user = $this->userRepository->findOneBy(['id' => $id]);
+        $form = $this->createForm(UpdateUserType::class, $user);
         $form->handleRequest($request);
+        if (null === $user) {
+            $this->logger->info('Cannot update user, it does not exist', ['id' => $id]);
+
+            return $this->renderForm('admin/main_page/users/update.user.html.twig', [
+                'form' => $form,
+            ]);
+        }
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $user = $this->userRepository->findOneBy(['id' => $id]);
-            if (null === $user) {
-                $this->logger->info('Cannot update user, it does not exist', ['id' => $id]);
+//            $user = $this->userRepository->findOneBy(['id' => $id]);
 
-                return $this->renderForm('admin/main_page/users/update.user.html.twig', [
-                    'form' => $form,
-                ]);
-            }
+//            if (null === $user) {
+//                $this->logger->info('Cannot update user, it does not exist', ['id' => $id]);
+//
+//                return $this->renderForm('admin/main_page/users/update.user.html.twig', [
+//                    'form' => $form,
+//                ]);
+//            }
+//            $user->firstName = $form->getData()['firstName'];
+//            $user->lastName = $form->getData()['lastName'];
+//            $user->email = $form->getData()['email'];
+//            $user->telephoneNr = $form->getData()['telephoneNr'];
+            $user = $form->getData();
 
-            $user->firstName = $form->getData()['firstname'];
-            $user->lastName = $form->getData()['lastname'];
-            $user->email = $form->getData()['email'];
-            $user->telephoneNr = $form->getData()['telephoneNr'];
             $this->entityManager->persist($user);
             $this->entityManager->flush();
             $this->addFlash(
