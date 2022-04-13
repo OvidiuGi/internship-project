@@ -137,13 +137,21 @@ class ProgrammeRepository extends ServiceEntityRepository
         $conn = $this->entityManager->getConnection();
 
         $sql = "
-            SELECT concat(DATE_FORMAT(p.start_time,'%W/%M/%Y %H:%i'),' - ',DATE_FORMAT(p.end_time,'%H:%i')) as date,
-            COUNT(pc.user_id) AS nrParticipants,
-            p.id
-            FROM programme p INNER JOIN programmes_customers pc on p.id = pc.programme_id
-            GROUP BY date,p.id
-            ORDER BY nrParticipants DESC
-            LIMIT 5
+        SELECT p1.day,
+            p1.hour,
+            p1.participants
+        FROM ( SELECT
+            DATE_FORMAT(p.start_time, '%d-%m-%Y') as day,
+            concat(DATE_FORMAT(p.start_time,'%H:%i'),' - ',DATE_FORMAT(p.end_time,'%H:%i')) as hour,
+            count(pc.user_id) as participants,
+            RANK() over(PARTITION BY DATE_FORMAT(p.start_time, '%d-%m-%Y') ORDER BY count(pc.user_id) desc) as position
+        FROM programme p
+        LEFT JOIN programmes_customers pc on p.id = pc.programme_id
+        GROUP BY day, hour
+        ) as p1
+        WHERE p1.position = 1
+        ORDER BY p1.participants desc
+        LIMIT 5
         ";
 
         return $conn->prepare($sql)->executeQuery()->fetchAllAssociative();

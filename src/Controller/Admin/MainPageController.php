@@ -23,7 +23,7 @@ class MainPageController extends AbstractController
      */
     public function load(): Response
     {
-
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         return $this->render('admin/main_page/main_page.html.twig', []);
     }

@@ -81,17 +81,17 @@
                     <table class="table table-striped table-sm">
                         <thead>
                         <tr>
-                            <th scope="col">Date</th>
-                            <th scope="col">Number Participants</th>
-                            <th scope="col">Programme Id</th>
+                            <th scope="col">Day</th>
+                            <th scope="col">Hour</th>
+                            <th scope="col">NrParticipants</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for data in busiestDays%}
                             <tr>
-                                <td>{{data.date}}</td>
-                                <td>{{data.nrParticipants}}</td>
-                                <td>{{ data.id }}</td>
+                                <td>{{data.day}}</td>
+                                <td>{{data.hour}}</td>
+                                <td>{{ data.participants }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
