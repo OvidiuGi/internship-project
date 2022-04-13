@@ -9,7 +9,7 @@ services:
             $programmeMinTimeInMinutes: '%env(PROGRAMME_MIN_TIME_IN_MINUTES)%'
             $programmeMaxTimeInMinutes: '%env(PROGRAMME_MAX_TIME_IN_MINUTES)%'
             $maxPerPage: '%env(MAX_PER_PAGE)%'
-            $version: '%env(VERSION)%'
+            $apiVersion: '%env(API_VERSION)%'
     App\:
         resource: '../src/'
         exclude:
@@ -19,6 +19,3 @@ services:
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
-    App\EventListener\RequestListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
