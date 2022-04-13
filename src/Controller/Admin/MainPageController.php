@@ -34,8 +34,10 @@ class MainPageController extends AbstractController
     public function getBusiestDay(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
-        $arr = $this->programmeRepository->showBusiestDay();
+        $busiestDays = $this->programmeRepository->showBusiestDay();
 
-        return $this->render('admin/main_page/analytics/busiest_day.html.twig', []);
+        return $this->render('admin/main_page/analytics/busiest_day.html.twig', [
+            'busiestDays' => $busiestDays,
+        ]);
     }
 }

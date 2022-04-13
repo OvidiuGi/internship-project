@@ -137,11 +137,11 @@ class ProgrammeRepository extends ServiceEntityRepository
         $conn = $this->entityManager->getConnection();
 
         $sql = "
-            SELECT concat(DATE_FORMAT(p.start_time,'%W/%M/%Y %H:%i'),' - ',DATE_FORMAT(p.end_time,'%H:%i')) as data,
+            SELECT concat(DATE_FORMAT(p.start_time,'%W/%M/%Y %H:%i'),' - ',DATE_FORMAT(p.end_time,'%H:%i')) as date,
             COUNT(pc.user_id) AS nrParticipants,
             p.id
             FROM programme p INNER JOIN programmes_customers pc on p.id = pc.programme_id
-            GROUP BY data,p.id
+            GROUP BY date,p.id
             ORDER BY nrParticipants DESC
             LIMIT 5
         ";

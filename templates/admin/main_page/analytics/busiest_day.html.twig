@@ -38,7 +38,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="http://internship-project.local/admin/analitycs/busiest-day">
+                            <a class="nav-link" href="http://internship-project.local/admin/analitycs/busiest-day">
                                 <span data-feather="shopping-cart"></span>
                                 Analytics
                             </a>
@@ -50,7 +50,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link active" aria-current="page" href="http://internship-project.local/admin/analitycs/busiest-day">
                                 <span data-feather="bar-chart-2"></span>
                                 Reports
                             </a>
@@ -75,55 +75,28 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Users</h1>
+                    <h1 class="h2">Bussiest Day Raport</h1>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm">
                         <thead>
                         <tr>
-                            <th scope="col">id</th>
-                            <th scope="col">First Name</th>
-                            <th scope="col">Last Name</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Telephone Nr.</th>
-                            <th scope="col">Role</th>
-                            <th scope="col">Actions</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Number Participants</th>
+                            <th scope="col">Programme Id</th>
                         </tr>
                         </thead>
                         <tbody>
-                        {% for user in analytics_data%}
+                        {% for data in busiestDays%}
                             <tr>
-                                <td>{{user.id}}</td>
-                                <td>{{user.firstName}}</td>
-                                <td>{{ user.lastName }}</td>
-                                <td>{{ user.email }}</td>
-                                <td>{{ user.telephoneNr }}</td>
-                                <td>{{ user.roles[0] }}</td>
-                                <td>
-                                    <div class="actionContainer">
-                                        <a class="btn btn-sm btn-outline-secondary" href="http://internship-project.local/admin/users/update/{{user.id}}" style="margin-right: 6px"> Edit</a>
-                                        <a type="button" class="btn-close" href="http://internship-project.local/admin/users/delete/{{user.id}}" aria-label="Close"></a>
-                                    </div>
-
-                                </td>
+                                <td>{{data.date}}</td>
+                                <td>{{data.nrParticipants}}</td>
+                                <td>{{ data.id }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
                 </div>
-                <nav aria-label="Pagination">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link">Previous</a>
-                        </li>
-                        {% for i in 1..totalPages%}
-                            <li class="page-item"><a class="page-link" href="http://internship-project.local/admin/users/?page={{i}}">{{i}}</a></li>
-                        {%endfor%}
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
             </main>
         </div>
     </div>
