@@ -20,11 +20,19 @@ class ProgrammeController implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
+    private const ACCEPTED_TYPES =
+        [
+            'application/json' => 'json',
+            'application/xml' => 'xml',
+        ];
+
     private ProgrammeRepository $programmeRepository;
 
     private SerializerInterface $serializer;
 
     private int $maxPerPage;
+
+    private int $defaultPage;
 
     public function __construct(
         ProgrammeRepository $programmeRepository,
@@ -41,6 +49,10 @@ class ProgrammeController implements LoggerAwareInterface
      */
     public function showPaginatedFilteredSorted(Request $request): Response
     {
+        $header = $request->headers->get('Accept');
+        if (!in_array($header, array_keys(self::ACCEPTED_TYPES), true)) {
+            return new Response('', Response::HTTP_BAD_REQUEST);
+        }
         $paginate = [];
         $paginate['page'] = $request->query->get('page', 1);
         $paginate['size'] = $request->query->get('size', $this->maxPerPage);
@@ -64,7 +76,7 @@ class ProgrammeController implements LoggerAwareInterface
 
         $serializedData = $this->serializer->serialize(
             $resultedProgrammes,
-            'json',
+            self::ACCEPTED_TYPES[$header],
             ['groups' => 'api:programme:all']
         );
 

@@ -1,4 +1,3 @@
-# see https://symfony.com/doc/current/reference/configuration/framework.html
 framework:
     secret: '%env(APP_SECRET)%'
 
@@ -9,9 +8,16 @@ framework:
         cookie_secure: auto
         cookie_samesite: lax
         storage_factory_id: session.storage.factory.native
+    http_client:
+        scoped_clients:
+            sms.client:
+                base_uri: '%env(resolve:SMS_URI)%'
+                headers:
+                    - name: 'X-API-KEY'
+                      value: '%env(resolve:SMS_API_KEY)%'
+            import.programme.api.client:
+                base_uri: '%env(resolve:IMPORT_PROGRAMMES_URI)%'
 
-    #esi: true
-    #fragments: true
     php_errors:
         log: true
 
