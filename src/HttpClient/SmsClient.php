@@ -3,7 +3,9 @@
 namespace App\HttpClient;
 
 use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\HttpClient\Exception\ClientException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class SmsClient
@@ -17,6 +19,10 @@ class SmsClient
         $this->client = $smsClient;
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ClientException
+     */
     public function sendSms(string $receiver, string $body): void
     {
         try {
