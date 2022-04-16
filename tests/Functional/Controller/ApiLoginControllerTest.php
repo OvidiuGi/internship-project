@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class ApiLoginControllerTest extends WebTestCase
 {
-    public function testSomething(): void
+    public function testApiLogin(): void
     {
         $username = 'my.email@server.com';
         $password = 'Parola';

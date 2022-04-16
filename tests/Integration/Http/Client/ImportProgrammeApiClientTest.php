@@ -1,21 +1,25 @@
 <?php
 
-namespace App\HttpClient;
+namespace App\Tests\Integration\Http\Client;
 
+use App\HttpClient\ImportProgrammeApiClient;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class ImportProgrammeApiClient
+class ImportProgrammeApiClientTest extends KernelTestCase
 {
-    private HttpClientInterface $client;
+    private ?ImportProgrammeApiClient $client;
 
-    public function __construct(HttpClientInterface $importProgrammeApiClient)
+    protected function setUp(): void
     {
-        $this->client = $importProgrammeApiClient;
+        parent::setUp();
+
+        $container = self::getContainer();
+        $this->client = $container->get(ImportProgrammeApiClient::class);
     }
 
     /**
@@ -25,14 +29,10 @@ class ImportProgrammeApiClient
      * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function fetchData(): array
+    public function testFetchData()
     {
-        $response = $this->client->request(
-            'GET',
-            '/api/sport-programs'
-        );
-        $fetchedData = $response->toArray();
+        $this->client->fetchData();
 
-        return $fetchedData['data'];
+        self::assertTrue(true);
     }
 }
