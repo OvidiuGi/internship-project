@@ -88,7 +88,7 @@ class Programme
         $this->customers = new ArrayCollection();
     }
 
-    public static function createFromArray(array $array): self
+    public function createFromArray(array $array): self
     {
         $programme = new self();
 
@@ -109,7 +109,7 @@ class Programme
         }
 
         $this->customers->add($customer);
-        $customer->addProgramme($this);
+//        $customer->addProgramme($this);
 
         return $this;
     }
@@ -187,25 +187,6 @@ class Programme
     public function setCustomers(Collection $customers): self
     {
         $this->customers = $customers;
-
-        return $this;
-    }
-
-    public function assignDataToProgramme(
-        string $name,
-        string $description,
-        DateTime $startTime,
-        DateTime $endTime,
-        bool $isOnline,
-        int $maxParticipants
-    ): self {
-        $this->name = $name;
-        $this->description = $description;
-        $this->setStartTime($startTime);
-        $this->setEndTime($endTime);
-        $this->setTrainer(null);
-        $this->isOnline = $isOnline;
-        $this->maxParticipants = $maxParticipants;
 
         return $this;
     }

@@ -13,7 +13,6 @@ class BuildingTest extends TestCase
         $building = new Building();
         $building->setStartTime(new DateTime('1879-03-14'));
         $building->setEndTime(new DateTime('1879-03-14'));
-
         $this->assertEquals(new DateTime('1879-03-14'), $building->getStartTime());
         $this->assertEquals(new DateTime('1879-03-14'), $building->getEndTime());
     }

@@ -72,7 +72,8 @@ class ProgrammeImport implements LoggerAwareInterface
 
                 continue;
             }
-            $programme = Programme::createFromArray($column);
+            $programme = new Programme();
+            $programme = $programme->createFromArray($column);
 
             if (0 == count($this->programmeRepository->getAll())) {
                 $foundRoom = $this->roomRepository->findFirstRoom();
@@ -107,24 +108,22 @@ class ProgrammeImport implements LoggerAwareInterface
         }
         foreach ($data as $line) {
             ++$numberImported;
-            $name = $this->decode->decipher($line['name'], 8);
-            $description = $this->decode->decipher($line['description'], 8);
-            $startTime = date_create_from_format('d.m.Y H:i', $line['startDate']);
-            $endTime = date_create_from_format('d.m.Y H:i', $line['endDate']);
-            $isOnline = filter_var($line['isOnline'], FILTER_VALIDATE_BOOLEAN);
-            $maxParticipants = $line['maxParticipants'];
+            $programmeData[0] = $this->decode->decipher($line['name'], 8);
+            $programmeData[1] = $this->decode->decipher($line['description'], 8);
+            $programmeData[2] = date_create_from_format('d.m.Y H:i', $line['startDate']);
+            $programmeData[3] = date_create_from_format('d.m.Y H:i', $line['endDate']);
+            $programmeData[4] = filter_var($line['isOnline'], FILTER_VALIDATE_BOOLEAN);
+            $programmeData[5] = $line['maxParticipants'];
 
             $programme = new Programme();
-            $programme->assignDataToProgramme(
-                $name,
-                $description,
-                $startTime,
-                $endTime,
-                $isOnline,
-                $maxParticipants
-            );
+            $programme = $programme->createFromArray($programmeData);
 
-            $foundRoom = $this->roomRepository->findFirstAvailable($startTime, $endTime, $maxParticipants, $isOnline);
+            $foundRoom = $this->roomRepository->findFirstAvailable(
+                $programme->getStartTime(),
+                $programme->getEndTime(),
+                $programme->maxParticipants,
+                $programme->isOnline
+            );
             $programme->setRoom($foundRoom);
 
             $this->entityManager->persist($programme);

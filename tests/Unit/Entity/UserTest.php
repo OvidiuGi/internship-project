@@ -3,10 +3,20 @@
 namespace App\Tests\Unit\Entity;
 
 use App\Entity\User;
+use Doctrine\Common\Collections\Collection;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
+    private MockObject $collection;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        $this->collection = $this->createMock(Collection::class);
+    }
     public function testCreateUser()
     {
         $user = new User();
@@ -22,10 +32,13 @@ class UserTest extends TestCase
         $user->setPassword('123');
         $user->setDeletedAt(null);
         $user->setForgotPasswordTokenTime(null);
+        $user->setProgrammes($this->collection);
 
         $this->assertEquals("Test", $user->firstName);
         $this->assertEquals("Testulescu", $user->lastName);
+        $this->assertIsIterable($user->getProgrammes());
         $this->assertEquals("test@test.com", $user->email);
+        $this->assertEquals("test@test.com", $user->getUsername());
         $this->assertEquals("5010911070069", $user->cnp);
         $this->assertEquals("Parola123", $user->plainPassword);
         $this->assertEquals("0754281716", $user->telephoneNr);

@@ -21,17 +21,30 @@ class ApiLoginControllerTest extends WebTestCase
         $token = $decodedContent['token'];
         $usernameResponse = $decodedContent['user'];
 
-        $client->request('GET', 'http://internship-project.local/api/programmes', [], [], [
-            'HTTP_X-AUTH-TOKEN' => $token,
-            'HTTP_ACCEPT' => 'application/json',
-        ]);
+//        $client->request('GET', 'http://internship-project.local/api/programmes', [], [], [
+//            'HTTP_X-AUTH-TOKEN' => $token,
+//            'HTTP_ACCEPT' => 'application/json',
+//        ]);
+//
+//        $this->assertResponseIsSuccessful();
+//        $this->assertEquals($username, $usernameResponse);
+//
+//        $client->request('DELETE', 'http://internship-project.local/api/users/delete/1', [], [], [
+//            'HTTP_X-AUTH-TOKEN' => $token,
+//            'HTTP_ACCEPT' => 'application/json',
+//        ]);
+    }
 
-        $this->assertResponseIsSuccessful();
-        $this->assertEquals($username, $usernameResponse);
+    public function testApiLoginWrongCredentials()
+    {
+        $username = 'my.email@s.com';
+        $password = 'Parola';
+        $client = static::createClient();
 
-        $client->request('DELETE', 'http://internship-project.local/api/users/delete/1', [], [], [
-            'HTTP_X-AUTH-TOKEN' => $token,
-            'HTTP_ACCEPT' => 'application/json',
+        $client->jsonRequest('POST', 'http://internship-project.local/api/login', [
+            'username' => $username,
+            'password' => $password,
         ]);
+        $this->assertResponseStatusCodeSame(401);
     }
 }

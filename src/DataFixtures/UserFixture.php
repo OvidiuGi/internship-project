@@ -26,6 +26,7 @@ class UserFixture extends Fixture
         $user->lastName = 'Testulescu';
         $user->telephoneNr = '123145';
         $user->cnp = '5010911070069';
+        $user->setDeletedAt(null);
 
         $manager->persist($user);
         $manager->flush();
