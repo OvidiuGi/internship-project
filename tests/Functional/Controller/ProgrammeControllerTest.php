@@ -70,7 +70,7 @@ class ProgrammeControllerTest extends WebTestCase
 
         $client->jsonRequest(
             'POST',
-            'http://internship-project.local/api/programmes/join?id='.$programme->getId(),
+            'http://internship-project.local/api/programmes/join?id=' . $programme->getId(),
             [],
             [
             'HTTP_X-AUTH-TOKEN' => $token,

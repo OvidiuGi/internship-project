@@ -7,7 +7,7 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class NewsletterControllerTest extends WebTestCase
 {
-    public function testSendNewsletterToOneAction():  void
+    public function testSendNewsletterToOneAction(): void
     {
         $telephoneNr = '123145';
         $body = 'Test message';

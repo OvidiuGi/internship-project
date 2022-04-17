@@ -129,6 +129,6 @@ class ProgrammeController implements LoggerAwareInterface
         $this->entityManager->persist($programme);
         $this->entityManager->flush();
 
-        return new JsonResponse('Successfully joined programme: '.$programmeId, Response::HTTP_OK, [], true);
+        return new JsonResponse('Successfully joined programme: ' . $programmeId, Response::HTTP_OK, [], true);
     }
 }
