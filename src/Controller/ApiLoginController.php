@@ -16,9 +16,9 @@ use Symfony\Component\Security\Core\Security;
  */
 class ApiLoginController extends AbstractController
 {
-    private Security $security;
-
     use LoggerAwareTrait;
+
+    private Security $security;
 
     private EntityManagerInterface $entityManager;
 
