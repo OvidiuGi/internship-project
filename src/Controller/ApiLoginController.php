@@ -16,17 +16,11 @@ use Symfony\Component\Security\Core\Security;
  */
 class ApiLoginController extends AbstractController
 {
+    private Security $security;
+
     use LoggerAwareTrait;
 
-    /**
-     * @var Security
-     */
-    private $security;
-
-    /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
+    private EntityManagerInterface $entityManager;
 
     public function __construct(Security $security, EntityManagerInterface $entityManager)
     {
