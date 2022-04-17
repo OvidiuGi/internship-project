@@ -3,7 +3,6 @@
 namespace App\Tests\Functional\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 class NewsletterControllerTest extends WebTestCase
 {

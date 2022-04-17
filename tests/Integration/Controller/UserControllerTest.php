@@ -61,6 +61,6 @@ class UserControllerTest extends KernelTestCase
     {
         $this->userController->softDelete(100);
         $user = $this->userRepository->findOneBy(['id' => 100]);
-        self::assertEquals($user, null);
+        self::assertEquals(null, $user);
     }
 }

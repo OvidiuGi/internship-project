@@ -12,8 +12,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 
 class UserDtoArgumentValueResolverTest extends TestCase
 {
-    private MockObject $serializer;
-
     private MockObject $request;
 
     private MockObject $argumentMetadata;
@@ -24,13 +22,13 @@ class UserDtoArgumentValueResolverTest extends TestCase
     {
         parent::setUp();
 
-        $this->serializer = $this->createMock(SerializerInterface::class);
+        $serializer = $this->createMock(SerializerInterface::class);
 
         $this->request = $this->createMock(Request::class);
 
         $this->argumentMetadata = $this->createMock(ArgumentMetadata::class);
 
-        $this->userDtoArgumentValueResolver = new UserDtoArgumentValueResolver($this->serializer);
+        $this->userDtoArgumentValueResolver = new UserDtoArgumentValueResolver($serializer);
     }
 
     public function testSupportInvalidValue(): void

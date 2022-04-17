@@ -3,11 +3,6 @@
 namespace App\Tests\Form\Type;
 
 use App\Form\ResetPasswordType;
-use Doctrine\DBAL\Types\TextType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Test\TypeTestCase;
 
 class ResetPasswordTypeTest extends TypeTestCase

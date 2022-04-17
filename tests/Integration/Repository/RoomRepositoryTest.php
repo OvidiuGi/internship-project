@@ -1,11 +1,9 @@
 <?php
 
-namespace App\Tests\Functional\Repository;
+namespace App\Tests\Integration\Repository;
 
-use App\Entity\Room;
 use App\Repository\ProgrammeRepository;
 use App\Repository\RoomRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class RoomRepositoryTest extends KernelTestCase
