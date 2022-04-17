@@ -72,7 +72,7 @@ class CreateAccountCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->logger->info('Started creating account with command: ' . CreateAccountCommand::$defaultName);
+        $this->logger->info('Started creating account command', ['commandName' => CreateAccountCommand::$defaultName]);
 
         $user = new User();
 
@@ -89,8 +89,11 @@ class CreateAccountCommand extends Command
                 $io->error($violation);
             }
             $this->logger->warning(
-                'Failed creating account by command! with email: ' . $user->email,
-                ['violations' => $violationList]
+                'Failed creating account by command!',
+                [
+                    'userEmail' => $user->email,
+                    'violations' => $violationList
+                ]
             );
 
             return self::FAILURE;
@@ -99,7 +102,7 @@ class CreateAccountCommand extends Command
         $this->entityManager->persist($user);
         $this->entityManager->flush();
 
-        $this->logger->info('Successfully created account by command with email: ' . $user->email);
+        $this->logger->info('Successfully created account by command with email: ', ['userEmail' => $user->email]);
 
         $io->success('Account was successfully created!');
 

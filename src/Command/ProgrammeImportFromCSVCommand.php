@@ -44,9 +44,7 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->logger->info(
-            'Started importing programmes from CSV with command: ' . ProgrammeImportFromCSVCommand::$defaultName
-        );
+        $this->logger->info('Started importing programmes from CSV command', ['commandName' => self::$defaultName]);
 
         $numberOfLines = 0;
 
@@ -69,7 +67,7 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
             return Command::FAILURE;
         } catch (NoResultException $noResultException) {
-            $this->logger->info($noResultException->getMessage());
+            $this->logger->info($noResultException->getMessage(), ['commandName' => self::$defaultName]);
             $io->error($noResultException->getMessage());
 
             return Command::FAILURE;

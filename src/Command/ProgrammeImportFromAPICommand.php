@@ -35,7 +35,8 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
         $io = new SymfonyStyle($input, $output);
 
         $this->logger->info(
-            'Started importing programmes from API with command: ' . ProgrammeImportFromAPICommand::$defaultName
+            'Started importing programmes from API command',
+            ['commandName' => self::$defaultName]
         );
 
         try {
@@ -50,13 +51,19 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
         }
         if ($numberImported > 0) {
             $io->success($numberImported . ' / ' . count($data) . ' programmes imported!');
-            $this->logger->info($numberImported . ' / ' . count($data) . ' programmes imported!');
+            $this->logger->info(
+                $numberImported . ' / ' . count($data) . ' programmes imported!',
+                ['commandName' => self::$defaultName]
+            );
 
             return Command::SUCCESS;
         }
         if (0 == $numberImported) {
             $io->error($numberImported . ' / ' . count($data) . ' programmes imported!');
-            $this->logger->error($numberImported . ' / ' . count($data) . ' programmes imported!');
+            $this->logger->error(
+                $numberImported . ' / ' . count($data) . ' programmes imported!',
+                ['commandName' => self::$defaultName]
+            );
 
             return Command::FAILURE;
         }

@@ -12,14 +12,9 @@ use App\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnexpectedResultException;
 use Exception;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
-class ProgrammeImport implements LoggerAwareInterface
+class ProgrammeImport
 {
-    use LoggerAwareTrait;
-
     private EntityManagerInterface $entityManager;
 
     private CaesarCipher $decode;
@@ -28,18 +23,14 @@ class ProgrammeImport implements LoggerAwareInterface
 
     private ProgrammeRepository $programmeRepository;
 
-    private ValidatorInterface $validator;
-
     public function __construct(
         EntityManagerInterface $entityManager,
         CaesarCipher $decode,
-        ValidatorInterface $validator,
         RoomRepository $roomRepository,
         ProgrammeRepository $programmeRepository
     ) {
         $this->entityManager = $entityManager;
         $this->decode = $decode;
-        $this->validator = $validator;
         $this->roomRepository = $roomRepository;
         $this->programmeRepository = $programmeRepository;
     }

@@ -49,9 +49,7 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
         if ($form->isSubmitted() && $form->isValid()) {
             $givenEmail = $form->getData()['email'];
 
-            $this->logger->info(
-                'Started forgot my password send email form for user: ' . $form->getData()['email']
-            );
+            $this->logger->info('Started forgot my password send email form', ['user' => $form->getData()['email']]);
 
             $user = $this->userRepository->findOneBy(['email' => $givenEmail]);
             if (null === $user) {
@@ -71,7 +69,7 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
             $this->userRepository->add($user);
         }
 
-        $this->logger->info('Password change request sent to ' . $givenEmail);
+        $this->logger->info('Password change request sent', ['user' => $user->getUserIdentifier()]);
 
         return $this->renderForm('forgot-password/forgot.password.html.twig', [
             'form' => $form,
@@ -84,12 +82,10 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
     public function reset(Request $request): Response
     {
         $user = $this->userRepository->findOneBy(['forgotPasswordToken' => $request->query->all()['token']]);
-        $this->logger->info(
-            'Started reset my password with token: ' . $request->query->all()['token']
-        );
+        $this->logger->info('Started reset my password', ['userToken' => $request->query->all()['token']]);
 
         if (null === $user) {
-            $this->logger->info('No user found for token:' . $request->query->all()['token']);
+            $this->logger->info('No user found', ['userToken' => $request->query->all()['token']]);
 
             return new Response('The token is not valid', Response::HTTP_UNAUTHORIZED);
         }
@@ -98,7 +94,7 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
 
         if ($form->isSubmitted() && $form->isValid()) {
             if (date_diff(new \DateTime('now'), $user->getForgotPasswordTokenTime())->i > 60) {
-                $this->logger->info('The reset password link expired for user with email: ' . $user->email);
+                $this->logger->info('The reset password link expired', ['user' => $user->email]);
 
                 return new Response('The link expired', Response::HTTP_UNAUTHORIZED);
             }
