@@ -8,6 +8,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\UnexpectedResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
+/**
+ * @method Room[]    findAll()
+ */
 class RoomRepository extends ServiceEntityRepository
 {
     private EntityManagerInterface $entityManager;

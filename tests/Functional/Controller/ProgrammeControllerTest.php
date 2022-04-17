@@ -76,6 +76,15 @@ class ProgrammeControllerTest extends WebTestCase
             'HTTP_X-AUTH-TOKEN' => $token,
             ]
         );
+
+        $client->jsonRequest(
+            'POST',
+            'http://internship-project.local/api/programmes/join?id=' . $programme->getId(),
+            [],
+            [
+                'HTTP_X-AUTH-TOKEN' => $token,
+            ]
+        );
         $this->assertResponseStatusCodeSame(200);
     }
 

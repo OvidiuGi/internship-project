@@ -7,6 +7,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
+/**
+ * @method Building[]    findAll()
+ */
 class BuildingRepository extends ServiceEntityRepository
 {
     private EntityManagerInterface $entityManager;
