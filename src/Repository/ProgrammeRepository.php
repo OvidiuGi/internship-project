@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 /**
  * @method Programme|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Programme[]    findAll()
  */
 class ProgrammeRepository extends ServiceEntityRepository
 {
@@ -30,53 +31,6 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->createQueryBuilder()
             ->select('p')
             ->from('App\Entity\Programme', 'p')
-            ->getQuery()
-            ->execute();
-    }
-
-    public function exactSearchByName($exactName): array
-    {
-        return $this->entityManager
-            ->createQueryBuilder()
-            ->select('p')
-            ->from('App\Entity\Programme', 'p')
-            ->where('p.name LIKE :str')
-            ->setParameter('exactName', $exactName)
-            ->getQuery()
-            ->execute();
-    }
-
-    public function partialSearchByName($str): array
-    {
-        return $this->entityManager
-            ->createQueryBuilder()
-            ->select('DISTINCT p')
-            ->from('App\Entity\Programme', 'p')
-            ->where('p.name LIKE :str')
-            ->setParameter('str', '%' . $str . '%')
-            ->getQuery()
-            ->execute();
-    }
-
-    public function getSorted(string $field, string $sortType): array
-    {
-        return $this->entityManager
-            ->createQueryBuilder()
-            ->select('p')
-            ->from('App\Entity\Programme', 'p')
-            ->orderBy("p.$field", $sortType)
-            ->getQuery()
-            ->execute();
-    }
-
-    public function getPaginated(int $page, int $limit): array
-    {
-        return $this->entityManager
-            ->createQueryBuilder()
-            ->select('p')
-            ->from('App\Entity\Programme', 'p')
-            ->setFirstResult(($page * $limit) - $limit)
-            ->setMaxResults($limit)
             ->getQuery()
             ->execute();
     }
