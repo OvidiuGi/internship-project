@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class BuildingTest extends TestCase
 {
-    public function testCreateBuilding()
+    public function testCreateBuilding(): void
     {
         $building = new Building();
         $building->setStartTime(new DateTime('1879-03-14'));

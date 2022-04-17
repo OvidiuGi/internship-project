@@ -20,7 +20,7 @@ class SmsClientTest extends KernelTestCase
         $this->client = $container->get(SmsClient::class);
     }
 
-    public function testSendSms()
+    public function testSendSms(): void
     {
         $this->client->sendSms('0754281716', 'Test');
 
@@ -30,7 +30,7 @@ class SmsClientTest extends KernelTestCase
     /**
      * @throws TransportExceptionInterface
      */
-    public function testWrongReceiver()
+    public function testWrongReceiver(): void
     {
         self::expectException(ClientException::class);
         self::expectExceptionMessage(

@@ -2,18 +2,18 @@
 
 namespace App\Tests\Functional\Controller;
 
-use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\Messenger\MessageBusInterface;
 
-class UserControllerTest extends WebTestCase
+class NewsletterControllerTest extends WebTestCase
 {
-    public function testRemoveUser(): void
+    public function testSendNewsletterToOneAction():  void
     {
+        $telephoneNr = '123145';
+        $body = 'Test message';
         $username = 'my.email@server.com';
         $password = 'Parola';
         $client = static::createClient();
-        $userRepository = static::getContainer()->get(UserRepository::class);
-
         $client->jsonRequest('POST', 'http://internship-project.local/api/login', [
             'username' => $username,
             'password' => $password,
@@ -21,25 +21,22 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $decodedContent = json_decode($client->getResponse()->getContent(), true);
         $token = $decodedContent['token'];
-        $usernameResponse = $decodedContent['user'];
 
-        $this->assertResponseIsSuccessful();
-        $this->assertEquals($username, $usernameResponse);
-        $testUser = $userRepository->findOneBy(['email' => $username]);
-        $client->request('DELETE', 'http://internship-project.local/api/users/delete/' . $testUser->getId(), [], [], [
+        $client->jsonRequest('POST', 'http://internship-project.local/api/newsletter', [
+            'receiver' => $telephoneNr,
+            'body' => $body,
+        ], [
             'HTTP_X-AUTH-TOKEN' => $token,
-            'HTTP_ACCEPT' => 'application/json',
         ]);
-        $this->assertResponseStatusCodeSame(302);
+        $this->assertResponseIsSuccessful();
     }
 
-    public function testRecoverUser(): void
+    public function testSendNewletterToAllAction(): void
     {
+        $body = 'Test message';
         $username = 'my.email@server.com';
         $password = 'Parola';
         $client = static::createClient();
-        $userRepository = static::getContainer()->get(UserRepository::class);
-
         $client->jsonRequest('POST', 'http://internship-project.local/api/login', [
             'username' => $username,
             'password' => $password,
@@ -47,29 +44,22 @@ class UserControllerTest extends WebTestCase
         $this->assertResponseIsSuccessful();
         $decodedContent = json_decode($client->getResponse()->getContent(), true);
         $token = $decodedContent['token'];
-        $usernameResponse = $decodedContent['user'];
 
-        $this->assertResponseIsSuccessful();
-        $this->assertEquals($username, $usernameResponse);
-
-        $testUser = $userRepository->findOneBy(['email' => $username]);
-        $client->request('DELETE', 'http://internship-project.local/api/users/delete/' . $testUser->getId(), [], [], [
+        $client->jsonRequest('POST', 'http://internship-project.local/api/newsletter/all', [
+            'body' => $body,
+        ], [
             'HTTP_X-AUTH-TOKEN' => $token,
-            'HTTP_ACCEPT' => 'application/json',
         ]);
-        $this->assertResponseStatusCodeSame(302);
-        $client->jsonRequest('POST', 'http://internship-project.local/api/users/recover', [
-            'email' => $testUser->email,
-        ]);
-        $this->assertResponseStatusCodeSame(302);
+        $this->assertResponseIsSuccessful();
     }
 
-    public function testShowAllUsers(): void
+    public function testSendNewsletterToNonexistentUser(): void
     {
+        $telephoneNr = '11111';
+        $body = 'Test message';
         $username = 'my.email@server.com';
         $password = 'Parola';
         $client = static::createClient();
-
         $client->jsonRequest('POST', 'http://internship-project.local/api/login', [
             'username' => $username,
             'password' => $password,
@@ -78,10 +68,12 @@ class UserControllerTest extends WebTestCase
         $decodedContent = json_decode($client->getResponse()->getContent(), true);
         $token = $decodedContent['token'];
 
-        $client->request('GET', 'http://internship-project.local/api/users', [], [], [
+        $client->jsonRequest('POST', 'http://internship-project.local/api/newsletter', [
+            'receiver' => $telephoneNr,
+            'body' => $body,
+        ], [
             'HTTP_X-AUTH-TOKEN' => $token,
-            'HTTP_ACCEPT' => 'application/json',
         ]);
-        $this->assertResponseStatusCodeSame(200);
+        $this->assertResponseStatusCodeSame(404);
     }
 }

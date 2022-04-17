@@ -7,7 +7,7 @@ use Symfony\Component\Form\Test\TypeTestCase;
 
 class ForgotMyPasswordTypeTest extends TypeTestCase
 {
-    public function testSubmitValidData()
+    public function testSubmitValidData(): void
     {
         $formData = [
             'email' => 'email',

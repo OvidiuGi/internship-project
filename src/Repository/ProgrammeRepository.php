@@ -7,6 +7,9 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 
+/**
+ * @method Programme|null findOneBy(array $criteria, array $orderBy = null)
+ */
 class ProgrammeRepository extends ServiceEntityRepository
 {
     private EntityManagerInterface $entityManager;

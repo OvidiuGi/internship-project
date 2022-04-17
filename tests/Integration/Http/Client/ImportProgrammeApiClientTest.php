@@ -29,7 +29,7 @@ class ImportProgrammeApiClientTest extends KernelTestCase
      * @throws DecodingExceptionInterface
      * @throws ClientExceptionInterface
      */
-    public function testFetchData()
+    public function testFetchData(): void
     {
         $this->client->fetchData();
 

@@ -17,7 +17,7 @@ class UserTest extends TestCase
 
         $this->collection = $this->createMock(Collection::class);
     }
-    public function testCreateUser()
+    public function testCreateUser(): void
     {
         $user = new User();
         $user->firstName = 'Test';

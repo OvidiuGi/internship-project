@@ -38,6 +38,9 @@ class UserDto
      */
     public string $confirmPassword;
 
+    /**
+     * @MyAssert\Cnp
+     */
     public string $cnp;
 
     public array $roles = [];

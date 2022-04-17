@@ -16,14 +16,14 @@ class SmsNotificationTest extends KernelTestCase
         $this->smsNotification = new SmsNotification('07231', 'test');
     }
 
-    public function testGetBody()
+    public function testGetBody(): void
     {
         $body = $this->smsNotification->getBody();
 
         self::assertEquals('test', $body);
     }
 
-    public function testGetReceiver()
+    public function testGetReceiver(): void
     {
         $receiver = $this->smsNotification->getReceiver();
 

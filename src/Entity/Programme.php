@@ -109,7 +109,7 @@ class Programme
         }
 
         $this->customers->add($customer);
-//        $customer->addProgramme($this);
+        $customer->addProgramme($this);
 
         return $this;
     }

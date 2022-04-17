@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class RoomTest extends TestCase
 {
-    public function testCreateRoom()
+    public function testCreateRoom(): void
     {
         $room = new Room();
         $room->name = 'test';
