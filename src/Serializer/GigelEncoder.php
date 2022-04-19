@@ -2,7 +2,7 @@
 
 namespace App\Serializer;
 
-use _PHPStan_c0c409264\Nette\Neon\Exception;
+use Exception;
 use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 
