@@ -150,6 +150,7 @@ class ProgrammeRepository extends ServiceEntityRepository
         GROUP BY day, hour
         ) as p1
         WHERE p1.position = 1
+        AND p1.participants > 0
         ORDER BY p1.participants desc
         LIMIT 5
         ";
