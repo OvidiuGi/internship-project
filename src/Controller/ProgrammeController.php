@@ -56,14 +56,7 @@ class ProgrammeController implements LoggerAwareInterface
 
         $sortBy = $request->query->get('sortBy');
         $direction = $request->query->get('direction');
-
-        $resultedProgrammes = $this->programmeRepository->getPaginatedFilteredSorted(
-            $paginate,
-            $filters,
-            $sortBy,
-            $direction
-        );
-
+        
         return $this->programmeRepository->getPaginatedFilteredSorted($paginate, $filters, $sortBy, $direction);
     }
 }
