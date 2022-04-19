@@ -26,16 +26,24 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
     private int $programmeMaxTimeInMinutes;
 
+    private string $handlerToImportFrom;
+
+    private string $handlerToImportMistakes;
+
     private ProgrammeImport $import;
 
     public function __construct(
         string $programmeMinTimeInMinutes,
         string $programmeMaxTimeInMinutes,
-        ProgrammeImport $import
+        ProgrammeImport $import,
+        string $handlerToImportFrom,
+        string $handlerToImportMistakes
     ) {
         $this->programmeMaxTimeInMinutes = (int) $programmeMaxTimeInMinutes;
         $this->programmeMinTimeInMinutes = (int) $programmeMinTimeInMinutes;
         $this->import = $import;
+        $this->handlerToImportFrom = $handlerToImportFrom;
+        $this->handlerToImportMistakes = $handlerToImportMistakes;
 
         parent::__construct();
     }
@@ -48,12 +56,13 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
         $numberImported = 0;
 
-        $handler = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/file.txt';
-
-        $handlerMistakes = '/home/govidiu/myproject/internship-project/src/FilesToImportFrom/fileWithBadData.txt';
-
         try {
-            $this->import->importFromCSV($handler, $handlerMistakes, $numberImported, $numberOfLines);
+            $this->import->importFromCSV(
+                $this->handlerToImportFrom,
+                $this->handlerToImportMistakes,
+                $numberImported,
+                $numberOfLines
+            );
         } catch (InvalidPathToFileException $e) {
             $this->logger->info($e->getMessage(), ['path' => json_encode($e->getPathToFile())]);
             $io->error($e->getMessage());
