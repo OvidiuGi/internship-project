@@ -3,7 +3,6 @@
 namespace App\Command;
 
 use App\Command\CustomException\EmptyAPIException;
-use App\Command\CustomException\InvalidCSVRowException;
 use App\Command\CustomException\InvalidPathToFileException;
 use App\Decrypter\CaesarCipher;
 use App\Entity\Programme;
@@ -51,6 +50,7 @@ class ProgrammeImport
         if (!file_exists($handlerMistakes)) {
             throw new InvalidPathToFileException('Invalid path to file', 0, null, $handlerMistakes);
         }
+
         $numberOfLines = count(file($handler)) - 1;
         $handler = fopen($handler, 'r');
 
@@ -63,11 +63,13 @@ class ProgrammeImport
 
                 continue;
             }
-            $programme = Programme::createFromArray($column);
 
+            $programme = Programme::createFromArray($column);
             if (0 == count($this->programmeRepository->getAll())) {
                 $foundRoom = $this->roomRepository->findFirstRoom();
-            } else {
+            }
+
+            if (0 != count($this->programmeRepository->getAll())) {
                 $foundRoom = $this->roomRepository->findFirstAvailable(
                     \DateTime::createFromFormat('d.m.Y H:i', $column[2]),
                     \DateTime::createFromFormat('d.m.Y H:i', $column[3]),
@@ -75,6 +77,7 @@ class ProgrammeImport
                     filter_var($column[4], FILTER_VALIDATE_BOOLEAN)
                 );
             }
+
             $programme->setRoom($foundRoom);
 
             $this->entityManager->persist($programme);
@@ -96,6 +99,7 @@ class ProgrammeImport
         if (0 == count($data)) {
             throw new EmptyAPIException('API empty! Nothing to import!', 0, null);
         }
+
         foreach ($data as $line) {
             ++$numberImported;
             $name = $this->decode->decipher($line['name'], 8);

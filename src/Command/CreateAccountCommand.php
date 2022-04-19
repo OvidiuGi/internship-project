@@ -22,6 +22,7 @@ class CreateAccountCommand extends Command
     use LoggerAwareTrait;
 
     protected static $defaultName = 'app:create-account';
+
     protected static $defaultDescription = 'Creates a new account.';
 
     private string $plainPassword;

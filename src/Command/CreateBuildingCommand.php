@@ -16,6 +16,7 @@ class CreateBuildingCommand extends Command
     use LoggerAwareTrait;
 
     protected static $defaultName = 'app:create-building';
+
     protected static $defaultDescription = 'Creates a new building.';
 
     private EntityManagerInterface $entityManager;

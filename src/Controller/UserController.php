@@ -24,7 +24,9 @@ class UserController implements LoggerAwareInterface
     use LoggerAwareTrait;
 
     private ValidatorInterface $validator;
+
     private EntityManagerInterface $entityManager;
+
     private UserPasswordHasherInterface $passwordHasher;
     private UserRepository $userRepository;
     private SerializerInterface $serializer;
