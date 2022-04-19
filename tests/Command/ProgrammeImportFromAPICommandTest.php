@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Exception\MissingInputException;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class CreateAccountCommandTest extends KernelTestCase
+class ProgrammeImportFromAPICommandTest extends KernelTestCase
 {
     private CommandTester $commandTester;
 
@@ -37,8 +37,8 @@ class CreateAccountCommandTest extends KernelTestCase
         $this->commandTester->setInputs(['Name']);
         $this->commandTester->execute(
             [
-            'firstName' => 'Andri',
-            'lastName' => 'Voinicu',
+                'firstName' => 'Andri',
+                'lastName' => 'Voinicu',
                 'cnp' => '5010911070069',
                 'email' => 'email@email.com',
             ],

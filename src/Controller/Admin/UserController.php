@@ -102,6 +102,7 @@ class UserController extends AbstractController implements LoggerAwareInterface
                 'error',
                 'User does not exist',
             );
+
             return $this->redirectToRoute('show_users');
         }
         $this->userRepository->remove($user);
@@ -109,6 +110,7 @@ class UserController extends AbstractController implements LoggerAwareInterface
             'success',
             'Succesffully deleted user'
         );
+
         return $this->redirectToRoute('show_users');
     }
 }
