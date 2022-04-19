@@ -34,7 +34,7 @@ class AcceptedContentSubscriber implements EventSubscriberInterface
     {
         $accept = $event->getRequest()->headers->get('Accept');
 
-        if (!in_array($accept, array_keys(self::HEADER_TO_FORMAT_MAP))) {
+        if (!\in_array($accept, \array_keys(self::HEADER_TO_FORMAT_MAP))) {
             return;
         }
 

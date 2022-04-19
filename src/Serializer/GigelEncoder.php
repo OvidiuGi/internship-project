@@ -14,7 +14,7 @@ class GigelEncoder implements EncoderInterface
     {
         $transformed = ['greeting' => 'Salutare sunt Gigel'];
 
-        return json_encode($transformed);
+        return \json_encode($transformed);
     }
 
     public function supportsEncoding(string $format): bool
