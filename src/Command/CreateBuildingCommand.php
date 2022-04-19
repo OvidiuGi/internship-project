@@ -38,8 +38,6 @@ class CreateBuildingCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->logger->info('Started creating building', ['commandName' => CreateBuildingCommand::$defaultName]);
-
         $startTime = $input->getArgument('startTime');
         $endTime = $input->getArgument('endTime');
 
@@ -51,7 +49,13 @@ class CreateBuildingCommand extends Command
         $this->entityManager->persist($building);
         $this->entityManager->flush();
 
-        $this->logger->info('Successfully created building: ', ['buildingId' => $building->getId()]);
+        $this->logger->info(
+            'Successfully created building: ',
+            [
+                'buildingId' => $building->getId(),
+                'commandName' => CreateBuildingCommand::$defaultName
+            ]
+        );
 
         $io->success('Building was successfully created!');
 
