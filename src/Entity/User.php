@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Controller\Dto\UserDto;
 use App\Repository\UserRepository;
 use App\Validator as MyAssert;
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -113,7 +112,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private ?DateTime $forgotPasswordTokenTime;
+    private ?\DateTime $forgotPasswordTokenTime;
 
     public function __construct()
     {
@@ -163,12 +162,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         $roles[] = self::ROLE_USER;
 
-        return array_values(array_unique($roles));
+        return \array_values(\array_unique($roles));
     }
 
     public function setRoles(array $roles): self
     {
-        $this->roles = array_values(array_unique($roles));
+        if (!\in_array($roles, self::ROLES)) {
+            return $this;
+        }
+
+        $this->roles = \array_values(\array_unique($roles));
 
         return $this;
     }
@@ -223,12 +226,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getForgotPasswordTokenTime(): ?DateTime
+    public function getForgotPasswordTokenTime(): ?\DateTime
     {
         return $this->forgotPasswordTokenTime;
     }
 
-    public function setForgotPasswordTokenTime(?DateTime $forgotPasswordTokenTime): self
+    public function setForgotPasswordTokenTime(?\DateTime $forgotPasswordTokenTime): self
     {
         $this->forgotPasswordTokenTime = $forgotPasswordTokenTime;
 
@@ -247,12 +250,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->apiToken;
     }
 
-    public function getDeletedAt(): ?DateTime
+    public function getDeletedAt(): ?\DateTime
     {
         return $this->deletedAt;
     }
 
-    public function setDeletedAt(?DateTime $deletedAt): self
+    public function setDeletedAt(?\DateTime $deletedAt): self
     {
         $this->deletedAt = $deletedAt;
 

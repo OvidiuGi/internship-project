@@ -37,7 +37,7 @@ class UserSoftDeleteSubscriber implements EventSubscriberInterface
         if (!$user instanceof User) {
             return;
         }
-        if (!in_array('ROLE_TRAINER', $user->getRoles(), true)) {
+        if (!\in_array('ROLE_TRAINER', $user->getRoles(), true)) {
             return;
         }
 
