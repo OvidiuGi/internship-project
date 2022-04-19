@@ -55,7 +55,10 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
         }
 
         $io->success($numberImported . ' / ' . count($data) . ' programmes imported!');
-        $this->logger->info($numberImported . ' / ' . count($data) . ' programmes imported!');
+        $this->logger->info(
+            $numberImported . ' / ' . count($data) . ' programmes imported!',
+            ['commandName' => self::$defaultName]
+        );
 
         return Command::SUCCESS;
     }

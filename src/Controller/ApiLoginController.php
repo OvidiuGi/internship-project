@@ -36,8 +36,6 @@ class ApiLoginController extends AbstractController
         /** @var User $user */
         $user = $this->security->getUser();
 
-        $this->logger->info('Started api login.');
-
         if (null === $user) {
             $this->logger->warning('User failed login, missing credentials');
 

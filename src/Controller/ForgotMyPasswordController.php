@@ -49,8 +49,6 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
         if ($form->isSubmitted() && $form->isValid()) {
             $givenEmail = $form->getData()['email'];
 
-            $this->logger->info('Started forgot my password send email form', ['user' => $form->getData()['email']]);
-
             $user = $this->userRepository->findOneBy(['email' => $givenEmail]);
             if (null === $user) {
                 $this->logger->info('Email does not exist in database');
@@ -67,9 +65,9 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
             $this->passwordMailer->sendEmail($givenEmail, $token);
 
             $this->userRepository->add($user);
-        }
 
-        $this->logger->info('Password change request sent', ['user' => $user->getUserIdentifier()]);
+            $this->logger->info('Password change request sent', ['user' => $user->getUserIdentifier()]);
+        }
 
         return $this->renderForm('forgot-password/forgot.password.html.twig', [
             'form' => $form,
@@ -82,7 +80,6 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
     public function reset(Request $request): Response
     {
         $user = $this->userRepository->findOneBy(['forgotPasswordToken' => $request->query->all()['token']]);
-        $this->logger->info('Started reset my password', ['userToken' => $request->query->all()['token']]);
 
         if (null === $user) {
             $this->logger->info('No user found', ['userToken' => $request->query->all()['token']]);
@@ -103,9 +100,8 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
             $password = $form->getData()['password'];
             $user->setPassword($this->passwordHasher->hashPassword($user, $password));
             $this->userRepository->add($user);
+            $this->logger->info('Password changed for ' . $user->email);
         }
-
-        $this->logger->info('Password changed for ' . $user->email);
 
         return $this->renderForm('forgot-password/forgot.password.html.twig', [
             'form' => $form,

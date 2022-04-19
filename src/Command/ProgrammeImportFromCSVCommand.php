@@ -44,8 +44,6 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
     {
         $io = new SymfonyStyle($input, $output);
 
-        $this->logger->info('Started importing programmes from CSV command', ['commandName' => self::$defaultName]);
-
         $numberOfLines = 0;
 
         $numberImported = 0;
@@ -57,12 +55,24 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
         try {
             $this->import->importFromCSV($handler, $handlerMistakes, $numberImported, $numberOfLines);
         } catch (InvalidPathToFileException $e) {
-            $this->logger->info($e->getMessage(), ['path' => json_encode($e->getPathToFile())]);
+            $this->logger->info(
+                $e->getMessage(),
+                [
+                    'path' => json_encode($e->getPathToFile()),
+                    'commandName' => ProgrammeImportFromCSVCommand::$defaultName
+                ]
+            );
             $io->error($e->getMessage());
 
             return Command::FAILURE;
         } catch (InvalidCSVRowException $exception) {
-            $this->logger->info($exception->getMessage(), ['row' => json_encode($exception->getRow())]);
+            $this->logger->info(
+                $exception->getMessage(),
+                [
+                    'row' => json_encode($exception->getRow()),
+                    'commandName' => ProgrammeImportFromCSVCommand::$defaultName
+                ]
+            );
             $io->error($exception->getMessage());
 
             return Command::FAILURE;
@@ -74,7 +84,14 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
         } finally {
             $io->info('Files closed succesfully!');
         }
+
         $io->info('Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
+        $this->logger->info(
+            'Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.',
+            [
+                'commandName' => ProgrammeImportFromCSVCommand::$defaultName
+            ]
+        );
 
         return Command::SUCCESS;
     }
