@@ -18,7 +18,7 @@ class PasswordValidator extends ConstraintValidator
             throw new UnexpectedTypeException($constraint, Password::class);
         }
 
-        if (count(explode(' ', $value)) > 1) {
+        if (\count(\explode(' ', $value)) > 1) {
             $constraint->message = 'Password not valid!';
             $this->context->buildViolation($constraint->message)->addViolation();
 
@@ -26,7 +26,7 @@ class PasswordValidator extends ConstraintValidator
         }
 
         if (
-            preg_match(
+            \preg_match(
                 '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!#.\/%*?&])[A-Za-z\d@$.\/#!%*?&]{8,}$/',
                 $value,
                 $matches

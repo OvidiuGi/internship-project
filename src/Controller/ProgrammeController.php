@@ -50,7 +50,7 @@ class ProgrammeController implements LoggerAwareInterface
     public function showPaginatedFilteredSorted(Request $request): Response
     {
         $header = $request->headers->get('Accept');
-        if (!in_array($header, array_keys(self::ACCEPTED_TYPES), true)) {
+        if (!\in_array($header, \array_keys(self::ACCEPTED_TYPES), true)) {
             return new Response('', Response::HTTP_BAD_REQUEST);
         }
         $paginate = [];

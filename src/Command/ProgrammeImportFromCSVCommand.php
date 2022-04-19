@@ -55,12 +55,12 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
         try {
             $this->import->importFromCSV($handler, $handlerMistakes, $numberImported, $numberOfLines);
         } catch (InvalidPathToFileException $e) {
-            $this->logger->info($e->getMessage(), ['path' => json_encode($e->getPathToFile())]);
+            $this->logger->info($e->getMessage(), ['path' => \json_encode($e->getPathToFile())]);
             $io->error($e->getMessage());
 
             return Command::FAILURE;
         } catch (InvalidCSVRowException $exception) {
-            $this->logger->info($exception->getMessage(), ['row' => json_encode($exception->getRow())]);
+            $this->logger->info($exception->getMessage(), ['row' => \json_encode($exception->getRow())]);
             $io->error($exception->getMessage());
 
             return Command::FAILURE;

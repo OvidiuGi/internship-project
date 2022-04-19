@@ -52,38 +52,38 @@ class ProgrammeImport implements LoggerAwareInterface
         int &$nr_imported,
         int &$numberOfLines
     ): void {
-        if (!file_exists($handler)) {
+        if (!\file_exists($handler)) {
             throw new InvalidPathToFileException('Invalid path to file', 0, null, $handler);
         }
 
-        if (!file_exists($handlerMistakes)) {
+        if (!\file_exists($handlerMistakes)) {
             throw new InvalidPathToFileException('Invalid path to file', 0, null, $handlerMistakes);
         }
 
-        $numberOfLines = count(file($handler)) - 1;
-        $handler = fopen($handler, 'r');
+        $numberOfLines = \count(file($handler)) - 1;
+        $handler = \fopen($handler, 'r');
 
-        $handlerMistakes = fopen($handlerMistakes, 'a+');
+        $handlerMistakes = \fopen($handlerMistakes, 'a+');
 
-        fgetcsv($handler);
-        while (($column = fgetcsv($handler, null, '|')) !== false) {
-            if (sizeof($column) < 6) {
-                fputcsv($handlerMistakes, $column, '|');
+        \fgetcsv($handler);
+        while (($column = \fgetcsv($handler, null, '|')) !== false) {
+            if (\sizeof($column) < 6) {
+                \fputcsv($handlerMistakes, $column, '|');
 
                 continue;
             }
 
             $programme = Programme::createFromArray($column);
-            if (0 == count($this->programmeRepository->getAll())) {
+            if (0 == \count($this->programmeRepository->getAll())) {
                 $foundRoom = $this->roomRepository->findFirstRoom();
             }
 
-            if (0 != count($this->programmeRepository->getAll())) {
+            if (0 != \count($this->programmeRepository->getAll())) {
                 $foundRoom = $this->roomRepository->findFirstAvailable(
                     \DateTime::createFromFormat('d.m.Y H:i', $column[2]),
                     \DateTime::createFromFormat('d.m.Y H:i', $column[3]),
                     (int) $column[5],
-                    filter_var($column[4], FILTER_VALIDATE_BOOLEAN)
+                    \filter_var($column[4], FILTER_VALIDATE_BOOLEAN)
                 );
             }
 
@@ -94,8 +94,8 @@ class ProgrammeImport implements LoggerAwareInterface
             ++$nr_imported;
         }
 
-        fclose($handler);
-        fclose($handlerMistakes);
+        \fclose($handler);
+        \fclose($handlerMistakes);
     }
 
     /**
@@ -105,7 +105,7 @@ class ProgrammeImport implements LoggerAwareInterface
         array $data,
         int &$numberImported
     ): void {
-        if (0 == count($data)) {
+        if (0 == \count($data)) {
             throw new EmptyAPIException('API empty! Nothing to import!', 0, null);
         }
 
@@ -113,9 +113,9 @@ class ProgrammeImport implements LoggerAwareInterface
             ++$numberImported;
             $name = $this->decode->decipher($line['name'], 8);
             $description = $this->decode->decipher($line['description'], 8);
-            $startTime = date_create_from_format('d.m.Y H:i', $line['startDate']);
-            $endTime = date_create_from_format('d.m.Y H:i', $line['endDate']);
-            $isOnline = filter_var($line['isOnline'], FILTER_VALIDATE_BOOLEAN);
+            $startTime = \date_create_from_format('d.m.Y H:i', $line['startDate']);
+            $endTime = \date_create_from_format('d.m.Y H:i', $line['endDate']);
+            $isOnline = \filter_var($line['isOnline'], FILTER_VALIDATE_BOOLEAN);
             $maxParticipants = $line['maxParticipants'];
 
             $programme = new Programme();
