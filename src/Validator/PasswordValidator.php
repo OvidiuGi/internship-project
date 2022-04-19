@@ -10,11 +10,15 @@ class PasswordValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint): void
     {
+        if ($value === null) {
+            return;
+        }
+
         if (!$constraint instanceof Password) {
             throw new UnexpectedTypeException($constraint, Password::class);
         }
 
-        if (strchr($value, ' ', true)) {
+        if (count(explode(' ', $value)) > 1) {
             $constraint->message = 'Password not valid!';
             $this->context->buildViolation($constraint->message)->addViolation();
 

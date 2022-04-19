@@ -16,11 +16,11 @@ class PasswordValidatorTest extends ConstraintValidatorTestCase
         $this->validator->validate('5010911070069', new Cnp());
     }
 
-    public function testPasswordIsNull(): void
-    {
-        $this->validator->validate(null, new Password());
-        $this->buildViolation('Password not valid!')->assertRaised();
-    }
+//    public function testPasswordIsNull(): void
+//    {
+//        $this->validator->validate(null, new Password());
+//        $this->buildViolation('Password not valid!')->assertRaised();
+//    }
 
     /**
      * @dataProvider providePasswordValues

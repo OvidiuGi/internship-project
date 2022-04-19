@@ -5,23 +5,27 @@ namespace App\Entity;
 use App\Controller\Dto\UserDto;
 use App\Repository\UserRepository;
 use App\Validator as MyAssert;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
-use DateTime;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt", timeAware=false, hardDelete=false)
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     public const ROLE_USER = 'ROLE_USER';
+
     public const ROLE_ADMIN = 'ROLE_ADMIN';
+
     public const ROLE_TRAINER = 'ROLE_TRAINER';
 
     public const ROLES = ['ROLE_USER', 'ROLE_ADMIN', 'ROLE_TRAINER'];
@@ -48,12 +52,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\Column(type="string")
-     * @MyAssert\Password()
      */
     public string $password = '';
 
     /**
-     * @MyAssert\Password()
+     * @MyAssert\Password(groups={"create-user"})
      */
     public string $plainPassword;
 
@@ -63,6 +66,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\NotBlank()
      */
     public string $cnp = '';
+
+    /**
+     * @ORM\Column(type="string", unique="true")
+     */
+    public string $telephoneNr = '';
 
     /**
      * @ORM\Column(type="string")
@@ -88,17 +96,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $programmes;
 
     /**
-     * @ORM\Column(type="string", unique=true, nullable=true)
+     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
      */
-    private $apiToken;
+    private ?\DateTime $deletedAt;
 
     /**
      * @ORM\Column(type="string", unique=true, nullable=true)
      */
-    public string $forgotPasswordToken = '';
+    private ?string $apiToken;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", unique=true, nullable=true)
+     */
+    public ?string $forgotPasswordToken;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private ?DateTime $forgotPasswordTokenTime;
 
@@ -116,6 +129,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $user->lastName = $userDto->lastName;
         $user->firstName = $userDto->firstName;
         $user->setRoles($userDto->roles);
+        $user->telephoneNr = '';
 
         return $user;
     }
@@ -195,8 +209,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function eraseCredentials()
     {
-        // If you store any temporary, sensitive data on the user, clear it here
-        // $this->plainPassword = null;
     }
 
     public function getProgrammes(): Collection
@@ -223,7 +235,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setApiToken($token): self
+    public function setApiToken(?string $token): self
     {
         $this->apiToken = $token;
 
@@ -233,5 +245,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getApiToken(): ?string
     {
         return $this->apiToken;
+    }
+
+    public function getDeletedAt(): ?DateTime
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?DateTime $deletedAt): self
+    {
+        $this->deletedAt = $deletedAt;
+
+        return $this;
     }
 }

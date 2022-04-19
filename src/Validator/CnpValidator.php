@@ -37,9 +37,11 @@ class CnpValidator extends ConstraintValidator
             if (10 == $remainder) {
                 $cValue = 1;
             }
+
             if ($remainder < 10) {
                 $cValue = $remainder;
             }
+
             if ($cValue === (int) $value[$length - 1] && $regexResponse) {
                 return;
             }
