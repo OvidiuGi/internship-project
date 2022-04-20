@@ -91,14 +91,30 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
             return Command::FAILURE;
         } finally {
-            $io->info('Files closed succesfully!');
+            $io->info('Files closed successfully!');
         }
 
-        $io->info('Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
+        if ($numberOfLines > $numberImported) {
+            $io->error($numberImported . ' / ' . $numberOfLines . ' programmes imported!');
+            $this->logger->error(
+                'An error occurred while importing programmes!',
+                [
+                    'commandName' => self::$defaultName,
+                    'numberImported' => $numberImported,
+                    'numberOfLines' => $numberOfLines
+                ]
+            );
+
+            return Command::FAILURE;
+        }
+
+        $io->info('Successfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
         $this->logger->info(
-            'Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.',
+            'Successfully imported programmes!',
             [
-                'commandName' => ProgrammeImportFromCSVCommand::$defaultName
+                'commandName' => self::$defaultName,
+                'numberImported' => $numberImported,
+                'numberOfLines' => $numberOfLines
             ]
         );
 
