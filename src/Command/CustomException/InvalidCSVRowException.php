@@ -2,13 +2,11 @@
 
 namespace App\Command\CustomException;
 
-use Throwable;
-
 class InvalidCSVRowException extends \Exception
 {
     private array $row;
 
-    public function __construct($message = '', $code = 0, Throwable $previous = null, array $row)
+    public function __construct($message, $code, \Throwable $previous, array $row)
     {
         $this->row = $row;
 

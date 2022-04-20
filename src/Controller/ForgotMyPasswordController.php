@@ -65,9 +65,9 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
             $this->passwordMailer->sendEmail($givenEmail, $token);
 
             $this->userRepository->add($user);
-        }
 
-        $this->logger->info('Password change request sent to ' . $givenEmail);
+            $this->logger->info('Password change request sent to ' . $givenEmail);
+        }
 
         return $this->renderForm('forgot-password/forgot.password.html.twig', [
             'form' => $form,
@@ -85,11 +85,12 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
 
             return new Response('The token is not valid', Response::HTTP_UNAUTHORIZED);
         }
+
         $form = $this->createForm(ResetPasswordType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (date_diff(new \DateTime('now'), $user->getForgotPasswordTokenTime())->i > 60) {
+            if (\date_diff(new \DateTime('now'), $user->getForgotPasswordTokenTime())->i > 60) {
                 return new Response('The link expired', Response::HTTP_UNAUTHORIZED);
             }
 
@@ -97,6 +98,7 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
             $user->setPassword($this->passwordHasher->hashPassword($user, $password));
             $this->userRepository->add($user);
         }
+
         $this->logger->info('Password changed for ' . $user->email);
 
         return $this->renderForm('forgot-password/forgot.password.html.twig', [

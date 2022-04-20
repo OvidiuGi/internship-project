@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -37,13 +36,13 @@ class Programme
      * @ORM\Column(type="datetime")
      * @Groups({"api:programme:all"})
      */
-    private DateTime $startTime;
+    private \DateTime $startTime;
 
     /**
      * @ORM\Column(type="datetime")
      * @Groups({"api:programme:all"})
      */
-    private DateTime $endTime;
+    private \DateTime $endTime;
 
     /**
      * Many Programmes have One Trainer.
@@ -96,7 +95,7 @@ class Programme
         $programme->description = $array[1];
         $programme->setStartTime(\DateTime::createFromFormat('d.m.Y H:i', $array[2]));
         $programme->setEndTime(\DateTime::createFromFormat('d.m.Y H:i', $array[3]));
-        $programme->isOnline = filter_var($array[4], FILTER_VALIDATE_BOOLEAN);
+        $programme->isOnline = \filter_var($array[4], FILTER_VALIDATE_BOOLEAN);
         $programme->maxParticipants = (int) $array[5];
 
         return $programme;
@@ -131,24 +130,24 @@ class Programme
         return $this->id;
     }
 
-    public function getStartTime(): DateTime
+    public function getStartTime(): \DateTime
     {
         return $this->startTime;
     }
 
-    public function setStartTime(DateTime $startTime): self
+    public function setStartTime(\DateTime $startTime): self
     {
         $this->startTime = $startTime;
 
         return $this;
     }
 
-    public function getEndTime(): DateTime
+    public function getEndTime(): \DateTime
     {
         return $this->endTime;
     }
 
-    public function setEndTime(DateTime $endTime): self
+    public function setEndTime(\DateTime $endTime): self
     {
         $this->endTime = $endTime;
 
@@ -194,8 +193,8 @@ class Programme
     public function assignDataToProgramme(
         string $name,
         string $description,
-        DateTime $startTime,
-        DateTime $endTime,
+        \DateTime $startTime,
+        \DateTime $endTime,
         bool $isOnline,
         int $maxParticipants
     ): self {
