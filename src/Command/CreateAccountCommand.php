@@ -103,7 +103,7 @@ class CreateAccountCommand extends Command
         $this->entityManager->flush();
 
         $this->logger->info(
-            'Successfully created account by command: ',
+            'Successfully created account by command',
             [
                 'userEmail' => $user->email,
                 'commandName' => CreateAccountCommand::$defaultName

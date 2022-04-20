@@ -58,7 +58,7 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
             $this->logger->info(
                 $e->getMessage(),
                 [
-                    'path' => json_encode($e->getPathToFile()),
+                    'path' => $e->getPathToFile(),
                     'commandName' => ProgrammeImportFromCSVCommand::$defaultName
                 ]
             );

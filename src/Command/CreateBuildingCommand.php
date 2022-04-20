@@ -51,7 +51,7 @@ class CreateBuildingCommand extends Command
         $this->entityManager->flush();
 
         $this->logger->info(
-            'Successfully created building: ',
+            'Successfully created building',
             [
                 'buildingId' => $building->getId(),
                 'commandName' => CreateBuildingCommand::$defaultName
