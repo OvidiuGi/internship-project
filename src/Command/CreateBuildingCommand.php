@@ -44,8 +44,8 @@ class CreateBuildingCommand extends Command
 
         $building = new Building();
 
-        $building->setStartTime(date_create_from_format('H:i', $startTime));
-        $building->setEndTime(date_create_from_format('H:i', $endTime));
+        $building->setStartTime(\date_create_from_format('H:i', $startTime));
+        $building->setEndTime(\date_create_from_format('H:i', $endTime));
 
         $this->entityManager->persist($building);
         $this->entityManager->flush();

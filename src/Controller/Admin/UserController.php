@@ -47,7 +47,7 @@ class UserController extends AbstractController implements LoggerAwareInterface
         $paginate['size'] = $request->query->get('size', 10);
 
         $users = $this->userRepository->getPaginated($paginate['page'], $paginate['size']);
-        $totalPages = ceil(count($this->userRepository->findAll()) / $paginate['size']);
+        $totalPages = \ceil(\count($this->userRepository->findAll()) / $paginate['size']);
 
         return $this->render('admin/main_page/users/users_page.html.twig', [
             'users' => $users,

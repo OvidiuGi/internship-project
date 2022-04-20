@@ -54,7 +54,7 @@ class UserController implements LoggerAwareInterface
         $user->setPassword($this->passwordHasher->hashPassword($user, $user->getPlainPassword()));
 
         $errors = $this->validator->validate($user);
-        if (count($errors) > 0) {
+        if (\count($errors) > 0) {
             $errorArray = [];
             foreach ($errors as $error) {
                 /*
