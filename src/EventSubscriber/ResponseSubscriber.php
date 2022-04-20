@@ -26,7 +26,7 @@ class ResponseSubscriber implements EventSubscriberInterface
         }
 
         $route = $event->getRequest()->attributes->get('_route');
-        if (null === $route || strpos($route, 'api') === false) {
+        if (null === $route || \strpos($route, 'api') === false) {
             return;
         }
 

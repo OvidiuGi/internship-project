@@ -10,20 +10,20 @@ class CaesarCipher
 
     public static function cipher($ch, $key): string
     {
-        if (!ctype_alpha($ch)) {
+        if (!\ctype_alpha($ch)) {
             return $ch;
         }
 
-        $offset = ord(ctype_upper($ch) ? 'A' : 'a');
+        $offset = \ord(\ctype_upper($ch) ? 'A' : 'a');
 
-        return chr(fmod(((ord($ch) + $key) - $offset), 26) + $offset);
+        return \chr(\fmod(((\ord($ch) + $key) - $offset), 26) + $offset);
     }
 
     public static function encipher($input, $key): string
     {
         $output = '';
 
-        $inputArr = str_split($input);
+        $inputArr = \str_split($input);
         foreach ($inputArr as $ch) {
             $output .= CaesarCipher::cipher($ch, $key);
         }

@@ -19,6 +19,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class CreateAccountCommand extends Command
 {
     protected static $defaultName = 'app:create-account';
+
     protected static $defaultDescription = 'Creates a new account.';
 
     private string $plainPassword;

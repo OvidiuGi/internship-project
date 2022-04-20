@@ -10,6 +10,8 @@ services:
             $programmeMaxTimeInMinutes: '%env(PROGRAMME_MAX_TIME_IN_MINUTES)%'
             $maxPerPage: '%env(MAX_PER_PAGE)%'
             $apiVersion: '%env(API_VERSION)%'
+            $handlerToImportFrom: '%env(HANDLER_IMPORT_FROM)%'
+            $handlerToImportMistakes: '%env(HANDLER_IMPORT_MISTAKES)%'
     App\:
         resource: '../src/'
         exclude:
