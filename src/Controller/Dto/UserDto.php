@@ -11,21 +11,10 @@ class UserDto
 {
     public int $id;
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\Regex("/^[A-Z][a-z]+$/")
-     */
     public string $firstName;
 
-    /**
-     * @Assert\NotBlank
-     * @Assert\Regex("/^[A-Z][a-z]+$/")
-     */
     public string $lastName;
 
-    /**
-     * @Assert\Email
-     */
     public string $email;
 
     /**
