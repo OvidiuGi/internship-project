@@ -88,7 +88,7 @@ class Programme
         $this->customers = new ArrayCollection();
     }
 
-    public function createFromArray(array $array): self
+    public static function createFromArray(array $array): self
     {
         $programme = new self();
 

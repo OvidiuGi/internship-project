@@ -72,8 +72,8 @@ class ProgrammeImport implements LoggerAwareInterface
 
                 continue;
             }
-            $programme = new Programme();
-            $programme = $programme->createFromArray($column);
+
+            $programme = Programme::createFromArray($column);
 
             if (0 == count($this->programmeRepository->getAll())) {
                 $foundRoom = $this->roomRepository->findFirstRoom();
@@ -115,8 +115,7 @@ class ProgrammeImport implements LoggerAwareInterface
             $programmeData[4] = filter_var($line['isOnline'], FILTER_VALIDATE_BOOLEAN);
             $programmeData[5] = $line['maxParticipants'];
 
-            $programme = new Programme();
-            $programme = $programme->createFromArray($programmeData);
+            $programme = Programme::createFromArray($programmeData);
 
             $foundRoom = $this->roomRepository->findFirstAvailable(
                 $programme->getStartTime(),

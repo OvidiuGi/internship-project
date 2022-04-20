@@ -65,9 +65,9 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
             $this->passwordMailer->sendEmail($givenEmail, $token);
 
             $this->userRepository->add($user);
-        }
 
-//        $this->logger->info('Password change request sent to ' . $givenEmail);
+            $this->logger->info('Password change request sent to ' . $givenEmail);
+        }
 
         return $this->renderForm('forgot-password/forgot.password.html.twig', [
             'form' => $form,

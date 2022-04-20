@@ -67,5 +67,11 @@ class ProgrammeTest extends TestCase
         $programme = new Programme();
         $programme = $programme->createFromArray($data);
         $this->assertIsObject($programme);
+        $this->assertEquals('name', $programme->name);
+        $this->assertEquals('description', $programme->description);
+        $this->assertEquals(false, $programme->isOnline);
+        $this->assertEquals(\DateTime::createFromFormat('d.m.Y H:i', '17.03.2022 16:00'), $programme->getStartTime());
+        $this->assertEquals(\DateTime::createFromFormat('d.m.Y H:i', '17.03.2022 18:00'), $programme->getEndTime());
+        $this->assertEquals(10, $programme->maxParticipants);
     }
 }

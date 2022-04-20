@@ -31,8 +31,9 @@ class ImportProgrammeApiClientTest extends KernelTestCase
      */
     public function testFetchData(): void
     {
-        $this->client->fetchData();
+        $data = $this->client->fetchData();
 
-        self::assertTrue(true);
+        self::assertIsArray($data);
+        self::assertNotEmpty($data);
     }
 }
