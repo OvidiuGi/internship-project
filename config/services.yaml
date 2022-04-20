@@ -12,6 +12,7 @@ services:
             $apiVersion: '%env(API_VERSION)%'
             $handlerToImportFrom: '%env(HANDLER_IMPORT_FROM)%'
             $handlerToImportMistakes: '%env(HANDLER_IMPORT_MISTAKES)%'
+            $analyticsLog: '%env(ANALYTICS_LOG_FILE)%'
     App\:
         resource: '../src/'
         exclude:
@@ -21,3 +22,8 @@ services:
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
+
+#    App\EventSubscriber\ApiLoginSubscriber:
+#        tags:
+#            - name: kernel.event_subscriber
+#              dispatcher: security.event_dispatcher.api

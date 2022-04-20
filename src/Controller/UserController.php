@@ -8,6 +8,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +24,8 @@ class UserController implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
+    private LoggerInterface $analyticsLogger;
+
     private ValidatorInterface $validator;
 
     private EntityManagerInterface $entityManager;
@@ -36,13 +39,15 @@ class UserController implements LoggerAwareInterface
         ValidatorInterface $validator,
         UserPasswordHasherInterface $passwordHasher,
         UserRepository $userRepository,
-        SerializerInterface $serializer
+        SerializerInterface $serializer,
+        LoggerInterface $analyticsLogger
     ) {
         $this->entityManager = $entityManager;
         $this->validator = $validator;
         $this->passwordHasher = $passwordHasher;
         $this->userRepository = $userRepository;
         $this->serializer = $serializer;
+        $this->analyticsLogger = $analyticsLogger;
     }
 
     /**
@@ -62,7 +67,6 @@ class UserController implements LoggerAwareInterface
                  */
                 $errorArray[$error->getPropertyPath()] = $error->getMessage();
             }
-            $this->logger->info('Failed registering a user.');
 
             return new JsonResponse($errorArray);
         }
@@ -72,7 +76,16 @@ class UserController implements LoggerAwareInterface
         $this->entityManager->refresh($user);
         $savedDto = UserDto::createFromUser($user);
 
-        $this->logger->info('An user is registered');
+        $this->analyticsLogger->info(
+            'User successfully created',
+            [
+                'email' => $savedDto->email,
+                'role' => $savedDto->roles[0],
+                'type' => 'register',
+                'firewall' => 'api',
+                'success' => true,
+            ]
+        );
 
         return new JsonResponse($savedDto, Response::HTTP_CREATED);
     }

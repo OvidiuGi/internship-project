@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Analytics\APILoginsParser;
 use Symfony\Component\Uid\Uuid;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -19,10 +20,13 @@ class ApiLoginController extends AbstractController
 
     private EntityManagerInterface $entityManager;
 
-    public function __construct(Security $security, EntityManagerInterface $entityManager)
+    private APILoginsParser $parser;
+
+    public function __construct(Security $security, EntityManagerInterface $entityManager, APILoginsParser $parser)
     {
         $this->security = $security;
         $this->entityManager = $entityManager;
+        $this->parser = $parser;
     }
 
     /**
@@ -30,6 +34,8 @@ class ApiLoginController extends AbstractController
      */
     public function index(): Response
     {
+        $this->parser->getAPILogins();
+        die;
         /** @var User $user */
         $user = $this->security->getUser();
         if (null === $user) {

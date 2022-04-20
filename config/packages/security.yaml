@@ -39,7 +39,7 @@ security:
             logout:
                 path: app_logout
                 target: admin_login
-        token_login:
+        api:
             lazy: true
             provider: all_users
             stateless: true

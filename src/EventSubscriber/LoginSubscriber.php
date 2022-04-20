@@ -7,9 +7,11 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Security\Http\Event\LoginFailureEvent;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
-class ApiLoginSubscriber implements EventSubscriberInterface
+class LoginSubscriber implements EventSubscriberInterface
 {
     private LoggerInterface $logger;
+
+    public const FIREWALL_TYPES = ['admin', 'api'];
 
     public function __construct(LoggerInterface $analyticsLogger)
     {
@@ -24,14 +26,22 @@ class ApiLoginSubscriber implements EventSubscriberInterface
         ];
     }
 
-    public function loginSuccessLog(LoginSuccessEvent $event)
+    public function loginSuccessLog(LoginSuccessEvent $event): void
     {
         $user = $event->getUser();
+        $firewall = $event->getFirewallName();
+        if (!\in_array($firewall, self::FIREWALL_TYPES)) {
+            return;
+        }
+
         $this->logger->info(
             'Logged in successfully',
             [
                 'email' => $user->getUserIdentifier(),
-                'role' => $user->getRoles()
+                'role' => $user->getRoles()[0],
+                'type' => 'login',
+                'firewall' => $firewall,
+                'success' => true
             ]
         );
     }
@@ -39,6 +49,19 @@ class ApiLoginSubscriber implements EventSubscriberInterface
     public function loginFailedLog(LoginFailureEvent $event)
     {
         $user = $event->getPassport('user')->getUser()->getUserIdentifier();
-        $this->logger->info('Failed logging in', ['email' => $user]);
+        $firewall = $event->getFirewallName();
+        if (!\in_array($firewall, self::FIREWALL_TYPES)) {
+            return;
+        }
+
+        $this->logger->info(
+            'Failed logging in',
+            [
+                'email' => $user,
+                'type' => 'login',
+                'firewall' => $firewall,
+                'success' => false
+            ]
+        );
     }
 }
