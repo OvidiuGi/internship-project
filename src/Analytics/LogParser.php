@@ -2,11 +2,10 @@
 
 namespace App\Analytics;
 
-use App\Controller\Dto\APILoginDto;
-use App\Entity\User;
+use App\Controller\Dto\AnalyticsDto;
 use Symfony\Component\Serializer\SerializerInterface;
 
-class APILoginsParser
+class LogParser
 {
     private string $analyticsLog;
 
@@ -18,14 +17,18 @@ class APILoginsParser
         $this->serializer = $serializer;
     }
 
-    public function getAPILogins()
+    public function parseLogs(): AnalyticsCollection
     {
+        $analytics = new AnalyticsCollection();
+
         $handler = \fopen($this->analyticsLog, 'r', true);
         $line = \fgets($handler);
         while ($line != null) {
-            $deserializedData = $this->serializer->deserialize($line, APILoginDto::class, 'json');
-
+            $deserializedData = $this->serializer->deserialize($line, AnalyticsDto::class, 'json');
+            $analytics->addToCollection($deserializedData);
             $line = \fgets($handler);
         }
+
+        return $analytics;
     }
 }

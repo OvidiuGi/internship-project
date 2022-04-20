@@ -2,7 +2,7 @@
 
 namespace App\Controller\Dto;
 
-class APILoginDto
+class AnalyticsDto
 {
     private \DateTime $dateTime;
 
