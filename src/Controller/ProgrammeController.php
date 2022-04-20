@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Repository\ProgrammeRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -90,8 +91,8 @@ class ProgrammeController extends AbstractController implements LoggerAwareInter
         }
 
         $userToken = $request->headers->get('X-AUTH-TOKEN');
-//        $user = $this->getUser();
-        $user = $this->userRepository->findOneBy(['apiToken' => $userToken]);
+        /** @var User $user */
+        $user = $this->getUser();
         if (null === $user) {
             $this->logger->info(
                 'User with token failed joining to programme',
