@@ -2,6 +2,7 @@
 
 namespace App\HttpClient;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
@@ -28,7 +29,7 @@ class ImportProgrammeApiClient
     public function fetchData(): array
     {
         $response = $this->client->request(
-            'GET',
+            Request::METHOD_GET,
             '/api/sport-programs'
         );
         $fetchedData = $response->toArray();

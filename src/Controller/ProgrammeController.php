@@ -9,6 +9,7 @@ use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +19,7 @@ use Symfony\Component\Serializer\SerializerInterface;
 /**
  * @Route(path="/api/programmes")
  */
-class ProgrammeController implements LoggerAwareInterface
+class ProgrammeController extends AbstractController implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
@@ -89,6 +90,7 @@ class ProgrammeController implements LoggerAwareInterface
         }
 
         $userToken = $request->headers->get('X-AUTH-TOKEN');
+//        $user = $this->getUser();
         $user = $this->userRepository->findOneBy(['apiToken' => $userToken]);
         if (null === $user) {
             $this->logger->info(

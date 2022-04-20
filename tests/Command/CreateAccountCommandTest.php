@@ -2,6 +2,8 @@
 
 namespace App\Tests\Command;
 
+use App\Controller\UserController;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Console\Exception\MissingInputException;
@@ -11,6 +13,8 @@ class CreateAccountCommandTest extends KernelTestCase
 {
     private CommandTester $commandTester;
 
+    private UserRepository $userRepository;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -18,6 +22,10 @@ class CreateAccountCommandTest extends KernelTestCase
         $kernel = self::bootKernel();
 
         $application = new Application($kernel);
+
+        $container = static::getContainer();
+
+        $this->userRepository = $container->get(UserRepository::class);
 
         $command = $application->find('app:create-account');
 
@@ -48,5 +56,10 @@ class CreateAccountCommandTest extends KernelTestCase
             'Account was successfully created!',
             $this->commandTester->getDisplay()
         );
+        $newUser = $this->userRepository->findOneBy(['email' => 'email@email.com']);
+        $this->assertIsObject($newUser);
+        $this->assertEquals('Andri', $newUser->firstName);
+        $this->assertEquals('Voinicu', $newUser->lastName);
+        $this->assertEquals('5010911070069', $newUser->cnp);
     }
 }
