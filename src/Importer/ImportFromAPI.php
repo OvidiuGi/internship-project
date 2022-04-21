@@ -7,6 +7,7 @@ use App\Entity\Programme;
 use App\Exception\CustomException\EmptyAPIException;
 use App\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\UnexpectedResultException;
 
 class ImportFromAPI
 {
@@ -26,8 +27,10 @@ class ImportFromAPI
         $this->roomRepository = $roomRepository;
     }
 
+
     /**
-     * @throws \Exception
+     * @throws EmptyAPIException
+     * @throws UnexpectedResultException
      */
     public function importFromAPI(
         array $data,
@@ -43,18 +46,13 @@ class ImportFromAPI
             $programme = new Programme();
             $programme->name = $this->decode->decipher($line['name'], 8);
             $programme->description = $this->decode->decipher($line['description'], 8);
-            $programme->setStartTime(\date_create_from_format('d.m.Y H:i', $line['startDate']));
-            $programme->setEndTime(\date_create_from_format('d.m.Y H:i', $line['endDate']));
+            $programme->setStartTime(\DateTime::createFromFormat('d.m.Y H:i', $line['startDate']));
+            $programme->setEndTime(\DateTime::createFromFormat('d.m.Y H:i', $line['endDate']));
             $programme->setTrainer(null);
             $programme->isOnline = \filter_var($line['isOnline'], FILTER_VALIDATE_BOOLEAN);
             $programme->maxParticipants = $line['maxParticipants'];
 
-            $foundRoom = $this->roomRepository->findFirstAvailable(
-                $programme->getStartTime(),
-                $programme->getEndTime(),
-                $programme->maxParticipants,
-                $programme->isOnline
-            );
+            $foundRoom = $this->roomRepository->findFirstAvailable($programme);
             $programme->setRoom($foundRoom);
 
             $this->entityManager->persist($programme);
