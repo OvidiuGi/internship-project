@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('graph') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('graph') }}
+    {% endblock %}
+</head>
+
+<body>
+
+{% block body %}{% endblock %}
+
+</div>
+
+</body>
+<footer>
+    <div class="center-flash-message">
+        {%block flash_messages %}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="flash-{{ label }}">
+                        <div class="alert alert-success">
+                            <strong>Success!</strong> {{ message }}.
+                        </div>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endblock %}
+    </div>
+</footer>
+
+</html>

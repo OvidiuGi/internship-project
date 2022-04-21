@@ -1,0 +1,56 @@
+{% extends 'base_graph.html.twig' %}
+
+{% block title%}Hello {{ app.user.username }}!{% endblock %}
+
+{% block body %}
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow ">
+        <div >
+            <a class="navbar-brand col-md-2 col-lg-2 me-0 px-3" href="#">
+                <img src="{{ asset('build/images/app_logo.png') }}"
+                     width="45"
+                     height="45"/>
+            </a>
+            <a class="navbar-brand col-md-2 col-lg-2 me-0 px-3" href="http://internship-project.local/admin" >Waist Management</a>
+        </div>
+
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-nav">
+            <div class="nav-item text-nowrap">
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a class="nav-link px-3" href="{{ logout_path('admin') }}">Sign Out</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+        google.charts.load('current', {'packages':['corechart']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            var data = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['Work',     1],
+                ['Eat',      2],
+                ['Commute',  2],
+                ['Watch TV', 2],
+                ['Sleep',    5]
+            ]);
+
+            var options = {
+                title: 'New accounts created (Percentages by role)'
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+            chart.draw(data, options);
+        }
+    </script>
+
+    <div id="piechart" class="chart"></div>
+
+{% endblock %}

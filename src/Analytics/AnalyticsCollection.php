@@ -59,6 +59,12 @@ class AnalyticsCollection
         return $this;
     }
 
+    public function getNumberAdminLoginsForDay(\DateTime $date): int
+    {
+        var_dump(count($this->getAdminLogins()));
+        return $number;
+    }
+
     public function addAdminLogin(AnalyticsDto $dto): self
     {
         if ($this->adminLogins->contains($dto)) {
@@ -91,6 +97,18 @@ class AnalyticsCollection
         $this->apiLogins->add($dto);
 
         return $this;
+    }
+
+    public function getNumberNewAccountsForRole(string $role): int
+    {
+        $number = 0;
+        foreach ($this->newAccounts as $newAccount) {
+            if ($newAccount->context['role'] === $role) {
+                $number++;
+            }
+        }
+
+        return $number;
     }
 
     public function getNumberApiLoginsForUsername(string $username): int

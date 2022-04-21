@@ -2,10 +2,13 @@
 
 namespace App\Controller\Admin;
 
+use App\Analytics\LogParser;
 use App\Repository\ProgrammeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
+use function _PHPStan_c0c409264\RingCentral\Psr7\copy_to_string;
 
 /**
  * @Route(path="/admin")
@@ -14,9 +17,12 @@ class MainPageController extends AbstractController
 {
     private ProgrammeRepository $programmeRepository;
 
-    public function __construct(ProgrammeRepository $programmeRepository)
+    private LogParser $logParser;
+
+    public function __construct(ProgrammeRepository $programmeRepository, LogParser $logParser)
     {
         $this->programmeRepository = $programmeRepository;
+        $this->logParser = $logParser;
     }
     /**
      * @Route(methods={"GET"}, name="main_page")
@@ -29,15 +35,43 @@ class MainPageController extends AbstractController
     }
 
     /**
-     * @Route(path="/analitycs/busiest-day",methods={"GET"}, name="busiest_day")
+     * @Route(path="/reports/busiest-day",methods={"GET"}, name="busiest_day")
      */
     public function getBusiestDay(): Response
     {
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
         $busiestDays = $this->programmeRepository->showBusiestDay();
 
-        return $this->render('admin/main_page/analytics/busiest_day.html.twig', [
+        return $this->render('admin/main_page/reports/busiest_day.html.twig', [
             'busiestDays' => $busiestDays,
         ]);
     }
+
+    /**
+     * @Route(path="/analytics/accounts",methods={"GET"}, name="analytics_new_accounts")
+     */
+    public function getNewAccountsAnalytics(): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $analytics = $this->logParser->parseLogs();
+        $array = [];
+        foreach ($analytics->getNewAccounts() as $newAccount) {
+
+            /** @var string $role */
+            $role = $newAccount->context['role'];
+            $array[$role] = $analytics->getNumberNewAccountsForRole($role);
+            $array = \array_unique($array);
+        }
+
+        return $this->render('admin/main_page/analytics/new_accounts.html.twig', [
+        ]);
+    }
+
+//    /**
+//     * @Route(path="/analytics/admin",methods={"GET"}, name="analytics_admin_logins")
+//     */
+//    public function getAdminLoginsAnalytics(): Response
+//    {
+//    }
 }
