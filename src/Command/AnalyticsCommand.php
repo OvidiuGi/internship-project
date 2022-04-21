@@ -42,12 +42,14 @@ class AnalyticsCommand extends Command
             $array[$username] = $analytics->getNumberApiLoginsForUsername($username);
             $array = \array_unique($array);
         }
+
         \arsort($array);
         foreach ($array as $value) {
             $table->addRows([
                 [\array_key_first($array), $value]
             ]);
         }
+
         $table->render();
 
         $io->success('Analytics rendered successfully!');

@@ -2,11 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
 use App\Entity\User;
 use App\Repository\ProgrammeRepository;
-use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -15,7 +14,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route(path="/api/programmes")
@@ -26,32 +24,24 @@ class ProgrammeController extends AbstractController implements LoggerAwareInter
 
     private ProgrammeRepository $programmeRepository;
 
-    private UserRepository $userRepository;
-
-    private SerializerInterface $serializer;
-
     private EntityManagerInterface $entityManager;
 
     private int $maxPerPage;
 
-    private int $defaultPage;
-
     public function __construct(
         ProgrammeRepository $programmeRepository,
-        SerializerInterface $serializer,
         int $maxPerPage,
-        UserRepository $userRepository,
         EntityManagerInterface $entityManager
     ) {
         $this->programmeRepository = $programmeRepository;
-        $this->serializer = $serializer;
+
         $this->maxPerPage = $maxPerPage;
-        $this->userRepository = $userRepository;
+
         $this->entityManager = $entityManager;
     }
 
     /**
-     * @Route(methods={"GET"})
+     * @Route(methods={"GET"}, name="api_show_programmes")
      */
     public function showPaginatedFilteredSorted(Request $request): array
     {
@@ -92,7 +82,7 @@ class ProgrammeController extends AbstractController implements LoggerAwareInter
         $userToken = $request->headers->get('X-AUTH-TOKEN');
         /** @var User $user */
         $user = $this->getUser();
-        if (null === $user) {
+        if (null == $user) {
             $this->logger->info(
                 'User with token failed joining to programme',
                 [

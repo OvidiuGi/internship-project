@@ -2,7 +2,7 @@
 
 namespace App\Tests\Command;
 
-use App\Controller\UserController;
+use App\Controller\Api\UserController;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

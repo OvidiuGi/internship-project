@@ -13,6 +13,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Exception\UnexpectedValueException;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -169,7 +170,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRoles(array $roles): self
     {
         if (!\in_array($roles[0], self::ROLES)) {
-            return $this;
+            throw new UnexpectedValueException($roles, 'The role does not exist!');
         }
 
         $this->roles = \array_values(\array_unique($roles));

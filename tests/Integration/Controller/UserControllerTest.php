@@ -3,7 +3,7 @@
 namespace App\Tests\Integration\Controller;
 
 use App\Controller\Dto\UserDto;
-use App\Controller\UserController;
+use App\Controller\Api\UserController;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

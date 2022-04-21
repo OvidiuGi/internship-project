@@ -18,8 +18,11 @@ class AnalyticsCollection
     public function __construct()
     {
         $this->apiLogins = new ArrayCollection();
+
         $this->adminLogins = new ArrayCollection();
+
         $this->failedLogins = new ArrayCollection();
+
         $this->newAccounts = new ArrayCollection();
     }
 

@@ -7,6 +7,7 @@ namespace App\Command;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -31,16 +32,23 @@ class CreateAccountCommand extends Command
 
     private ValidatorInterface $validator;
 
+    private LoggerInterface $analyticsLogger;
+
     private UserPasswordHasherInterface $passwordHasher;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         ValidatorInterface $validator,
-        UserPasswordHasherInterface $passwordHasher
+        UserPasswordHasherInterface $passwordHasher,
+        LoggerInterface $analyticsLogger
     ) {
         $this->validator = $validator;
+
         $this->entityManager = $entityManager;
+
         $this->passwordHasher = $passwordHasher;
+
+        $this->analyticsLogger = $analyticsLogger;
 
         parent::__construct();
     }
@@ -62,7 +70,7 @@ class CreateAccountCommand extends Command
             );
     }
 
-    protected function interact(InputInterface $input, OutputInterface $output)
+    protected function interact(InputInterface $input, OutputInterface $output): void
     {
         $helper = $this->getHelper('question');
         $question = new Question('Please enter the user\'s password: ');
@@ -101,16 +109,19 @@ class CreateAccountCommand extends Command
             return self::FAILURE;
         }
 
-        $this->entityManager->persist($user);
-        $this->entityManager->flush();
-
-        $this->logger->info(
-            'Successfully created account by command',
+        $this->analyticsLogger->info(
+            'User successfully created',
             [
-                'userEmail' => $user->email,
-                'commandName' => CreateAccountCommand::$defaultName
+                'email' => $user->email,
+                'role' => $user->getRoles()[0],
+                'type' => 'register',
+                'firewall' => 'api',
+                'success' => true,
             ]
         );
+
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
 
         $io->success('Account was successfully created!');
 

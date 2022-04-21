@@ -3,8 +3,6 @@ security:
 
     password_hashers:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-#        App\Entity\User:
-#            algorithm: auto
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_TRAINER
@@ -57,11 +55,14 @@ security:
 
     access_control:
         - { path: ^/api/programmes, roles: ROLE_ADMIN }
-        - { path: ^/api/users, roles: PUBLIC_ACCESS }
+        - { path: ^api/programmes, roles: ROLE_USER, methods:[POST] }
+        - { path: ^/api/users, roles: PUBLIC_ACCESS, methods:[POST, PATCH] }
+        - { path: ^/api/users, roles: ROLE_ADMIN }
         - { path: ^/api/newsletter, roles: ROLE_ADMIN }
-        - { path: ^/api/login, roles: PUBLIC_ACCESS }
-        - { path: ^admin, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
-        - { path: ^admin/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: PUBLIC_ACCESS, methods:[POST] }
+        - { path: ^/admin, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
+        - { path: ^/admin/login, roles: PUBLIC_ACCESS }
+        - { path: ^/users/, roles: PUBLIC_ACCESS, methods:[POST] }
 when@test:
     security:
         password_hashers:

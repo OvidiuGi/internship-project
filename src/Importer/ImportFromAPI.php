@@ -23,7 +23,9 @@ class ImportFromAPI
         RoomRepository $roomRepository
     ) {
         $this->entityManager = $entityManager;
+
         $this->decode = $decode;
+
         $this->roomRepository = $roomRepository;
     }
 

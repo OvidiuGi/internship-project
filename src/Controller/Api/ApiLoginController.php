@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
-use App\Analytics\LogParser;
-use Symfony\Component\Uid\Uuid;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Uid\Uuid;
 
 /**
  * @Route("/api")
@@ -20,13 +19,11 @@ class ApiLoginController extends AbstractController
 
     private EntityManagerInterface $entityManager;
 
-    private LogParser $parser;
-
-    public function __construct(Security $security, EntityManagerInterface $entityManager, LogParser $parser)
+    public function __construct(Security $security, EntityManagerInterface $entityManager)
     {
         $this->security = $security;
+
         $this->entityManager = $entityManager;
-        $this->parser = $parser;
     }
 
     /**

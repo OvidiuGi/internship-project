@@ -14,6 +14,7 @@ class LogParser
     public function __construct(string $analyticsLog, SerializerInterface $serializer)
     {
         $this->analyticsLog = $analyticsLog;
+
         $this->serializer = $serializer;
     }
 

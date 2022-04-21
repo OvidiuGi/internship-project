@@ -2,7 +2,6 @@
 
 namespace App\Security;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,27 +13,11 @@ use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
 class TokenAuthenticator extends AbstractGuardAuthenticator
 {
-    private $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
-
-    /**
-     * Called on every request to decide if this authenticator should be
-     * used for the request. Returning `false` will cause this authenticator
-     * to be skipped.
-     */
     public function supports(Request $request): bool
     {
         return $request->headers->has('X-AUTH-TOKEN');
     }
 
-    /**
-     * Called on every request. Return whatever credentials you want to
-     * be passed to getUser() as $credentials.
-     */
     public function getCredentials(Request $request)
     {
         return $request->headers->get('X-AUTH-TOKEN');
@@ -68,9 +51,6 @@ class TokenAuthenticator extends AbstractGuardAuthenticator
         return new JsonResponse($data, Response::HTTP_UNAUTHORIZED);
     }
 
-    /**
-     * Called when authentication is needed, but it's not sent
-     */
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
         $data = [

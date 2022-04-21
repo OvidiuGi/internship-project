@@ -46,9 +46,9 @@ class LoginSubscriber implements EventSubscriberInterface
         );
     }
 
-    public function loginFailedLog(LoginFailureEvent $event)
+    public function loginFailedLog(LoginFailureEvent $event): void
     {
-        $user = $event->getPassport('user')->getUser()->getUserIdentifier();
+        $user = $event->getPassport()->getUser()->getUserIdentifier();
         $firewall = $event->getFirewallName();
         if (!\in_array($firewall, self::FIREWALL_TYPES)) {
             return;

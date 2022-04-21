@@ -18,6 +18,7 @@ class ResetPasswordMailer
     public function __construct(MailerInterface $mailer, RouterInterface $router)
     {
         $this->mailer = $mailer;
+
         $this->router = $router;
     }
 

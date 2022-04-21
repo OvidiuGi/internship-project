@@ -19,7 +19,6 @@ final class Version20220401115300 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE user ADD forgot_password_token VARCHAR(255) DEFAULT NULL, ADD forgot_password_token_time DATETIME NOT NULL');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D6498625E4A2 ON user (forgot_password_token)');
     }

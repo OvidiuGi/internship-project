@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Api;
 
 use App\Mailer\NewsletterMailer;
 use App\Message\SmsNotification;
@@ -10,8 +10,8 @@ use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Messenger\MessageBusInterface;
-use Symfony\Component\Notifier\Exception\TransportExceptionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -30,38 +30,13 @@ class NewsletterController implements LoggerAwareInterface
         NewsletterMailer $newsletterMailer
     ) {
         $this->userRepository = $userRepository;
+
         $this->newsletterMailer = $newsletterMailer;
     }
 
     /**
-     * @Route(methods={"POST"})
-     *
+     * @Route(methods={"POST"}, name="api_newsletter")
      * @throws TransportExceptionInterface
-     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
-     */
-    public function sendNewsletterToOneAction(Request $request, MessageBusInterface $messageBus): Response
-    {
-        $data = $request->toArray();
-        $telephoneNr = $data['receiver'];
-        $body = $data['body'];
-
-        $user = $this->userRepository->findOneBy(['telephoneNr' => $telephoneNr]);
-        if (null === $user) {
-            $this->logger->warning('User not found', ['telephoneNr' => $telephoneNr]);
-
-            return new JsonResponse('Not found', Response::HTTP_NOT_FOUND, [], true);
-        }
-
-        $this->newsletterMailer->sendEmail($user->email, $body);
-
-        $messageBus->dispatch(new SmsNotification($telephoneNr, $body));
-
-        return new JsonResponse('SMS and Email sent', Response::HTTP_OK, [], true);
-    }
-
-    /**
-     * @Route(path="/all",methods={"POST"})
-     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
     public function sendNewsletterToAllAction(Request $request, MessageBusInterface $messageBus): Response
     {
