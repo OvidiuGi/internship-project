@@ -53,16 +53,17 @@ class MainPageController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_ADMIN');
 
         $analytics = $this->logParser->parseLogs();
-        $array = [];
+        $newAccountsWithRole = [];
         foreach ($analytics->getNewAccounts() as $newAccount) {
 
             /** @var string $role */
             $role = $newAccount->context['role'];
-            $array[$role] = $analytics->getNumberNewAccountsForRole($role);
-            $array = \array_unique($array);
+            $newAccountsWithRole[$role] = $analytics->getNumberNewAccountsForRole($role);
+            $newAccountsWithRole = \array_unique($newAccountsWithRole);
         }
 
         return $this->render('admin/main_page/analytics/new_accounts.html.twig', [
+            'newAccountsWithRole' => $newAccountsWithRole
         ]);
     }
 
