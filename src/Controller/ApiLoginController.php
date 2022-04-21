@@ -26,7 +26,7 @@ class ApiLoginController extends AbstractController
     }
 
     /**
-     * @Route("/login", name="api_login", methods = {"POST"})
+     * @Route(name="api_login", methods = {"POST"})
      */
     public function index(): Response
     {

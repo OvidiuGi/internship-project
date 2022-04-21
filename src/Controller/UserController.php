@@ -78,7 +78,7 @@ class UserController implements LoggerAwareInterface
     }
 
     /**
-     * @Route(path="/delete/{id}", methods={"DELETE"})
+     * @Route(path="/{id}", methods={"DELETE"})
      */
     public function softDelete(int $id): Response
     {
@@ -98,7 +98,7 @@ class UserController implements LoggerAwareInterface
     }
 
     /**
-     * @Route(path="/recover", methods={"POST"})
+     * @Route(methods={"PATCH"})
      */
     public function recover(Request $request): Response
     {

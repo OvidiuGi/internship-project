@@ -168,7 +168,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): self
     {
-        if (!\in_array($roles, self::ROLES)) {
+        if (!\in_array($roles[0], self::ROLES)) {
             return $this;
         }
 
