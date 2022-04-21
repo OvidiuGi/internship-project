@@ -7,6 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class BuildingTest extends KernelTestCase
 {
+    protected function runTest(): void
+    {
+        $this->markTestSkipped('Skipped test');
+    }
+
     public function testGetId(): void
     {
         self::bootKernel();
