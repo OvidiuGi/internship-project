@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Command\CustomException\InvalidCSVRowException;
-use App\Command\CustomException\InvalidPathToFileException;
+use App\Exception\CustomException\InvalidCSVRowException;
+use App\Exception\CustomException\InvalidPathToFileException;
+use App\Importer\ImportFromCSV;
 use Doctrine\ORM\NoResultException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
@@ -22,25 +23,17 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
     protected static $defaultDescription = 'Imports programmes from a CSV file.';
 
-    private int $programmeMinTimeInMinutes;
-
-    private int $programmeMaxTimeInMinutes;
-
     private string $handlerToImportFrom;
 
     private string $handlerToImportMistakes;
 
-    private ProgrammeImport $import;
+    private ImportFromCSV $import;
 
     public function __construct(
-        string $programmeMinTimeInMinutes,
-        string $programmeMaxTimeInMinutes,
-        ProgrammeImport $import,
+        ImportFromCSV $import,
         string $handlerToImportFrom,
         string $handlerToImportMistakes
     ) {
-        $this->programmeMaxTimeInMinutes = (int) $programmeMaxTimeInMinutes;
-        $this->programmeMinTimeInMinutes = (int) $programmeMinTimeInMinutes;
         $this->import = $import;
         $this->handlerToImportFrom = $handlerToImportFrom;
         $this->handlerToImportMistakes = $handlerToImportMistakes;
@@ -79,9 +72,9 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
 
             return Command::FAILURE;
         } finally {
-            $io->info('Files closed succesfully!');
+            $io->info('Files closed successfully!');
         }
-        $io->info('Succesfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
+        $io->info('Successfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
 
         return Command::SUCCESS;
     }

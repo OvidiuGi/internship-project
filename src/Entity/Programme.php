@@ -87,20 +87,6 @@ class Programme
         $this->customers = new ArrayCollection();
     }
 
-    public static function createFromArray(array $array): self
-    {
-        $programme = new self();
-
-        $programme->name = $array[0];
-        $programme->description = $array[1];
-        $programme->setStartTime(\DateTime::createFromFormat('d.m.Y H:i', $array[2]));
-        $programme->setEndTime(\DateTime::createFromFormat('d.m.Y H:i', $array[3]));
-        $programme->isOnline = \filter_var($array[4], FILTER_VALIDATE_BOOLEAN);
-        $programme->maxParticipants = (int) $array[5];
-
-        return $programme;
-    }
-
     public function addCustomer(User $customer): self
     {
         if ($this->customers->contains($customer)) {
@@ -186,25 +172,6 @@ class Programme
     public function setCustomers(Collection $customers): self
     {
         $this->customers = $customers;
-
-        return $this;
-    }
-
-    public function assignDataToProgramme(
-        string $name,
-        string $description,
-        \DateTime $startTime,
-        \DateTime $endTime,
-        bool $isOnline,
-        int $maxParticipants
-    ): self {
-        $this->name = $name;
-        $this->description = $description;
-        $this->setStartTime($startTime);
-        $this->setEndTime($endTime);
-        $this->setTrainer(null);
-        $this->isOnline = $isOnline;
-        $this->maxParticipants = $maxParticipants;
 
         return $this;
     }
