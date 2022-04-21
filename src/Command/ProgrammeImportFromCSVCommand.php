@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Command;
 
-use App\Exception\CustomException\InvalidCSVRowException;
 use App\Exception\CustomException\InvalidPathToFileException;
 use App\Importer\ImportFromCSV;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\UnexpectedResultException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
@@ -35,12 +35,17 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
         string $handlerToImportMistakes
     ) {
         $this->import = $import;
+
         $this->handlerToImportFrom = $handlerToImportFrom;
+
         $this->handlerToImportMistakes = $handlerToImportMistakes;
 
         parent::__construct();
     }
 
+    /**
+     * @throws UnexpectedResultException
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
@@ -61,11 +66,6 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
             $io->error($e->getMessage());
 
             return Command::FAILURE;
-        } catch (InvalidCSVRowException $exception) {
-            $this->logger->info($exception->getMessage(), ['row' => \json_encode($exception->getRow())]);
-            $io->error($exception->getMessage());
-
-            return Command::FAILURE;
         } catch (NoResultException $noResultException) {
             $this->logger->info($noResultException->getMessage());
             $io->error($noResultException->getMessage());
@@ -74,6 +74,7 @@ class ProgrammeImportFromCSVCommand extends Command implements LoggerAwareInterf
         } finally {
             $io->info('Files closed successfully!');
         }
+
         $io->info('Successfully imported ' . $numberImported . ' / ' . $numberOfLines . ' programmes.');
 
         return Command::SUCCESS;

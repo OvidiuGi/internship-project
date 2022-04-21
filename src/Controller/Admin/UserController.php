@@ -2,7 +2,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Entity\User;
 use App\Form\UpdateUserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,16 +23,13 @@ class UserController extends AbstractController implements LoggerAwareInterface
 
     private UserRepository $userRepository;
 
-    private int $maxPerPage;
-
     public function __construct(
         UserRepository $userRepository,
-        EntityManagerInterface $entityManager,
-        int $maxPerPage
+        EntityManagerInterface $entityManager
     ) {
         $this->userRepository = $userRepository;
+
         $this->entityManager = $entityManager;
-        $this->maxPerPage = $maxPerPage;
     }
 
     /**

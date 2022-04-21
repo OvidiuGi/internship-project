@@ -4,7 +4,6 @@ namespace App\Controller\Dto;
 
 use App\Entity\User;
 use App\Validator as MyAssert;
-use DateTime;
 use Symfony\Component\Validator\Constraints as Assert;
 
 class UserDto

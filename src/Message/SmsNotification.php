@@ -11,6 +11,7 @@ class SmsNotification
     public function __construct(string $receiver, string $body)
     {
         $this->body = $body;
+
         $this->receiver = $receiver;
     }
 

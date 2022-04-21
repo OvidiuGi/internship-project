@@ -31,9 +31,8 @@ class AddUserType extends AbstractType
             ->add('submit', SubmitType::class);
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
-        //trebuie sa mai adaug grupuri
         $resolver->setDefaults([
             'validation_groups' => ['create-user'],
         ]);

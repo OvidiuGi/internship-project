@@ -23,6 +23,7 @@ class ProgrammeRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
+
         parent::__construct($registry, Programme::class);
     }
 
@@ -87,6 +88,7 @@ class ProgrammeRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+
 
     /**
      * @throws Exception

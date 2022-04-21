@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Analytics\LogParser;
 use App\Repository\ProgrammeRepository;
+use Doctrine\DBAL\Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +21,7 @@ class MainPageController extends AbstractController
     public function __construct(ProgrammeRepository $programmeRepository, LogParser $logParser)
     {
         $this->programmeRepository = $programmeRepository;
+
         $this->logParser = $logParser;
     }
 
@@ -35,6 +37,7 @@ class MainPageController extends AbstractController
 
     /**
      * @Route(path="/reports/busiest-day",methods={"GET"}, name="busiest_day")
+     * @throws Exception
      */
     public function getBusiestDay(): Response
     {

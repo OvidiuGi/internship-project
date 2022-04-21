@@ -21,6 +21,7 @@ class RoomRepository extends ServiceEntityRepository
         EntityManagerInterface $entityManager
     ) {
         $this->entityManager = $entityManager;
+
         parent::__construct($registry, Room::class);
     }
 

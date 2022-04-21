@@ -16,6 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Exception\CircularReferenceException;
 
 /**
  * @Route(path="/api/users")
@@ -31,7 +32,9 @@ class UserController implements LoggerAwareInterface
     private EntityManagerInterface $entityManager;
 
     private UserPasswordHasherInterface $passwordHasher;
+
     private UserRepository $userRepository;
+
     private SerializerInterface $serializer;
 
     public function __construct(
@@ -43,15 +46,20 @@ class UserController implements LoggerAwareInterface
         LoggerInterface $analyticsLogger
     ) {
         $this->entityManager = $entityManager;
+
         $this->validator = $validator;
+
         $this->passwordHasher = $passwordHasher;
+
         $this->userRepository = $userRepository;
+
         $this->serializer = $serializer;
+
         $this->analyticsLogger = $analyticsLogger;
     }
 
     /**
-     * @Route(methods={"POST"})
+     * @Route(methods={"POST"},name="api_user_register")
      */
     public function register(UserDto $userDto): Response
     {
@@ -91,7 +99,7 @@ class UserController implements LoggerAwareInterface
     }
 
     /**
-     * @Route(path="/{id}", methods={"DELETE"})
+     * @Route(path="/{id}", methods={"DELETE"},name="api_user_delete")
      */
     public function softDelete(int $id): Response
     {
@@ -111,7 +119,7 @@ class UserController implements LoggerAwareInterface
     }
 
     /**
-     * @Route(methods={"PATCH"})
+     * @Route(methods={"PATCH"},name="api_user_recover")
      */
     public function recover(Request $request): Response
     {
@@ -136,20 +144,5 @@ class UserController implements LoggerAwareInterface
         $this->logger->info('Account recovered when soft deleted: ', ['userEmail' => $email]);
 
         return new JsonResponse('Account restored.', Response::HTTP_FOUND, [], true);
-    }
-
-    /**
-     * @Route(methods={"GET"})
-     */
-    public function show(): Response
-    {
-        $users = $this->userRepository->findAll();
-
-        $serializedData = $this->serializer->serialize(
-            $users,
-            'json'
-        );
-
-        return new JsonResponse($serializedData, Response::HTTP_OK, [], true);
     }
 }

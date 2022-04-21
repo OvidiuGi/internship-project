@@ -3,10 +3,12 @@
 namespace App\Importer;
 
 use App\Entity\Programme;
+use App\Entity\Room;
 use App\Exception\CustomException\InvalidPathToFileException;
 use App\Repository\ProgrammeRepository;
 use App\Repository\RoomRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\UnexpectedResultException;
 
 class ImportFromCSV
 {
@@ -22,13 +24,15 @@ class ImportFromCSV
         RoomRepository $roomRepository
     ) {
         $this->entityManager = $entityManager;
+
         $this->programmeRepository = $programmeRepository;
+
         $this->roomRepository = $roomRepository;
     }
 
     /**
      * @throws InvalidPathToFileException
-     * @throws \Doctrine\ORM\UnexpectedResultException
+     * @throws UnexpectedResultException
      */
     public function importFromCSV(
         string $handler,
@@ -50,7 +54,7 @@ class ImportFromCSV
         $handlerMistakes = \fopen($handlerMistakes, 'a+');
 
         \fgetcsv($handler);
-        while (($column = \fgetcsv($handler, null, '|')) !== false) {
+        while (($column = \fgetcsv($handler, 400, '|')) !== false) {
             if (\sizeof($column) < 6) {
                 \fputcsv($handlerMistakes, $column, '|');
 
@@ -65,6 +69,8 @@ class ImportFromCSV
             $programme->setEndTime(\DateTime::createFromFormat('d.m.Y H:i', $column[3]));
             $programme->isOnline = \filter_var($column[4], FILTER_VALIDATE_BOOLEAN);
             $programme->maxParticipants = (int) $column[5];
+
+            $foundRoom = new Room();
             if (0 == \count($this->programmeRepository->getAll())) {
                 $foundRoom = $this->roomRepository->findFirstRoom();
             }

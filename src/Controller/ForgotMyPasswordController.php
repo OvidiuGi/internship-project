@@ -11,6 +11,7 @@ use Psr\Log\LoggerAwareTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Uid\Uuid;
@@ -34,12 +35,15 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
         UserPasswordHasherInterface $passwordHasher
     ) {
         $this->passwordMailer = $passwordMailer;
+
         $this->userRepository = $userRepository;
+
         $this->passwordHasher = $passwordHasher;
     }
 
     /**
-     * @Route(path="/forgot-password")
+     * @Route(path="/forgot-password", name="forgot_password", methods={"GET","POST"})
+     * @throws TransportExceptionInterface
      */
     public function send(Request $request): Response
     {
@@ -75,7 +79,7 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
     }
 
     /**
-     * @Route(path="/reset-password", name="reset_password")
+     * @Route(path="/reset-password", name="reset_password",methods={"POST"})
      */
     public function reset(Request $request): Response
     {

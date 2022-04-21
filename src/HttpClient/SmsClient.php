@@ -4,6 +4,7 @@ namespace App\HttpClient;
 
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpClient\Exception\ClientException;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
@@ -27,7 +28,7 @@ class SmsClient
     {
         try {
             $this->client->request(
-                'POST',
+                REQUEST::METHOD_POST,
                 '/api/messages',
                 [
                     'json' => [
