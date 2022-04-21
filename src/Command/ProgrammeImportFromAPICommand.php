@@ -46,6 +46,7 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+
         try {
             $data = $this->client->fetchData();
             $numberImported = 0;
@@ -56,15 +57,29 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
 
             return Command::FAILURE;
         }
-        if (0 == $numberImported) {
-            $io->error($numberImported . ' / ' . \count($data) . ' programmes imported!');
-            $this->logger->error($numberImported . ' / ' . \count($data) . ' programmes imported!');
+        if (count($data) > $numberImported) {
+            $io->error($numberImported . ' / ' . count($data) . ' programmes imported!');
+            $this->logger->error(
+                'An error occurred while importing programmes!',
+                [
+                    'commandName' => self::$defaultName,
+                    'numberImported' => $numberImported,
+                    'totalProgrammes' => count($data)
+                ]
+            );
 
             return Command::FAILURE;
         }
 
-        $io->success($numberImported . ' / ' . \count($data) . ' programmes imported!');
-        $this->logger->info($numberImported . ' / ' . \count($data) . ' programmes imported!');
+        $io->success($numberImported . ' / ' . count($data) . ' programmes imported!');
+        $this->logger->info(
+            'Successfully imported programmes!',
+            [
+                'commandName' => self::$defaultName,
+                'numberImported' => $numberImported,
+                'totalProgrammes' => count($data)
+            ]
+        );
 
         return Command::SUCCESS;
     }

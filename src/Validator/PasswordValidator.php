@@ -30,7 +30,7 @@ class PasswordValidator extends ConstraintValidator
                 '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!#.\/%*?&])[A-Za-z\d@$.\/#!%*?&]{8,}$/',
                 $value,
                 $matches
-            ) && !empty($matches[0])
+            )
         ) {
             return;
         }

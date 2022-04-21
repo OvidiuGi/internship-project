@@ -8,12 +8,9 @@ use Doctrine\Bundle\DoctrineBundle\EventSubscriber\EventSubscriberInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Gedmo\SoftDeleteable\SoftDeleteableListener;
-use Psr\Log\LoggerAwareTrait;
 
 class UserSoftDeleteSubscriber implements EventSubscriberInterface
 {
-    use LoggerAwareTrait;
-
     private EntityManagerInterface $entityManager;
 
     private ProgrammeRepository $programmeRepository;

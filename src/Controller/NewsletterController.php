@@ -47,7 +47,7 @@ class NewsletterController implements LoggerAwareInterface
 
         $user = $this->userRepository->findOneBy(['telephoneNr' => $telephoneNr]);
         if (null === $user) {
-            $this->logger->warning('User not found with telephone number: ' . $telephoneNr);
+            $this->logger->warning('User not found', ['telephoneNr' => $telephoneNr]);
 
             return new JsonResponse('Not found', Response::HTTP_NOT_FOUND, [], true);
         }

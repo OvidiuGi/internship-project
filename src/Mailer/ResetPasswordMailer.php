@@ -2,18 +2,15 @@
 
 namespace App\Mailer;
 
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Uid\Uuid;
 
-class ResetPasswordMailer implements LoggerAwareInterface
+class ResetPasswordMailer
 {
-    use LoggerAwareTrait;
-
     private MailerInterface $mailer;
 
     private RouterInterface $router;
@@ -24,6 +21,9 @@ class ResetPasswordMailer implements LoggerAwareInterface
         $this->router = $router;
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     */
     public function sendEmail(string $givenEmail, Uuid $token): void
     {
         $changePasswordUrl = $this->router->generate(
