@@ -8,8 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use function _PHPStan_c0c409264\RingCentral\Psr7\copy_to_string;
-
 /**
  * @Route(path="/admin")
  */
