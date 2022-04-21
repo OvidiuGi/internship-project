@@ -12,6 +12,7 @@ services:
             $apiVersion: '%env(API_VERSION)%'
             $handlerToImportFrom: '%env(HANDLER_IMPORT_FROM)%'
             $handlerToImportMistakes: '%env(HANDLER_IMPORT_MISTAKES)%'
+            $analyticsLog: '%env(ANALYTICS_LOG_FILE)%'
     App\:
         resource: '../src/'
         exclude:

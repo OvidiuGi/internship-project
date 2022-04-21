@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Psr\Log\LoggerAwareTrait;
+use App\Analytics\LogParser;
 use Symfony\Component\Uid\Uuid;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,16 +16,17 @@ use Symfony\Component\Security\Core\Security;
  */
 class ApiLoginController extends AbstractController
 {
-    use LoggerAwareTrait;
-
     private Security $security;
 
     private EntityManagerInterface $entityManager;
 
-    public function __construct(Security $security, EntityManagerInterface $entityManager)
+    private LogParser $parser;
+
+    public function __construct(Security $security, EntityManagerInterface $entityManager, LogParser $parser)
     {
         $this->security = $security;
         $this->entityManager = $entityManager;
+        $this->parser = $parser;
     }
 
     /**
@@ -35,10 +36,7 @@ class ApiLoginController extends AbstractController
     {
         /** @var User $user */
         $user = $this->security->getUser();
-
         if (null === $user) {
-            $this->logger->warning('User failed login, missing credentials');
-
             return $this->json([
                 'message' => 'missing credentials',
             ], Response::HTTP_UNAUTHORIZED);
@@ -48,8 +46,6 @@ class ApiLoginController extends AbstractController
         $user->setApiToken($token);
         $this->entityManager->persist($user);
         $this->entityManager->flush();
-
-        $this->logger->info('Successful login of user', ['id' => $user->getId()]);
 
         return $this->json([
             'user' => $user->getUserIdentifier(),
