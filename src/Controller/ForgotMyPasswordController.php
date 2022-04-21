@@ -91,7 +91,8 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if (date_diff(new \DateTime('now'), $user->getForgotPasswordTokenTime())->i > 60) {
+            $interval = (new \DateTime('now'))->diff($user->getForgotPasswordTokenTime())->i;
+            if ($interval > 60) {
                 $this->logger->info('The reset password link expired', ['user' => $user->email]);
 
                 return new Response('The link expired', Response::HTTP_UNAUTHORIZED);
@@ -100,7 +101,7 @@ class ForgotMyPasswordController extends AbstractController implements LoggerAwa
             $password = $form->getData()['password'];
             $user->setPassword($this->passwordHasher->hashPassword($user, $password));
             $this->userRepository->add($user);
-            $this->logger->info('Password changed for ' . $user->email);
+            $this->logger->info('Password changed', ['user' => $user->email]);
         }
 
         return $this->renderForm('forgot-password/forgot.password.html.twig', [
