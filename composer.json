@@ -103,6 +103,8 @@
         }
     },
     "require-dev": {
+        "dama/doctrine-test-bundle": "^7.0",
+        "doctrine/doctrine-fixtures-bundle": "^3.4",
         "phpunit/phpunit": "^9.5",
         "squizlabs/php_codesniffer": "*",
         "symfony/browser-kit": "5.4.*",
