@@ -42,7 +42,7 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
      * @throws ServerExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws DecodingExceptionInterface
-     * @throws ClientExceptionInterface|UnexpectedResultException
+     * @throws ClientExceptionInterface| UnexpectedResultException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
