@@ -1,6 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title%}Hello {{ app.user.username }}!{% endblock %}
+{% block title%}
+    {% if is_granted("ROLE_ADMIN")%}
+    Hello {{app.user.username}}!
+    {%else%}
+    Hello!
+    {%endif%}
+{% endblock %}
 
 {% block body %}
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow ">

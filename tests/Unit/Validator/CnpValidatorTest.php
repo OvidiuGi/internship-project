@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Validator;
+namespace App\Tests\Unit\Validator;
 
 use App\Validator\Cnp;
 use App\Validator\CnpValidator;

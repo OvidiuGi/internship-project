@@ -6,6 +6,7 @@ namespace App\Command;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,6 +19,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CreateAccountCommand extends Command
 {
+    use LoggerAwareTrait;
+
     protected static $defaultName = 'app:create-account';
 
     protected static $defaultDescription = 'Creates a new account.';
@@ -49,6 +52,7 @@ class CreateAccountCommand extends Command
             ->addArgument('lastName', InputArgument::REQUIRED, 'Last Name.')
             ->addArgument('cnp', InputArgument::REQUIRED, 'CNP.')
             ->addArgument('email', InputArgument::REQUIRED, 'E-mail.')
+            ->addArgument('telephoneNr', InputArgument::REQUIRED, 'TelephoneNr')
             ->addOption(
                 'role',
                 null,
@@ -76,6 +80,7 @@ class CreateAccountCommand extends Command
         $user->lastName = $input->getArgument('lastName');
         $user->cnp = $input->getArgument('cnp');
         $user->email = $input->getArgument('email');
+        $user->telephoneNr = $input->getArgument('telephoneNr');
         $user->setRoles($input->getOption('role'));
         $user->plainPassword = $this->plainPassword;
         $user->setPassword($this->passwordHasher->hashPassword($user, $this->plainPassword));
@@ -84,12 +89,28 @@ class CreateAccountCommand extends Command
             foreach ($violationList as $violation) {
                 $io->error($violation);
             }
+            $this->logger->warning(
+                'Failed creating account by command!',
+                [
+                    'userEmail' => $user->email,
+                    'violations' => $violationList,
+                    'commandName' => CreateAccountCommand::$defaultName
+                ]
+            );
 
             return self::FAILURE;
         }
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
+
+        $this->logger->info(
+            'Successfully created account by command',
+            [
+                'userEmail' => $user->email,
+                'commandName' => CreateAccountCommand::$defaultName
+            ]
+        );
 
         $io->success('Account was successfully created!');
 

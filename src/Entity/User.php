@@ -168,7 +168,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setRoles(array $roles): self
     {
-        if (!\in_array($roles, self::ROLES)) {
+        if (!\in_array($roles[0], self::ROLES)) {
             return $this;
         }
 
@@ -218,6 +218,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getProgrammes(): Collection
     {
         return $this->programmes;
+    }
+
+    public function addProgramme(Programme $programme): self
+    {
+        if ($this->programmes->contains($programme)) {
+            return $this;
+        }
+
+        $this->programmes->add($programme);
+        $programme->addCustomer($this);
+
+        return $this;
+    }
+
+    public function removeProgramme(Programme $programme): self
+    {
+        if (!$this->programmes->contains($programme)) {
+            return $this;
+        }
+
+        $this->programmes->removeElement($programme);
+        $programme->removeCustomer($this);
+
+        return $this;
     }
 
     public function setProgrammes(Collection $programmes): self

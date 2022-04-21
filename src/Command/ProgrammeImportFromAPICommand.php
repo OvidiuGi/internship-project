@@ -2,14 +2,20 @@
 
 namespace App\Command;
 
-use App\Command\CustomException\EmptyAPIException;
+use App\Exception\CustomException\EmptyAPIException;
 use App\HttpClient\ImportProgrammeApiClient;
+use App\Importer\ImportFromAPI;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
+use Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\DecodingExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
+use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterface
 {
@@ -21,18 +27,26 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
 
     private ImportProgrammeApiClient $client;
 
-    private ProgrammeImport $import;
+    private ImportFromAPI $import;
 
-    public function __construct(ImportProgrammeApiClient $client, ProgrammeImport $import)
+    public function __construct(ImportProgrammeApiClient $client, ImportFromAPI $import)
     {
         $this->client = $client;
         $this->import = $import;
         parent::__construct();
     }
 
+    /**
+     * @throws TransportExceptionInterface
+     * @throws ServerExceptionInterface
+     * @throws RedirectionExceptionInterface
+     * @throws DecodingExceptionInterface
+     * @throws ClientExceptionInterface
+     */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $io = new SymfonyStyle($input, $output);
+
         try {
             $data = $this->client->fetchData();
             $numberImported = 0;
@@ -43,15 +57,29 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
 
             return Command::FAILURE;
         }
-        if (0 == $numberImported) {
-            $io->error($numberImported . ' / ' . \count($data) . ' programmes imported!');
-            $this->logger->error($numberImported . ' / ' . \count($data) . ' programmes imported!');
+        if (count($data) > $numberImported) {
+            $io->error($numberImported . ' / ' . count($data) . ' programmes imported!');
+            $this->logger->error(
+                'An error occurred while importing programmes!',
+                [
+                    'commandName' => self::$defaultName,
+                    'numberImported' => $numberImported,
+                    'totalProgrammes' => count($data)
+                ]
+            );
 
             return Command::FAILURE;
         }
 
-        $io->success($numberImported . ' / ' . \count($data) . ' programmes imported!');
-        $this->logger->info($numberImported . ' / ' . \count($data) . ' programmes imported!');
+        $io->success($numberImported . ' / ' . count($data) . ' programmes imported!');
+        $this->logger->info(
+            'Successfully imported programmes!',
+            [
+                'commandName' => self::$defaultName,
+                'numberImported' => $numberImported,
+                'totalProgrammes' => count($data)
+            ]
+        );
 
         return Command::SUCCESS;
     }

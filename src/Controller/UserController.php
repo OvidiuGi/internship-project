@@ -91,7 +91,7 @@ class UserController implements LoggerAwareInterface
     }
 
     /**
-     * @Route(path="/delete/{id}", methods={"DELETE"})
+     * @Route(path="/{id}", methods={"DELETE"})
      */
     public function softDelete(int $id): Response
     {
@@ -105,13 +105,13 @@ class UserController implements LoggerAwareInterface
 
         $this->userRepository->remove($user);
 
-        $this->logger->info('Account soft deleted: ' . $id);
+        $this->logger->info('Account soft deleted', ['userId' => $id]);
 
         return new JsonResponse('Account deleted.', Response::HTTP_FOUND, [], true);
     }
 
     /**
-     * @Route(path="/recover", methods={"POST"})
+     * @Route(methods={"PATCH"})
      */
     public function recover(Request $request): Response
     {
@@ -121,19 +121,19 @@ class UserController implements LoggerAwareInterface
         $userToBeRecovered = $this->userRepository->findOneBy(['email' => $email]);
 
         if (null === $userToBeRecovered) {
-            $this->logger->info('Soft delete recover failed: no account for such email');
+            $this->logger->info('Soft delete recover failed: no account for such email', ['email' => $email]);
 
             return new JsonResponse('No account associated with email', Response::HTTP_NOT_FOUND, [], true);
         }
 
         if (null === $userToBeRecovered->getDeletedAt()) {
-            $this->logger->info('Recover failed: the account is active: ' . $email);
+            $this->logger->info('Recover failed: the account is active', ['userEmail' => $email]);
 
             return new JsonResponse('The account is already active!', Response::HTTP_OK, [], true);
         }
         $this->userRepository->recover($userToBeRecovered);
 
-        $this->logger->info('Account recovered when soft deleted: ' . $email);
+        $this->logger->info('Account recovered when soft deleted: ', ['userEmail' => $email]);
 
         return new JsonResponse('Account restored.', Response::HTTP_FOUND, [], true);
     }

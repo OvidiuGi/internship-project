@@ -22,6 +22,7 @@ class MainPageController extends AbstractController
         $this->programmeRepository = $programmeRepository;
         $this->logParser = $logParser;
     }
+
     /**
      * @Route(methods={"GET"}, name="main_page")
      */
