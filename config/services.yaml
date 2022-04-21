@@ -22,8 +22,3 @@ services:
     App\Controller\:
         resource: '../src/Controller/'
         tags: ['controller.service_arguments']
-
-#    App\EventSubscriber\ApiLoginSubscriber:
-#        tags:
-#            - name: kernel.event_subscriber
-#              dispatcher: security.event_dispatcher.api

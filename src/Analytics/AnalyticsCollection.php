@@ -4,7 +4,6 @@ namespace App\Analytics;
 
 use App\Controller\Dto\AnalyticsDto;
 use Doctrine\Common\Collections\ArrayCollection;
-use phpDocumentor\Reflection\Types\Array_;
 
 class AnalyticsCollection
 {
