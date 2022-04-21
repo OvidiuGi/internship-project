@@ -18,6 +18,7 @@ class MainPageController extends AbstractController
     {
         $this->programmeRepository = $programmeRepository;
     }
+
     /**
      * @Route(methods={"GET"}, name="main_page")
      */

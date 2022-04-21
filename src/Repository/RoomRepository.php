@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Programme;
 use App\Entity\Room;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -23,12 +24,8 @@ class RoomRepository extends ServiceEntityRepository
     /**
      * @throws UnexpectedResultException
      */
-    public function findFirstAvailable(
-        \DateTime $startTime,
-        \DateTime $endTime,
-        int $maxParticipants,
-        bool $isOnline
-    ): Room {
+    public function findFirstAvailable(Programme $programme): Room
+    {
         return $this->entityManager
             ->createQueryBuilder()
             ->select('DISTINCT r')
@@ -39,9 +36,9 @@ class RoomRepository extends ServiceEntityRepository
             ->orWhere('p.endTime <= :startTime')
             ->groupBy('r.id')
             ->having('r.capacity >= :maxParticipants')
-            ->setParameter('endTime', $endTime)
-            ->setParameter('startTime', $startTime)
-            ->setParameter('maxParticipants', $maxParticipants)
+            ->setParameter('endTime', $programme->getEndTime())
+            ->setParameter('startTime', $programme->getStartTime())
+            ->setParameter('maxParticipants', $programme->maxParticipants)
             ->getQuery()
             ->getSingleResult();
     }
