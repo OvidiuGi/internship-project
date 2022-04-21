@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity()
  */
-class Building
+class Building 
 {
     /**
      * @ORM\Id()
