@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Command\CustomException;
+namespace App\Exception\CustomException;
 
 class EmptyAPIException extends \Exception
 {
