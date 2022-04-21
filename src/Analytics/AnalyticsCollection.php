@@ -59,12 +59,6 @@ class AnalyticsCollection
         return $this;
     }
 
-    public function getNumberAdminLoginsForDay(\DateTime $date): int
-    {
-        var_dump(count($this->getAdminLogins()));
-        return $number;
-    }
-
     public function addAdminLogin(AnalyticsDto $dto): self
     {
         if ($this->adminLogins->contains($dto)) {
