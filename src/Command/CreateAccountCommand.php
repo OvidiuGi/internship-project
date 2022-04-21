@@ -6,6 +6,7 @@ namespace App\Command;
 
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,6 +19,8 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class CreateAccountCommand extends Command
 {
+    use LoggerAwareTrait;
+
     protected static $defaultName = 'app:create-account';
 
     protected static $defaultDescription = 'Creates a new account.';
@@ -86,12 +89,28 @@ class CreateAccountCommand extends Command
             foreach ($violationList as $violation) {
                 $io->error($violation);
             }
+            $this->logger->warning(
+                'Failed creating account by command!',
+                [
+                    'userEmail' => $user->email,
+                    'violations' => $violationList,
+                    'commandName' => CreateAccountCommand::$defaultName
+                ]
+            );
 
             return self::FAILURE;
         }
 
         $this->entityManager->persist($user);
         $this->entityManager->flush();
+
+        $this->logger->info(
+            'Successfully created account by command',
+            [
+                'userEmail' => $user->email,
+                'commandName' => CreateAccountCommand::$defaultName
+            ]
+        );
 
         $io->success('Account was successfully created!');
 
