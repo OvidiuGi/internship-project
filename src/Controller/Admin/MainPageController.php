@@ -56,11 +56,9 @@ class MainPageController extends AbstractController
         $analytics = $this->logParser->parseLogs();
         $newAccountsWithRole = [];
         foreach ($analytics->getNewAccounts() as $newAccount) {
-
             /** @var string $role */
             $role = $newAccount->context['role'];
             $newAccountsWithRole[$role] = $analytics->getNumberNewAccountsForRole($role);
-            $newAccountsWithRole = \array_unique($newAccountsWithRole);
         }
 
         return $this->render('admin/main_page/analytics/new_accounts.html.twig', [
@@ -68,10 +66,22 @@ class MainPageController extends AbstractController
         ]);
     }
 
-//    /**
-//     * @Route(path="/analytics/admin",methods={"GET"}, name="analytics_admin_logins")
-//     */
-//    public function getAdminLoginsAnalytics(): Response
-//    {
-//    }
+    /**
+     * @Route(path="/analytics/admin",methods={"GET"}, name="analytics_admin_logins")
+     */
+    public function getAdminLoginsAnalytics(): Response
+    {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $analytics = $this->logParser->parseLogs();
+        $adminLogins = [];
+        foreach ($analytics->getAdminLogins() as $adminLogin) {
+            $day = $adminLogin->getDateTime()->format('d.m.Y');
+            $adminLogins[$day] = $analytics->getNumberAdminLoginsForDay($day);
+        }
+
+        return $this->render('admin/main_page/analytics/admin_logins.html.twig', [
+            'adminLogins' => $adminLogins
+        ]);
+    }
 }

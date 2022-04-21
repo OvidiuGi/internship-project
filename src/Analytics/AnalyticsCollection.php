@@ -37,13 +37,13 @@ class AnalyticsCollection
             return;
         }
 
-        if ($dto->context['firewall'] === 'api') {
-            $this->addApiLogin($dto);
-
-            return;
+        if ($dto->context['role'] === 'ROLE_ADMIN') {
+            $this->addAdminLogin($dto);
         }
 
-        $this->addAdminLogin($dto);
+        if ($dto->context['firewall'] === 'api') {
+            $this->addApiLogin($dto);
+        }
     }
 
     public function getAdminLogins(): ArrayCollection
@@ -90,6 +90,21 @@ class AnalyticsCollection
         $this->apiLogins->add($dto);
 
         return $this;
+    }
+
+    public function getNumberAdminLoginsForDay(string $day): int
+    {
+        $day = \DateTime::createFromFormat('d.m.Y', $day);
+        $day = $day->format('d.m.Y');
+        $number = 0;
+        foreach ($this->adminLogins as $adminLogin) {
+            $dayFormat = $adminLogin->getDateTime()->format('d.m.Y');
+            if ($dayFormat === $day) {
+                $number++;
+            }
+        }
+
+        return $number;
     }
 
     public function getNumberNewAccountsForRole(string $role): int
