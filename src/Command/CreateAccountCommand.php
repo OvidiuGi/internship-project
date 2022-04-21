@@ -49,6 +49,7 @@ class CreateAccountCommand extends Command
             ->addArgument('lastName', InputArgument::REQUIRED, 'Last Name.')
             ->addArgument('cnp', InputArgument::REQUIRED, 'CNP.')
             ->addArgument('email', InputArgument::REQUIRED, 'E-mail.')
+            ->addArgument('telephoneNr', InputArgument::REQUIRED, 'TelephoneNr')
             ->addOption(
                 'role',
                 null,
@@ -76,6 +77,7 @@ class CreateAccountCommand extends Command
         $user->lastName = $input->getArgument('lastName');
         $user->cnp = $input->getArgument('cnp');
         $user->email = $input->getArgument('email');
+        $user->telephoneNr = $input->getArgument('telephoneNr');
         $user->setRoles($input->getOption('role'));
         $user->plainPassword = $this->plainPassword;
         $user->setPassword($this->passwordHasher->hashPassword($user, $this->plainPassword));

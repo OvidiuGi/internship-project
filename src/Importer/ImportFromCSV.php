@@ -70,12 +70,7 @@ class ImportFromCSV
             }
 
             if (0 != \count($this->programmeRepository->getAll())) {
-                $foundRoom = $this->roomRepository->findFirstAvailable(
-                    \DateTime::createFromFormat('d.m.Y H:i', $column[2]),
-                    \DateTime::createFromFormat('d.m.Y H:i', $column[3]),
-                    (int) $column[5],
-                    \filter_var($column[4], FILTER_VALIDATE_BOOLEAN)
-                );
+                $foundRoom = $this->roomRepository->findFirstAvailable($programme);
             }
 
             $programme->setRoom($foundRoom);

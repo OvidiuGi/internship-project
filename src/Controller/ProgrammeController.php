@@ -73,17 +73,16 @@ class ProgrammeController extends AbstractController implements LoggerAwareInter
     }
 
     /**
-     * @Route(methods={"POST"}, path="/join", name="join_programme")
+     * @Route(methods={"POST"}, path="/{id}/customers", name="join_programme")
      */
-    public function joinProgramme(Request $request): Response
+    public function joinProgramme(int $id, Request $request): Response
     {
-        $programmeId = $request->query->get('id');
-        $programme = $this->programmeRepository->findOneBy(['id' => $programmeId]);
+        $programme = $this->programmeRepository->findOneBy(['id' => $id]);
         if (null === $programme) {
             $this->logger->info(
                 'Failed joining programme because it doesn\'t exist',
                 [
-                    'programmeId' => $programmeId
+                    'programmeId' => $id
                 ]
             );
 
@@ -97,7 +96,7 @@ class ProgrammeController extends AbstractController implements LoggerAwareInter
             $this->logger->info(
                 'User with token failed joining to programme',
                 [
-                    'programmeId' => $programmeId,
+                    'programmeId' => $id,
                     'userToken' => $userToken,
                 ]
             );
@@ -109,6 +108,6 @@ class ProgrammeController extends AbstractController implements LoggerAwareInter
 
         $this->entityManager->flush();
 
-        return new JsonResponse('Successfully joined programme: ' . $programmeId, Response::HTTP_OK, [], true);
+        return new JsonResponse('Successfully joined programme: ' . $id, Response::HTTP_OK, [], true);
     }
 }
