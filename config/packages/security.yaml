@@ -54,15 +54,16 @@ security:
                 realm: Secured Area
 
     access_control:
+        - { path: ^/admin/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: PUBLIC_ACCESS, methods:[POST] }
+        - { path: ^/api/users, roles: PUBLIC_ACCESS, methods:[POST, PATCH] }
+        - { path: ^/users/, roles: PUBLIC_ACCESS, methods:[POST] }
         - { path: ^/api/programmes, roles: ROLE_ADMIN }
         - { path: ^api/programmes, roles: ROLE_USER, methods:[POST] }
-        - { path: ^/api/users, roles: PUBLIC_ACCESS, methods:[POST, PATCH] }
         - { path: ^/api/users, roles: ROLE_ADMIN }
         - { path: ^/api/newsletter, roles: ROLE_ADMIN }
-        - { path: ^/api, roles: PUBLIC_ACCESS, methods:[POST] }
         - { path: ^/admin, roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
-        - { path: ^/admin/login, roles: PUBLIC_ACCESS }
-        - { path: ^/users/, roles: PUBLIC_ACCESS, methods:[POST] }
+
 when@test:
     security:
         password_hashers:
