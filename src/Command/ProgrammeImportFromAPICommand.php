@@ -5,6 +5,7 @@ namespace App\Command;
 use App\Exception\CustomException\EmptyAPIException;
 use App\HttpClient\ImportProgrammeApiClient;
 use App\Importer\ImportFromAPI;
+use Doctrine\ORM\UnexpectedResultException;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
@@ -41,7 +42,7 @@ class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterf
      * @throws ServerExceptionInterface
      * @throws RedirectionExceptionInterface
      * @throws DecodingExceptionInterface
-     * @throws ClientExceptionInterface
+     * @throws ClientExceptionInterface|UnexpectedResultException
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
