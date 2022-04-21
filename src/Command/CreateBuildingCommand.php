@@ -4,6 +4,7 @@ namespace App\Command;
 
 use App\Entity\Building;
 use Doctrine\ORM\EntityManagerInterface;
+use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,6 +13,8 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 
 class CreateBuildingCommand extends Command
 {
+    use LoggerAwareTrait;
+
     protected static $defaultName = 'app:create-building';
 
     protected static $defaultDescription = 'Creates a new building.';
@@ -46,6 +49,14 @@ class CreateBuildingCommand extends Command
 
         $this->entityManager->persist($building);
         $this->entityManager->flush();
+
+        $this->logger->info(
+            'Successfully created building',
+            [
+                'buildingId' => $building->getId(),
+                'commandName' => CreateBuildingCommand::$defaultName
+            ]
+        );
 
         $io->success('Building was successfully created!');
 
