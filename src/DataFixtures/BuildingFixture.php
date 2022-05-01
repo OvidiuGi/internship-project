@@ -6,6 +6,9 @@ use App\Entity\Building;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * @codeCoverageIgnore
+ */
 class BuildingFixture extends Fixture
 {
     public function load(ObjectManager $manager)

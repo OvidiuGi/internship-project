@@ -9,11 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserControllerTest extends KernelTestCase
 {
-    protected function runTest(): void
-    {
-        $this->markTestSkipped('Skipped test');
-    }
-
     private ?UserController $userController;
 
     private ?UserRepository $userRepository;

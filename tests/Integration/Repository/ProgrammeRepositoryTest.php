@@ -7,11 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class ProgrammeRepositoryTest extends KernelTestCase
 {
-    protected function runTest(): void
-    {
-        $this->markTestSkipped('Skipped test');
-    }
-
     public function testGetAll(): void
     {
         $programmeRepository = static::getContainer()->get(ProgrammeRepository::class);

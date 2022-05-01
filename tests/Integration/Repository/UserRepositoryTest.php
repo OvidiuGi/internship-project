@@ -8,11 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class UserRepositoryTest extends KernelTestCase
 {
-    protected function runTest(): void
-    {
-        $this->markTestSkipped('Skipped test');
-    }
-
     public function testAddUser(): void
     {
         $userRepository = static::getContainer()->get(UserRepository::class);

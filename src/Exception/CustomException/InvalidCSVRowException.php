@@ -2,6 +2,9 @@
 
 namespace App\Exception\CustomException;
 
+/**
+ * @codeCoverageIgnore
+ */
 class InvalidCSVRowException extends \Exception
 {
     private array $row;

@@ -11,14 +11,14 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class CreateAccountCommandTest extends KernelTestCase
 {
-    private CommandTester $commandTester;
-
-    private UserRepository $userRepository;
-
     protected function runTest(): void
     {
         $this->markTestSkipped('Skipped test');
     }
+
+    private CommandTester $commandTester;
+
+    private UserRepository $userRepository;
 
     public function setUp(): void
     {
@@ -54,6 +54,7 @@ class CreateAccountCommandTest extends KernelTestCase
             'lastName' => 'Voinicu',
                 'cnp' => '5010911070069',
                 'email' => 'email@email.com',
+                'telephoneNr' => '0754281716'
             ],
         );
 
@@ -66,5 +67,6 @@ class CreateAccountCommandTest extends KernelTestCase
         $this->assertEquals('Andri', $newUser->firstName);
         $this->assertEquals('Voinicu', $newUser->lastName);
         $this->assertEquals('5010911070069', $newUser->cnp);
+        $this->assertEquals('0754281716', $newUser->telephoneNr);
     }
 }

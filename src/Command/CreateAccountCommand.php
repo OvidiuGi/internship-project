@@ -18,6 +18,9 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CreateAccountCommand extends Command
 {
     use LoggerAwareTrait;

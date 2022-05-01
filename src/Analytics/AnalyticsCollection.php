@@ -5,6 +5,9 @@ namespace App\Analytics;
 use App\Controller\Dto\AnalyticsDto;
 use Doctrine\Common\Collections\ArrayCollection;
 
+/**
+ * @codeCoverageIgnore
+ */
 class AnalyticsCollection
 {
     private ArrayCollection $apiLogins;

@@ -12,11 +12,6 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class ImportProgrammeApiClientTest extends KernelTestCase
 {
-    protected function runTest(): void
-    {
-        $this->markTestSkipped('Skipped test');
-    }
-
     private ?ImportProgrammeApiClient $client;
 
     protected function setUp(): void

@@ -8,11 +8,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 class RoomRepositoryTest extends KernelTestCase
 {
-    protected function runTest(): void
-    {
-        $this->markTestSkipped('Skipped test');
-    }
-
     public function testFindFirstRoom(): void
     {
         $roomRepository = static::getContainer()->get(RoomRepository::class);
@@ -25,12 +20,7 @@ class RoomRepositoryTest extends KernelTestCase
         $roomRepository = static::getContainer()->get(RoomRepository::class);
         $programmeRepository = static::getContainer()->get(ProgrammeRepository::class);
         $programme = $programmeRepository->findAll()[0];
-        $testRoom = $roomRepository->findFirstAvailable(
-            $programme->getStartTime(),
-            $programme->getEndTime(),
-            $programme->maxParticipants,
-            $programme->isOnline
-        );
+        $testRoom = $roomRepository->findFirstAvailable($programme);
         $this->assertIsObject($testRoom);
     }
 }
