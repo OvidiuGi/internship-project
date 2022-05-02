@@ -20,7 +20,7 @@ jobs:
         env:
           update: true
       - name: Generate code coverage
-        run: ./vendor/bin/phpunit --coverage-clover ./coverage.xml
+        run: /bin/phpunit --coverage-clover ./coverage.xml
       - name: Check test coverage
         id: test-coverage
         uses: johanvanhelden/gha-clover-test-coverage-check@v1
