@@ -10,7 +10,6 @@ jobs:
   testing-coverage:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup PHP
       - uses: shivammathur/setup-php@2cb9b829437ee246e9b3cac53555a39208ca6d28
         with:
           php-version: '7.4'
