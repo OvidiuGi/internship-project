@@ -19,6 +19,8 @@ jobs:
           extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, iconv, json, mbstring, pdo, xdebug
         env:
           update: true
+      - name: Generate code coverage
+        run: ./vendor/bin/phpunit --coverage-clover ./coverage.xml
       - name: Check test coverage
         id: test-coverage
         uses: johanvanhelden/gha-clover-test-coverage-check@v1
