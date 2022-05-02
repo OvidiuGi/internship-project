@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1651451675">
-  <project timestamp="1651451675">
+<coverage generated="1651451892">
+  <project timestamp="1651451892">
     <file name="/home/govidiu/myproject/internship-project/src/Analytics/AnalyticsCollection.php">
       <class name="App\Analytics\AnalyticsCollection" namespace="global">
         <metrics complexity="31" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
