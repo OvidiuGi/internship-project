@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /home/govidiu/myproject/internship-project/src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/style.css" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/home/govidiu/myproject/internship-project/src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Analytics/LogParser.php.html#8">App\Analytics\LogParser</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/AcceptedContentSubscriber.php.html#11">App\EventSubscriber\AcceptedContentSubscriber</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#14">App\Security\TokenAuthenticator</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#21">App\Repository\UserRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/RoomRepository.php.html#15">App\Repository\RoomRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/ProgrammeRepository.php.html#15">App\Repository\ProgrammeRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/BuildingRepository.php.html#12">App\Repository\BuildingRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MessageHandler/SmsNotificationHandler.php.html#9">App\MessageHandler\SmsNotificationHandler</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Mailer/ResetPasswordMailer.php.html#12">App\Mailer\ResetPasswordMailer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Mailer/NewsletterMailer.php.html#9">App\Mailer\NewsletterMailer</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Importer/ImportFromCSV.php.html#13">App\Importer\ImportFromCSV</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Importer/ImportFromAPI.php.html#12">App\Importer\ImportFromAPI</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/UserSoftDeleteSubscriber.php.html#12">App\EventSubscriber\UserSoftDeleteSubscriber</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/ResponseSubscriber.php.html#8">App\EventSubscriber\ResponseSubscriber</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/LoginSubscriber.php.html#10">App\EventSubscriber\LoginSubscriber</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Serializer/GigelEncoder.php.html#9">App\Serializer\GigelEncoder</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/LoginController.php.html#13">App\Controller\Admin\LoginController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/UserController.php.html#23">App\Controller\Api\UserController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/MainPageController.php.html#15">App\Controller\Admin\MainPageController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/UserController.php.html#18">App\Controller\Admin\UserController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/ApiLoginController.php.html#16">App\Controller\Api\ApiLoginController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/NewsletterController.php.html#20">App\Controller\Api\NewsletterController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/ProgrammeController.php.html#21">App\Controller\Api\ProgrammeController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Dto/AnalyticsDto.php.html#5">App\Controller\Dto\AnalyticsDto</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Dto/UserDto.php.html#9">App\Controller\Dto\UserDto</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ForgotMyPasswordController.php.html#22">App\Controller\ForgotMyPasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decrypter/CaesarCipher.php.html#5">App\Decrypter\CaesarCipher</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#23">App\Entity\User</a></td><td class="text-right">48%</td></tr>
+       <tr><td><a href="Controller/ArgumentResolver/UserDtoArgumentValueResolver.php.html#11">App\Controller\ArgumentResolver\UserDtoArgumentValueResolver</a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="Entity/Room.php.html#11">App\Entity\Room</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="HttpClient/SmsClient.php.html#12">App\HttpClient\SmsClient</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Entity/Programme.php.html#13">App\Entity\Programme</a></td><td class="text-right">81%</td></tr>
+       <tr><td><a href="Entity/Building.php.html#10">App\Entity\Building</a></td><td class="text-right">85%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Repository/ProgrammeRepository.php.html#15">App\Repository\ProgrammeRepository</a></td><td class="text-right">240</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#21">App\Repository\UserRepository</a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Controller/ForgotMyPasswordController.php.html#22">App\Controller\ForgotMyPasswordController</a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Entity/User.php.html#23">App\Entity\User</a></td><td class="text-right">108</td></tr>
+       <tr><td><a href="Controller/Api/UserController.php.html#23">App\Controller\Api\UserController</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#14">App\Security\TokenAuthenticator</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Importer/ImportFromCSV.php.html#13">App\Importer\ImportFromCSV</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Controller/Admin/UserController.php.html#18">App\Controller\Admin\UserController</a></td><td class="text-right">72</td></tr>
+       <tr><td><a href="Controller/Admin/MainPageController.php.html#15">App\Controller\Admin\MainPageController</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Decrypter/CaesarCipher.php.html#5">App\Decrypter\CaesarCipher</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="EventSubscriber/LoginSubscriber.php.html#10">App\EventSubscriber\LoginSubscriber</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="EventSubscriber/ResponseSubscriber.php.html#8">App\EventSubscriber\ResponseSubscriber</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="EventSubscriber/UserSoftDeleteSubscriber.php.html#12">App\EventSubscriber\UserSoftDeleteSubscriber</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Controller/Api/ProgrammeController.php.html#21">App\Controller\Api\ProgrammeController</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="EventSubscriber/AcceptedContentSubscriber.php.html#11">App\EventSubscriber\AcceptedContentSubscriber</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Importer/ImportFromAPI.php.html#12">App\Importer\ImportFromAPI</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Entity/Programme.php.html#13">App\Entity\Programme</a></td><td class="text-right">17</td></tr>
+       <tr><td><a href="Controller/Api/NewsletterController.php.html#20">App\Controller\Api\NewsletterController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/Api/ApiLoginController.php.html#16">App\Controller\Api\ApiLoginController</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Analytics/LogParser.php.html#8">App\Analytics\LogParser</a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="HttpClient/SmsClient.php.html#12">App\HttpClient\SmsClient</a></td><td class="text-right">3</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Analytics/LogParser.php.html#14"><abbr title="App\Analytics\LogParser::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Importer/ImportFromCSV.php.html#21"><abbr title="App\Importer\ImportFromCSV::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/ProgrammeRepository.php.html#23"><abbr title="App\Repository\ProgrammeRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/BuildingRepository.php.html#14"><abbr title="App\Repository\BuildingRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MessageHandler/SmsNotificationHandler.php.html#18"><abbr title="App\MessageHandler\SmsNotificationHandler::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="MessageHandler/SmsNotificationHandler.php.html#13"><abbr title="App\MessageHandler\SmsNotificationHandler::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Mailer/ResetPasswordMailer.php.html#28"><abbr title="App\Mailer\ResetPasswordMailer::sendEmail">sendEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Mailer/ResetPasswordMailer.php.html#18"><abbr title="App\Mailer\ResetPasswordMailer::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Mailer/NewsletterMailer.php.html#21"><abbr title="App\Mailer\NewsletterMailer::sendEmail">sendEmail</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Mailer/NewsletterMailer.php.html#13"><abbr title="App\Mailer\NewsletterMailer::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Importer/ImportFromCSV.php.html#37"><abbr title="App\Importer\ImportFromCSV::importFromCSV">importFromCSV</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Importer/ImportFromAPI.php.html#37"><abbr title="App\Importer\ImportFromAPI::importFromAPI">importFromAPI</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/ProgrammeRepository.php.html#40"><abbr title="App\Repository\ProgrammeRepository::getPaginatedFilteredSorted">getPaginatedFilteredSorted</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Importer/ImportFromAPI.php.html#20"><abbr title="App\Importer\ImportFromAPI::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/UserSoftDeleteSubscriber.php.html#31"><abbr title="App\EventSubscriber\UserSoftDeleteSubscriber::postSoftDelete">postSoftDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/UserSoftDeleteSubscriber.php.html#26"><abbr title="App\EventSubscriber\UserSoftDeleteSubscriber::getSubscribedEvents">getSubscribedEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/UserSoftDeleteSubscriber.php.html#18"><abbr title="App\EventSubscriber\UserSoftDeleteSubscriber::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/ResponseSubscriber.php.html#22"><abbr title="App\EventSubscriber\ResponseSubscriber::addApiVersionHeader">addApiVersionHeader</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/ResponseSubscriber.php.html#17"><abbr title="App\EventSubscriber\ResponseSubscriber::getSubscribedEvents">getSubscribedEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/ResponseSubscriber.php.html#12"><abbr title="App\EventSubscriber\ResponseSubscriber::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/LoginSubscriber.php.html#49"><abbr title="App\EventSubscriber\LoginSubscriber::loginFailedLog">loginFailedLog</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/LoginSubscriber.php.html#29"><abbr title="App\EventSubscriber\LoginSubscriber::loginSuccessLog">loginSuccessLog</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/ProgrammeRepository.php.html#30"><abbr title="App\Repository\ProgrammeRepository::getAll">getAll</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/ProgrammeRepository.php.html#79"><abbr title="App\Repository\ProgrammeRepository::removeTrainerByIdFromProgrammes">removeTrainerByIdFromProgrammes</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/LoginSubscriber.php.html#16"><abbr title="App\EventSubscriber\LoginSubscriber::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#21"><abbr title="App\Security\TokenAuthenticator::getCredentials">getCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Serializer/GigelEncoder.php.html#28"><abbr title="App\Serializer\GigelEncoder::decode">decode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Serializer/GigelEncoder.php.html#20"><abbr title="App\Serializer\GigelEncoder::supportsEncoding">supportsEncoding</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Serializer/GigelEncoder.php.html#13"><abbr title="App\Serializer\GigelEncoder::encode">encode</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#63"><abbr title="App\Security\TokenAuthenticator::supportsRememberMe">supportsRememberMe</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#54"><abbr title="App\Security\TokenAuthenticator::start">start</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#45"><abbr title="App\Security\TokenAuthenticator::onAuthenticationFailure">onAuthenticationFailure</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#40"><abbr title="App\Security\TokenAuthenticator::onAuthenticationSuccess">onAuthenticationSuccess</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#35"><abbr title="App\Security\TokenAuthenticator::checkCredentials">checkCredentials</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#26"><abbr title="App\Security\TokenAuthenticator::getUser">getUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#16"><abbr title="App\Security\TokenAuthenticator::supports">supports</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/ProgrammeRepository.php.html#96"><abbr title="App\Repository\ProgrammeRepository::showBusiestDay">showBusiestDay</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#67"><abbr title="App\Repository\UserRepository::getPaginated">getPaginated</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#56"><abbr title="App\Repository\UserRepository::upgradePassword">upgradePassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#48"><abbr title="App\Repository\UserRepository::recover">recover</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#40"><abbr title="App\Repository\UserRepository::remove">remove</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#32"><abbr title="App\Repository\UserRepository::add">add</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#25"><abbr title="App\Repository\UserRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/RoomRepository.php.html#53"><abbr title="App\Repository\RoomRepository::findFirstRoom">findFirstRoom</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/RoomRepository.php.html#31"><abbr title="App\Repository\RoomRepository::findFirstAvailable">findFirstAvailable</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Repository/RoomRepository.php.html#19"><abbr title="App\Repository\RoomRepository::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/LoginSubscriber.php.html#21"><abbr title="App\EventSubscriber\LoginSubscriber::getSubscribedEvents">getSubscribedEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/AcceptedContentSubscriber.php.html#33"><abbr title="App\EventSubscriber\AcceptedContentSubscriber::encodeResponseData">encodeResponseData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Analytics/LogParser.php.html#21"><abbr title="App\Analytics\LogParser::parseLogs">parseLogs</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/ApiLoginController.php.html#32"><abbr title="App\Controller\Api\ApiLoginController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/UserController.php.html#123"><abbr title="App\Controller\Api\UserController::recover">recover</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/UserController.php.html#103"><abbr title="App\Controller\Api\UserController::softDelete">softDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/UserController.php.html#63"><abbr title="App\Controller\Api\UserController::register">register</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/UserController.php.html#39"><abbr title="App\Controller\Api\UserController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/ProgrammeController.php.html#68"><abbr title="App\Controller\Api\ProgrammeController::joinProgramme">joinProgramme</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/ProgrammeController.php.html#46"><abbr title="App\Controller\Api\ProgrammeController::showPaginatedFilteredSorted">showPaginatedFilteredSorted</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/ProgrammeController.php.html#31"><abbr title="App\Controller\Api\ProgrammeController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/NewsletterController.php.html#41"><abbr title="App\Controller\Api\NewsletterController::sendNewsletterToAllAction">sendNewsletterToAllAction</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/NewsletterController.php.html#28"><abbr title="App\Controller\Api\NewsletterController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Api/ApiLoginController.php.html#22"><abbr title="App\Controller\Api\ApiLoginController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Dto/AnalyticsDto.php.html#13"><abbr title="App\Controller\Dto\AnalyticsDto::getDateTime">getDateTime</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/UserController.php.html#93"><abbr title="App\Controller\Admin\UserController::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/UserController.php.html#59"><abbr title="App\Controller\Admin\UserController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/UserController.php.html#38"><abbr title="App\Controller\Admin\UserController::showUsers">showUsers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/UserController.php.html#26"><abbr title="App\Controller\Admin\UserController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/MainPageController.php.html#75"><abbr title="App\Controller\Admin\MainPageController::getAdminLoginsAnalytics">getAdminLoginsAnalytics</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/MainPageController.php.html#55"><abbr title="App\Controller\Admin\MainPageController::getNewAccountsAnalytics">getNewAccountsAnalytics</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/MainPageController.php.html#42"><abbr title="App\Controller\Admin\MainPageController::getBusiestDay">getBusiestDay</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/MainPageController.php.html#31"><abbr title="App\Controller\Admin\MainPageController::load">load</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/MainPageController.php.html#21"><abbr title="App\Controller\Admin\MainPageController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Admin/LoginController.php.html#18"><abbr title="App\Controller\Admin\LoginController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ArgumentResolver/UserDtoArgumentValueResolver.php.html#25"><abbr title="App\Controller\ArgumentResolver\UserDtoArgumentValueResolver::resolve">resolve</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Dto/AnalyticsDto.php.html#18"><abbr title="App\Controller\Dto\AnalyticsDto::setDateTime">setDateTime</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/AcceptedContentSubscriber.php.html#26"><abbr title="App\EventSubscriber\AcceptedContentSubscriber::getSubscribedEvents">getSubscribedEvents</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/Dto/UserDto.php.html#38"><abbr title="App\Controller\Dto\UserDto::createFromUser">createFromUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="EventSubscriber/AcceptedContentSubscriber.php.html#21"><abbr title="App\EventSubscriber\AcceptedContentSubscriber::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#236"><abbr title="App\Entity\User::removeProgramme">removeProgramme</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#224"><abbr title="App\Entity\User::addProgramme">addProgramme</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#207"><abbr title="App\Entity\User::getSalt">getSalt</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#189"><abbr title="App\Entity\User::getPlainPassword">getPlainPassword</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#148"><abbr title="App\Entity\User::getUserIdentifier">getUserIdentifier</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#138"><abbr title="App\Entity\User::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/User.php.html#124"><abbr title="App\Entity\User::createFromDto">createFromDto</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Room.php.html#40"><abbr title="App\Entity\Room::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Programme.php.html#114"><abbr title="App\Entity\Programme::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Building.php.html#29"><abbr title="App\Entity\Building::getId">getId</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decrypter/CaesarCipher.php.html#34"><abbr title="App\Decrypter\CaesarCipher::decipher">decipher</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decrypter/CaesarCipher.php.html#22"><abbr title="App\Decrypter\CaesarCipher::encipher">encipher</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Decrypter/CaesarCipher.php.html#11"><abbr title="App\Decrypter\CaesarCipher::cipher">cipher</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ForgotMyPasswordController.php.html#84"><abbr title="App\Controller\ForgotMyPasswordController::reset">reset</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ForgotMyPasswordController.php.html#48"><abbr title="App\Controller\ForgotMyPasswordController::send">send</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controller/ForgotMyPasswordController.php.html#32"><abbr title="App\Controller\ForgotMyPasswordController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Serializer/GigelEncoder.php.html#33"><abbr title="App\Serializer\GigelEncoder::supportsDecoding">supportsDecoding</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Entity/Programme.php.html#102"><abbr title="App\Entity\Programme::removeCustomer">removeCustomer</abbr></a></td><td class="text-right">40%</td></tr>
+       <tr><td><a href="HttpClient/SmsClient.php.html#27"><abbr title="App\HttpClient\SmsClient::sendSms">sendSms</abbr></a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Entity/User.php.html#170"><abbr title="App\Entity\User::setRoles">setRoles</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Entity/Programme.php.html#90"><abbr title="App\Entity\Programme::addCustomer">addCustomer</abbr></a></td><td class="text-right">80%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Repository/ProgrammeRepository.php.html#40"><abbr title="App\Repository\ProgrammeRepository::getPaginatedFilteredSorted">getPaginatedFilteredSorted</abbr></a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="Importer/ImportFromCSV.php.html#37"><abbr title="App\Importer\ImportFromCSV::importFromCSV">importFromCSV</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Controller/ForgotMyPasswordController.php.html#84"><abbr title="App\Controller\ForgotMyPasswordController::reset">reset</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="EventSubscriber/ResponseSubscriber.php.html#22"><abbr title="App\EventSubscriber\ResponseSubscriber::addApiVersionHeader">addApiVersionHeader</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Controller/Admin/UserController.php.html#59"><abbr title="App\Controller\Admin\UserController::update">update</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="EventSubscriber/UserSoftDeleteSubscriber.php.html#31"><abbr title="App\EventSubscriber\UserSoftDeleteSubscriber::postSoftDelete">postSoftDelete</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Controller/ForgotMyPasswordController.php.html#48"><abbr title="App\Controller\ForgotMyPasswordController::send">send</abbr></a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="Importer/ImportFromAPI.php.html#37"><abbr title="App\Importer\ImportFromAPI::importFromAPI">importFromAPI</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/Api/ProgrammeController.php.html#68"><abbr title="App\Controller\Api\ProgrammeController::joinProgramme">joinProgramme</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/Api/UserController.php.html#63"><abbr title="App\Controller\Api\UserController::register">register</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Decrypter/CaesarCipher.php.html#11"><abbr title="App\Decrypter\CaesarCipher::cipher">cipher</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Controller/Api/UserController.php.html#123"><abbr title="App\Controller\Api\UserController::recover">recover</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Analytics/LogParser.php.html#21"><abbr title="App\Analytics\LogParser::parseLogs">parseLogs</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EventSubscriber/LoginSubscriber.php.html#29"><abbr title="App\EventSubscriber\LoginSubscriber::loginSuccessLog">loginSuccessLog</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#32"><abbr title="App\Repository\UserRepository::add">add</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#40"><abbr title="App\Repository\UserRepository::remove">remove</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#48"><abbr title="App\Repository\UserRepository::recover">recover</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Repository/UserRepository.php.html#56"><abbr title="App\Repository\UserRepository::upgradePassword">upgradePassword</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EventSubscriber/LoginSubscriber.php.html#49"><abbr title="App\EventSubscriber\LoginSubscriber::loginFailedLog">loginFailedLog</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Security/TokenAuthenticator.php.html#26"><abbr title="App\Security\TokenAuthenticator::getUser">getUser</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="EventSubscriber/AcceptedContentSubscriber.php.html#33"><abbr title="App\EventSubscriber\AcceptedContentSubscriber::encodeResponseData">encodeResponseData</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/User.php.html#236"><abbr title="App\Entity\User::removeProgramme">removeProgramme</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/User.php.html#224"><abbr title="App\Entity\User::addProgramme">addProgramme</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/Admin/MainPageController.php.html#55"><abbr title="App\Controller\Admin\MainPageController::getNewAccountsAnalytics">getNewAccountsAnalytics</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Decrypter/CaesarCipher.php.html#22"><abbr title="App\Decrypter\CaesarCipher::encipher">encipher</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/Api/UserController.php.html#103"><abbr title="App\Controller\Api\UserController::softDelete">softDelete</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/Api/NewsletterController.php.html#41"><abbr title="App\Controller\Api\NewsletterController::sendNewsletterToAllAction">sendNewsletterToAllAction</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/Api/ApiLoginController.php.html#32"><abbr title="App\Controller\Api\ApiLoginController::index">index</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/Admin/UserController.php.html#93"><abbr title="App\Controller\Admin\UserController::delete">delete</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Controller/Admin/MainPageController.php.html#75"><abbr title="App\Controller\Admin\MainPageController::getAdminLoginsAnalytics">getAdminLoginsAnalytics</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Entity/Programme.php.html#102"><abbr title="App\Entity\Programme::removeCustomer">removeCustomer</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="HttpClient/SmsClient.php.html#27"><abbr title="App\HttpClient\SmsClient::sendSms">sendSms</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Entity/User.php.html#170"><abbr title="App\Entity\User::setRoles">setRoles</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Entity/Programme.php.html#90"><abbr title="App\Entity\Programme::addCustomer">addCustomer</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.15</a> using <a href="https://secure.php.net/" target="_top">PHP 7.4.3</a> and <a href="https://phpunit.de/">PHPUnit 9.5.20</a> at Mon May 2 0:34:35 UTC 2022.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js" type="text/javascript"></script>
+  <script src="_js/d3.min.js" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([27,0,0,0,0,1,1,0,2,2,2,22], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([93,0,0,0,0,1,0,1,1,1,2,83], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[100,31,"<a href=\"Analytics\/AnalyticsCollection.php.html#11\">App\\Analytics\\AnalyticsCollection<\/a>"],[0,3,"<a href=\"Analytics\/LogParser.php.html#8\">App\\Analytics\\LogParser<\/a>"],[100,4,"<a href=\"Command\/AnalyticsCommand.php.html#16\">App\\Command\\AnalyticsCommand<\/a>"],[100,6,"<a href=\"Command\/CreateAccountCommand.php.html#24\">App\\Command\\CreateAccountCommand<\/a>"],[100,3,"<a href=\"Command\/CreateBuildingCommand.php.html#17\">App\\Command\\CreateBuildingCommand<\/a>"],[100,4,"<a href=\"Command\/ProgrammeImportFromAPICommand.php.html#24\">App\\Command\\ProgrammeImportFromAPICommand<\/a>"],[100,4,"<a href=\"Command\/ProgrammeImportFromCSVCommand.php.html#21\">App\\Command\\ProgrammeImportFromCSVCommand<\/a>"],[0,1,"<a href=\"Controller\/Admin\/LoginController.php.html#13\">App\\Controller\\Admin\\LoginController<\/a>"],[0,7,"<a href=\"Controller\/Admin\/MainPageController.php.html#15\">App\\Controller\\Admin\\MainPageController<\/a>"],[0,8,"<a href=\"Controller\/Admin\/UserController.php.html#18\">App\\Controller\\Admin\\UserController<\/a>"],[0,3,"<a href=\"Controller\/Api\/ApiLoginController.php.html#16\">App\\Controller\\Api\\ApiLoginController<\/a>"],[0,3,"<a href=\"Controller\/Api\/NewsletterController.php.html#20\">App\\Controller\\Api\\NewsletterController<\/a>"],[0,5,"<a href=\"Controller\/Api\/ProgrammeController.php.html#21\">App\\Controller\\Api\\ProgrammeController<\/a>"],[0,9,"<a href=\"Controller\/Api\/UserController.php.html#23\">App\\Controller\\Api\\UserController<\/a>"],[50,3,"<a href=\"Controller\/ArgumentResolver\/UserDtoArgumentValueResolver.php.html#11\">App\\Controller\\ArgumentResolver\\UserDtoArgumentValueResolver<\/a>"],[0,2,"<a href=\"Controller\/Dto\/AnalyticsDto.php.html#5\">App\\Controller\\Dto\\AnalyticsDto<\/a>"],[0,1,"<a href=\"Controller\/Dto\/UserDto.php.html#9\">App\\Controller\\Dto\\UserDto<\/a>"],[0,10,"<a href=\"Controller\/ForgotMyPasswordController.php.html#22\">App\\Controller\\ForgotMyPasswordController<\/a>"],[100,1,"<a href=\"DataFixtures\/BuildingFixture.php.html#12\">App\\DataFixtures\\BuildingFixture<\/a>"],[100,1,"<a href=\"DataFixtures\/ProgrammeFixture.php.html#13\">App\\DataFixtures\\ProgrammeFixture<\/a>"],[100,1,"<a href=\"DataFixtures\/RoomFixture.php.html#12\">App\\DataFixtures\\RoomFixture<\/a>"],[100,2,"<a href=\"DataFixtures\/UserFixture.php.html#13\">App\\DataFixtures\\UserFixture<\/a>"],[0,6,"<a href=\"Decrypter\/CaesarCipher.php.html#5\">App\\Decrypter\\CaesarCipher<\/a>"],[85.71428571428571,5,"<a href=\"Entity\/Building.php.html#10\">App\\Entity\\Building<\/a>"],[81.48148148148148,16,"<a href=\"Entity\/Programme.php.html#13\">App\\Entity\\Programme<\/a>"],[75,3,"<a href=\"Entity\/Room.php.html#11\">App\\Entity\\Room<\/a>"],[48.93617021276596,25,"<a href=\"Entity\/User.php.html#23\">App\\Entity\\User<\/a>"],[0,4,"<a href=\"EventSubscriber\/AcceptedContentSubscriber.php.html#11\">App\\EventSubscriber\\AcceptedContentSubscriber<\/a>"],[0,6,"<a href=\"EventSubscriber\/LoginSubscriber.php.html#10\">App\\EventSubscriber\\LoginSubscriber<\/a>"],[0,6,"<a href=\"EventSubscriber\/ResponseSubscriber.php.html#8\">App\\EventSubscriber\\ResponseSubscriber<\/a>"],[0,6,"<a href=\"EventSubscriber\/UserSoftDeleteSubscriber.php.html#12\">App\\EventSubscriber\\UserSoftDeleteSubscriber<\/a>"],[100,0,"<a href=\"Exception\/CustomException\/EmptyAPIException.php.html#8\">App\\Exception\\CustomException\\EmptyAPIException<\/a>"],[100,2,"<a href=\"Exception\/CustomException\/InvalidCSVRowException.php.html#8\">App\\Exception\\CustomException\\InvalidCSVRowException<\/a>"],[100,2,"<a href=\"Exception\/CustomException\/InvalidPathToFileException.php.html#8\">App\\Exception\\CustomException\\InvalidPathToFileException<\/a>"],[100,2,"<a href=\"Form\/AddUserType.php.html#14\">App\\Form\\AddUserType<\/a>"],[100,1,"<a href=\"Form\/ForgotMyPasswordType.php.html#10\">App\\Form\\ForgotMyPasswordType<\/a>"],[100,1,"<a href=\"Form\/ResetPasswordType.php.html#11\">App\\Form\\ResetPasswordType<\/a>"],[100,1,"<a href=\"Form\/UpdateUserType.php.html#11\">App\\Form\\UpdateUserType<\/a>"],[100,2,"<a href=\"HttpClient\/ImportProgrammeApiClient.php.html#13\">App\\HttpClient\\ImportProgrammeApiClient<\/a>"],[75,3,"<a href=\"HttpClient\/SmsClient.php.html#12\">App\\HttpClient\\SmsClient<\/a>"],[0,4,"<a href=\"Importer\/ImportFromAPI.php.html#12\">App\\Importer\\ImportFromAPI<\/a>"],[0,8,"<a href=\"Importer\/ImportFromCSV.php.html#13\">App\\Importer\\ImportFromCSV<\/a>"],[100,0,"<a href=\"Kernel.php.html#8\">App\\Kernel<\/a>"],[0,2,"<a href=\"Mailer\/NewsletterMailer.php.html#9\">App\\Mailer\\NewsletterMailer<\/a>"],[0,2,"<a href=\"Mailer\/ResetPasswordMailer.php.html#12\">App\\Mailer\\ResetPasswordMailer<\/a>"],[100,3,"<a href=\"Message\/SmsNotification.php.html#5\">App\\Message\\SmsNotification<\/a>"],[0,2,"<a href=\"MessageHandler\/SmsNotificationHandler.php.html#9\">App\\MessageHandler\\SmsNotificationHandler<\/a>"],[0,1,"<a href=\"Repository\/BuildingRepository.php.html#12\">App\\Repository\\BuildingRepository<\/a>"],[0,15,"<a href=\"Repository\/ProgrammeRepository.php.html#15\">App\\Repository\\ProgrammeRepository<\/a>"],[0,3,"<a href=\"Repository\/RoomRepository.php.html#15\">App\\Repository\\RoomRepository<\/a>"],[0,10,"<a href=\"Repository\/UserRepository.php.html#21\">App\\Repository\\UserRepository<\/a>"],[0,9,"<a href=\"Security\/TokenAuthenticator.php.html#14\">App\\Security\\TokenAuthenticator<\/a>"],[0,4,"<a href=\"Serializer\/GigelEncoder.php.html#9\">App\\Serializer\\GigelEncoder<\/a>"],[100,0,"<a href=\"Validator\/Cnp.php.html#10\">App\\Validator\\Cnp<\/a>"],[95,8,"<a href=\"Validator\/CnpValidator.php.html#9\">App\\Validator\\CnpValidator<\/a>"],[100,0,"<a href=\"Validator\/Password.php.html#10\">App\\Validator\\Password<\/a>"],[90.9090909090909,5,"<a href=\"Validator\/PasswordValidator.php.html#9\">App\\Validator\\PasswordValidator<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[100,1,"<a href=\"Analytics\/AnalyticsCollection.php.html#21\">App\\Analytics\\AnalyticsCollection::__construct<\/a>"],[100,5,"<a href=\"Analytics\/AnalyticsCollection.php.html#32\">App\\Analytics\\AnalyticsCollection::addToCollection<\/a>"],[100,1,"<a href=\"Analytics\/AnalyticsCollection.php.html#55\">App\\Analytics\\AnalyticsCollection::getAdminLogins<\/a>"],[100,1,"<a href=\"Analytics\/AnalyticsCollection.php.html#60\">App\\Analytics\\AnalyticsCollection::setAdminLogins<\/a>"],[100,2,"<a href=\"Analytics\/AnalyticsCollection.php.html#67\">App\\Analytics\\AnalyticsCollection::addAdminLogin<\/a>"],[100,1,"<a href=\"Analytics\/AnalyticsCollection.php.html#78\">App\\Analytics\\AnalyticsCollection::getApiLogins<\/a>"],[100,1,"<a href=\"Analytics\/AnalyticsCollection.php.html#83\">App\\Analytics\\AnalyticsCollection::setApiLogins<\/a>"],[100,2,"<a href=\"Analytics\/AnalyticsCollection.php.html#90\">App\\Analytics\\AnalyticsCollection::addApiLogin<\/a>"],[100,3,"<a href=\"Analytics\/AnalyticsCollection.php.html#101\">App\\Analytics\\AnalyticsCollection::getNumberAdminLoginsForDay<\/a>"],[100,3,"<a href=\"Analytics\/AnalyticsCollection.php.html#116\">App\\Analytics\\AnalyticsCollection::getNumberNewAccountsForRole<\/a>"],[100,3,"<a href=\"Analytics\/AnalyticsCollection.php.html#128\">App\\Analytics\\AnalyticsCollection::getNumberApiLoginsForUsername<\/a>"],[100,1,"<a href=\"Analytics\/AnalyticsCollection.php.html#140\">App\\Analytics\\AnalyticsCollection::getNewAccounts<\/a>"],[100,1,"<a href=\"Analytics\/AnalyticsCollection.php.html#145\">App\\Analytics\\AnalyticsCollection::setNewAccounts<\/a>"],[100,2,"<a href=\"Analytics\/AnalyticsCollection.php.html#152\">App\\Analytics\\AnalyticsCollection::addNewAccount<\/a>"],[100,1,"<a href=\"Analytics\/AnalyticsCollection.php.html#163\">App\\Analytics\\AnalyticsCollection::getFailedLogins<\/a>"],[100,1,"<a href=\"Analytics\/AnalyticsCollection.php.html#168\">App\\Analytics\\AnalyticsCollection::setFailedLogins<\/a>"],[100,2,"<a href=\"Analytics\/AnalyticsCollection.php.html#175\">App\\Analytics\\AnalyticsCollection::addFailedLogin<\/a>"],[0,1,"<a href=\"Analytics\/LogParser.php.html#14\">App\\Analytics\\LogParser::__construct<\/a>"],[0,2,"<a href=\"Analytics\/LogParser.php.html#21\">App\\Analytics\\LogParser::parseLogs<\/a>"],[100,1,"<a href=\"Command\/AnalyticsCommand.php.html#24\">App\\Command\\AnalyticsCommand::__construct<\/a>"],[100,3,"<a href=\"Command\/AnalyticsCommand.php.html#31\">App\\Command\\AnalyticsCommand::execute<\/a>"],[100,1,"<a href=\"Command\/CreateAccountCommand.php.html#42\">App\\Command\\CreateAccountCommand::__construct<\/a>"],[100,1,"<a href=\"Command\/CreateAccountCommand.php.html#59\">App\\Command\\CreateAccountCommand::configure<\/a>"],[100,1,"<a href=\"Command\/CreateAccountCommand.php.html#76\">App\\Command\\CreateAccountCommand::interact<\/a>"],[100,3,"<a href=\"Command\/CreateAccountCommand.php.html#84\">App\\Command\\CreateAccountCommand::execute<\/a>"],[100,1,"<a href=\"Command\/CreateBuildingCommand.php.html#27\">App\\Command\\CreateBuildingCommand::__construct<\/a>"],[100,1,"<a href=\"Command\/CreateBuildingCommand.php.html#34\">App\\Command\\CreateBuildingCommand::configure<\/a>"],[100,1,"<a href=\"Command\/CreateBuildingCommand.php.html#41\">App\\Command\\CreateBuildingCommand::execute<\/a>"],[100,1,"<a href=\"Command\/ProgrammeImportFromAPICommand.php.html#36\">App\\Command\\ProgrammeImportFromAPICommand::__construct<\/a>"],[100,3,"<a href=\"Command\/ProgrammeImportFromAPICommand.php.html#52\">App\\Command\\ProgrammeImportFromAPICommand::execute<\/a>"],[100,1,"<a href=\"Command\/ProgrammeImportFromCSVCommand.php.html#35\">App\\Command\\ProgrammeImportFromCSVCommand::__construct<\/a>"],[100,3,"<a href=\"Command\/ProgrammeImportFromCSVCommand.php.html#52\">App\\Command\\ProgrammeImportFromCSVCommand::execute<\/a>"],[0,1,"<a href=\"Controller\/Admin\/LoginController.php.html#18\">App\\Controller\\Admin\\LoginController::index<\/a>"],[0,1,"<a href=\"Controller\/Admin\/MainPageController.php.html#21\">App\\Controller\\Admin\\MainPageController::__construct<\/a>"],[0,1,"<a href=\"Controller\/Admin\/MainPageController.php.html#31\">App\\Controller\\Admin\\MainPageController::load<\/a>"],[0,1,"<a href=\"Controller\/Admin\/MainPageController.php.html#42\">App\\Controller\\Admin\\MainPageController::getBusiestDay<\/a>"],[0,2,"<a href=\"Controller\/Admin\/MainPageController.php.html#55\">App\\Controller\\Admin\\MainPageController::getNewAccountsAnalytics<\/a>"],[0,2,"<a href=\"Controller\/Admin\/MainPageController.php.html#75\">App\\Controller\\Admin\\MainPageController::getAdminLoginsAnalytics<\/a>"],[0,1,"<a href=\"Controller\/Admin\/UserController.php.html#26\">App\\Controller\\Admin\\UserController::__construct<\/a>"],[0,1,"<a href=\"Controller\/Admin\/UserController.php.html#38\">App\\Controller\\Admin\\UserController::showUsers<\/a>"],[0,4,"<a href=\"Controller\/Admin\/UserController.php.html#59\">App\\Controller\\Admin\\UserController::update<\/a>"],[0,2,"<a href=\"Controller\/Admin\/UserController.php.html#93\">App\\Controller\\Admin\\UserController::delete<\/a>"],[0,1,"<a href=\"Controller\/Api\/ApiLoginController.php.html#22\">App\\Controller\\Api\\ApiLoginController::__construct<\/a>"],[0,2,"<a href=\"Controller\/Api\/ApiLoginController.php.html#32\">App\\Controller\\Api\\ApiLoginController::index<\/a>"],[0,1,"<a href=\"Controller\/Api\/NewsletterController.php.html#28\">App\\Controller\\Api\\NewsletterController::__construct<\/a>"],[0,2,"<a href=\"Controller\/Api\/NewsletterController.php.html#41\">App\\Controller\\Api\\NewsletterController::sendNewsletterToAllAction<\/a>"],[0,1,"<a href=\"Controller\/Api\/ProgrammeController.php.html#31\">App\\Controller\\Api\\ProgrammeController::__construct<\/a>"],[0,1,"<a href=\"Controller\/Api\/ProgrammeController.php.html#46\">App\\Controller\\Api\\ProgrammeController::showPaginatedFilteredSorted<\/a>"],[0,3,"<a href=\"Controller\/Api\/ProgrammeController.php.html#68\">App\\Controller\\Api\\ProgrammeController::joinProgramme<\/a>"],[0,1,"<a href=\"Controller\/Api\/UserController.php.html#39\">App\\Controller\\Api\\UserController::__construct<\/a>"],[0,3,"<a href=\"Controller\/Api\/UserController.php.html#63\">App\\Controller\\Api\\UserController::register<\/a>"],[0,2,"<a href=\"Controller\/Api\/UserController.php.html#103\">App\\Controller\\Api\\UserController::softDelete<\/a>"],[0,3,"<a href=\"Controller\/Api\/UserController.php.html#123\">App\\Controller\\Api\\UserController::recover<\/a>"],[100,1,"<a href=\"Controller\/ArgumentResolver\/UserDtoArgumentValueResolver.php.html#15\">App\\Controller\\ArgumentResolver\\UserDtoArgumentValueResolver::__construct<\/a>"],[100,1,"<a href=\"Controller\/ArgumentResolver\/UserDtoArgumentValueResolver.php.html#20\">App\\Controller\\ArgumentResolver\\UserDtoArgumentValueResolver::supports<\/a>"],[0,1,"<a href=\"Controller\/ArgumentResolver\/UserDtoArgumentValueResolver.php.html#25\">App\\Controller\\ArgumentResolver\\UserDtoArgumentValueResolver::resolve<\/a>"],[0,1,"<a href=\"Controller\/Dto\/AnalyticsDto.php.html#13\">App\\Controller\\Dto\\AnalyticsDto::getDateTime<\/a>"],[0,1,"<a href=\"Controller\/Dto\/AnalyticsDto.php.html#18\">App\\Controller\\Dto\\AnalyticsDto::setDateTime<\/a>"],[0,1,"<a href=\"Controller\/Dto\/UserDto.php.html#38\">App\\Controller\\Dto\\UserDto::createFromUser<\/a>"],[0,1,"<a href=\"Controller\/ForgotMyPasswordController.php.html#32\">App\\Controller\\ForgotMyPasswordController::__construct<\/a>"],[0,4,"<a href=\"Controller\/ForgotMyPasswordController.php.html#48\">App\\Controller\\ForgotMyPasswordController::send<\/a>"],[0,5,"<a href=\"Controller\/ForgotMyPasswordController.php.html#84\">App\\Controller\\ForgotMyPasswordController::reset<\/a>"],[100,1,"<a href=\"DataFixtures\/BuildingFixture.php.html#14\">App\\DataFixtures\\BuildingFixture::load<\/a>"],[100,1,"<a href=\"DataFixtures\/ProgrammeFixture.php.html#15\">App\\DataFixtures\\ProgrammeFixture::load<\/a>"],[100,1,"<a href=\"DataFixtures\/RoomFixture.php.html#14\">App\\DataFixtures\\RoomFixture::load<\/a>"],[100,1,"<a href=\"DataFixtures\/UserFixture.php.html#17\">App\\DataFixtures\\UserFixture::__construct<\/a>"],[100,1,"<a href=\"DataFixtures\/UserFixture.php.html#21\">App\\DataFixtures\\UserFixture::load<\/a>"],[0,3,"<a href=\"Decrypter\/CaesarCipher.php.html#11\">App\\Decrypter\\CaesarCipher::cipher<\/a>"],[0,2,"<a href=\"Decrypter\/CaesarCipher.php.html#22\">App\\Decrypter\\CaesarCipher::encipher<\/a>"],[0,1,"<a href=\"Decrypter\/CaesarCipher.php.html#34\">App\\Decrypter\\CaesarCipher::decipher<\/a>"],[0,1,"<a href=\"Entity\/Building.php.html#29\">App\\Entity\\Building::getId<\/a>"],[100,1,"<a href=\"Entity\/Building.php.html#34\">App\\Entity\\Building::getStartTime<\/a>"],[100,1,"<a href=\"Entity\/Building.php.html#39\">App\\Entity\\Building::setStartTime<\/a>"],[100,1,"<a href=\"Entity\/Building.php.html#46\">App\\Entity\\Building::getEndTime<\/a>"],[100,1,"<a href=\"Entity\/Building.php.html#51\">App\\Entity\\Building::setEndTime<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#85\">App\\Entity\\Programme::__construct<\/a>"],[80,2,"<a href=\"Entity\/Programme.php.html#90\">App\\Entity\\Programme::addCustomer<\/a>"],[40,2,"<a href=\"Entity\/Programme.php.html#102\">App\\Entity\\Programme::removeCustomer<\/a>"],[0,1,"<a href=\"Entity\/Programme.php.html#114\">App\\Entity\\Programme::getId<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#119\">App\\Entity\\Programme::getStartTime<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#124\">App\\Entity\\Programme::setStartTime<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#131\">App\\Entity\\Programme::getEndTime<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#136\">App\\Entity\\Programme::setEndTime<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#143\">App\\Entity\\Programme::getTrainer<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#148\">App\\Entity\\Programme::setTrainer<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#155\">App\\Entity\\Programme::getRoom<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#160\">App\\Entity\\Programme::setRoom<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#167\">App\\Entity\\Programme::getCustomers<\/a>"],[100,1,"<a href=\"Entity\/Programme.php.html#172\">App\\Entity\\Programme::setCustomers<\/a>"],[0,1,"<a href=\"Entity\/Room.php.html#40\">App\\Entity\\Room::getId<\/a>"],[100,1,"<a href=\"Entity\/Room.php.html#45\">App\\Entity\\Room::getBuilding<\/a>"],[100,1,"<a href=\"Entity\/Room.php.html#50\">App\\Entity\\Room::setBuilding<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#119\">App\\Entity\\User::__construct<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#124\">App\\Entity\\User::createFromDto<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#138\">App\\Entity\\User::getId<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#148\">App\\Entity\\User::getUserIdentifier<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#156\">App\\Entity\\User::getUsername<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#161\">App\\Entity\\User::getRoles<\/a>"],[75,2,"<a href=\"Entity\/User.php.html#170\">App\\Entity\\User::setRoles<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#184\">App\\Entity\\User::getPassword<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#189\">App\\Entity\\User::getPlainPassword<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#194\">App\\Entity\\User::setPassword<\/a>"],[0,1,"<a href=\"Entity\/User.php.html#207\">App\\Entity\\User::getSalt<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#215\">App\\Entity\\User::eraseCredentials<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#219\">App\\Entity\\User::getProgrammes<\/a>"],[0,2,"<a href=\"Entity\/User.php.html#224\">App\\Entity\\User::addProgramme<\/a>"],[0,2,"<a href=\"Entity\/User.php.html#236\">App\\Entity\\User::removeProgramme<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#248\">App\\Entity\\User::setProgrammes<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#255\">App\\Entity\\User::getForgotPasswordTokenTime<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#260\">App\\Entity\\User::setForgotPasswordTokenTime<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#267\">App\\Entity\\User::setApiToken<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#274\">App\\Entity\\User::getApiToken<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#279\">App\\Entity\\User::getDeletedAt<\/a>"],[100,1,"<a href=\"Entity\/User.php.html#284\">App\\Entity\\User::setDeletedAt<\/a>"],[0,1,"<a href=\"EventSubscriber\/AcceptedContentSubscriber.php.html#21\">App\\EventSubscriber\\AcceptedContentSubscriber::__construct<\/a>"],[0,1,"<a href=\"EventSubscriber\/AcceptedContentSubscriber.php.html#26\">App\\EventSubscriber\\AcceptedContentSubscriber::getSubscribedEvents<\/a>"],[0,2,"<a href=\"EventSubscriber\/AcceptedContentSubscriber.php.html#33\">App\\EventSubscriber\\AcceptedContentSubscriber::encodeResponseData<\/a>"],[0,1,"<a href=\"EventSubscriber\/LoginSubscriber.php.html#16\">App\\EventSubscriber\\LoginSubscriber::__construct<\/a>"],[0,1,"<a href=\"EventSubscriber\/LoginSubscriber.php.html#21\">App\\EventSubscriber\\LoginSubscriber::getSubscribedEvents<\/a>"],[0,2,"<a href=\"EventSubscriber\/LoginSubscriber.php.html#29\">App\\EventSubscriber\\LoginSubscriber::loginSuccessLog<\/a>"],[0,2,"<a href=\"EventSubscriber\/LoginSubscriber.php.html#49\">App\\EventSubscriber\\LoginSubscriber::loginFailedLog<\/a>"],[0,1,"<a href=\"EventSubscriber\/ResponseSubscriber.php.html#12\">App\\EventSubscriber\\ResponseSubscriber::__construct<\/a>"],[0,1,"<a href=\"EventSubscriber\/ResponseSubscriber.php.html#17\">App\\EventSubscriber\\ResponseSubscriber::getSubscribedEvents<\/a>"],[0,4,"<a href=\"EventSubscriber\/ResponseSubscriber.php.html#22\">App\\EventSubscriber\\ResponseSubscriber::addApiVersionHeader<\/a>"],[0,1,"<a href=\"EventSubscriber\/UserSoftDeleteSubscriber.php.html#18\">App\\EventSubscriber\\UserSoftDeleteSubscriber::__construct<\/a>"],[0,1,"<a href=\"EventSubscriber\/UserSoftDeleteSubscriber.php.html#26\">App\\EventSubscriber\\UserSoftDeleteSubscriber::getSubscribedEvents<\/a>"],[0,4,"<a href=\"EventSubscriber\/UserSoftDeleteSubscriber.php.html#31\">App\\EventSubscriber\\UserSoftDeleteSubscriber::postSoftDelete<\/a>"],[100,1,"<a href=\"Exception\/CustomException\/InvalidCSVRowException.php.html#12\">App\\Exception\\CustomException\\InvalidCSVRowException::__construct<\/a>"],[100,1,"<a href=\"Exception\/CustomException\/InvalidCSVRowException.php.html#19\">App\\Exception\\CustomException\\InvalidCSVRowException::getRow<\/a>"],[100,1,"<a href=\"Exception\/CustomException\/InvalidPathToFileException.php.html#12\">App\\Exception\\CustomException\\InvalidPathToFileException::__construct<\/a>"],[100,1,"<a href=\"Exception\/CustomException\/InvalidPathToFileException.php.html#23\">App\\Exception\\CustomException\\InvalidPathToFileException::getPathToFile<\/a>"],[100,1,"<a href=\"Form\/AddUserType.php.html#16\">App\\Form\\AddUserType::buildForm<\/a>"],[100,1,"<a href=\"Form\/AddUserType.php.html#34\">App\\Form\\AddUserType::configureOptions<\/a>"],[100,1,"<a href=\"Form\/ForgotMyPasswordType.php.html#12\">App\\Form\\ForgotMyPasswordType::buildForm<\/a>"],[100,1,"<a href=\"Form\/ResetPasswordType.php.html#13\">App\\Form\\ResetPasswordType::buildForm<\/a>"],[100,1,"<a href=\"Form\/UpdateUserType.php.html#13\">App\\Form\\UpdateUserType::buildForm<\/a>"],[100,1,"<a href=\"HttpClient\/ImportProgrammeApiClient.php.html#17\">App\\HttpClient\\ImportProgrammeApiClient::__construct<\/a>"],[100,1,"<a href=\"HttpClient\/ImportProgrammeApiClient.php.html#29\">App\\HttpClient\\ImportProgrammeApiClient::fetchData<\/a>"],[100,1,"<a href=\"HttpClient\/SmsClient.php.html#18\">App\\HttpClient\\SmsClient::__construct<\/a>"],[66.66666666666666,2,"<a href=\"HttpClient\/SmsClient.php.html#27\">App\\HttpClient\\SmsClient::sendSms<\/a>"],[0,1,"<a href=\"Importer\/ImportFromAPI.php.html#20\">App\\Importer\\ImportFromAPI::__construct<\/a>"],[0,3,"<a href=\"Importer\/ImportFromAPI.php.html#37\">App\\Importer\\ImportFromAPI::importFromAPI<\/a>"],[0,1,"<a href=\"Importer\/ImportFromCSV.php.html#21\">App\\Importer\\ImportFromCSV::__construct<\/a>"],[0,7,"<a href=\"Importer\/ImportFromCSV.php.html#37\">App\\Importer\\ImportFromCSV::importFromCSV<\/a>"],[0,1,"<a href=\"Mailer\/NewsletterMailer.php.html#13\">App\\Mailer\\NewsletterMailer::__construct<\/a>"],[0,1,"<a href=\"Mailer\/NewsletterMailer.php.html#21\">App\\Mailer\\NewsletterMailer::sendEmail<\/a>"],[0,1,"<a href=\"Mailer\/ResetPasswordMailer.php.html#18\">App\\Mailer\\ResetPasswordMailer::__construct<\/a>"],[0,1,"<a href=\"Mailer\/ResetPasswordMailer.php.html#28\">App\\Mailer\\ResetPasswordMailer::sendEmail<\/a>"],[100,1,"<a href=\"Message\/SmsNotification.php.html#11\">App\\Message\\SmsNotification::__construct<\/a>"],[100,1,"<a href=\"Message\/SmsNotification.php.html#18\">App\\Message\\SmsNotification::getBody<\/a>"],[100,1,"<a href=\"Message\/SmsNotification.php.html#23\">App\\Message\\SmsNotification::getReceiver<\/a>"],[0,1,"<a href=\"MessageHandler\/SmsNotificationHandler.php.html#13\">App\\MessageHandler\\SmsNotificationHandler::__construct<\/a>"],[0,1,"<a href=\"MessageHandler\/SmsNotificationHandler.php.html#18\">App\\MessageHandler\\SmsNotificationHandler::__invoke<\/a>"],[0,1,"<a href=\"Repository\/BuildingRepository.php.html#14\">App\\Repository\\BuildingRepository::__construct<\/a>"],[0,1,"<a href=\"Repository\/ProgrammeRepository.php.html#23\">App\\Repository\\ProgrammeRepository::__construct<\/a>"],[0,1,"<a href=\"Repository\/ProgrammeRepository.php.html#30\">App\\Repository\\ProgrammeRepository::getAll<\/a>"],[0,11,"<a href=\"Repository\/ProgrammeRepository.php.html#40\">App\\Repository\\ProgrammeRepository::getPaginatedFilteredSorted<\/a>"],[0,1,"<a href=\"Repository\/ProgrammeRepository.php.html#79\">App\\Repository\\ProgrammeRepository::removeTrainerByIdFromProgrammes<\/a>"],[0,1,"<a href=\"Repository\/ProgrammeRepository.php.html#96\">App\\Repository\\ProgrammeRepository::showBusiestDay<\/a>"],[0,1,"<a href=\"Repository\/RoomRepository.php.html#19\">App\\Repository\\RoomRepository::__construct<\/a>"],[0,1,"<a href=\"Repository\/RoomRepository.php.html#31\">App\\Repository\\RoomRepository::findFirstAvailable<\/a>"],[0,1,"<a href=\"Repository\/RoomRepository.php.html#53\">App\\Repository\\RoomRepository::findFirstRoom<\/a>"],[0,1,"<a href=\"Repository\/UserRepository.php.html#25\">App\\Repository\\UserRepository::__construct<\/a>"],[0,2,"<a href=\"Repository\/UserRepository.php.html#32\">App\\Repository\\UserRepository::add<\/a>"],[0,2,"<a href=\"Repository\/UserRepository.php.html#40\">App\\Repository\\UserRepository::remove<\/a>"],[0,2,"<a href=\"Repository\/UserRepository.php.html#48\">App\\Repository\\UserRepository::recover<\/a>"],[0,2,"<a href=\"Repository\/UserRepository.php.html#56\">App\\Repository\\UserRepository::upgradePassword<\/a>"],[0,1,"<a href=\"Repository\/UserRepository.php.html#67\">App\\Repository\\UserRepository::getPaginated<\/a>"],[0,1,"<a href=\"Security\/TokenAuthenticator.php.html#16\">App\\Security\\TokenAuthenticator::supports<\/a>"],[0,1,"<a href=\"Security\/TokenAuthenticator.php.html#21\">App\\Security\\TokenAuthenticator::getCredentials<\/a>"],[0,2,"<a href=\"Security\/TokenAuthenticator.php.html#26\">App\\Security\\TokenAuthenticator::getUser<\/a>"],[0,1,"<a href=\"Security\/TokenAuthenticator.php.html#35\">App\\Security\\TokenAuthenticator::checkCredentials<\/a>"],[0,1,"<a href=\"Security\/TokenAuthenticator.php.html#40\">App\\Security\\TokenAuthenticator::onAuthenticationSuccess<\/a>"],[0,1,"<a href=\"Security\/TokenAuthenticator.php.html#45\">App\\Security\\TokenAuthenticator::onAuthenticationFailure<\/a>"],[0,1,"<a href=\"Security\/TokenAuthenticator.php.html#54\">App\\Security\\TokenAuthenticator::start<\/a>"],[0,1,"<a href=\"Security\/TokenAuthenticator.php.html#63\">App\\Security\\TokenAuthenticator::supportsRememberMe<\/a>"],[0,1,"<a href=\"Serializer\/GigelEncoder.php.html#13\">App\\Serializer\\GigelEncoder::encode<\/a>"],[0,1,"<a href=\"Serializer\/GigelEncoder.php.html#20\">App\\Serializer\\GigelEncoder::supportsEncoding<\/a>"],[0,1,"<a href=\"Serializer\/GigelEncoder.php.html#28\">App\\Serializer\\GigelEncoder::decode<\/a>"],[0,1,"<a href=\"Serializer\/GigelEncoder.php.html#33\">App\\Serializer\\GigelEncoder::supportsDecoding<\/a>"],[95,8,"<a href=\"Validator\/CnpValidator.php.html#11\">App\\Validator\\CnpValidator::validate<\/a>"],[90.9090909090909,5,"<a href=\"Validator\/PasswordValidator.php.html#11\">App\\Validator\\PasswordValidator::validate<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
