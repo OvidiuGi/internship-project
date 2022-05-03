@@ -30,6 +30,7 @@ class AddUserTypeTest extends TypeTestCase
             'role' => 'role',
         ];
 
+
         $this->assertFalse($form->isSynchronized());
         $this->assertEquals($expected, $resultedData);
     }
