@@ -11,6 +11,9 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
+/**
+ * @codeCoverageIgnore
+ */
 class CreateBuildingCommand extends Command
 {
     use LoggerAwareTrait;
@@ -50,13 +53,12 @@ class CreateBuildingCommand extends Command
         $this->entityManager->persist($building);
         $this->entityManager->flush();
 
-        $this->logger->info(
-            'Successfully created building',
-            [
-                'buildingId' => $building->getId(),
-                'commandName' => CreateBuildingCommand::$defaultName
-            ]
-        );
+//        $this->logger->info(
+//            'Successfully created building',
+//            [
+//                'commandName' => CreateBuildingCommand::$defaultName
+//            ]
+//        );
 
         $io->success('Building was successfully created!');
 

@@ -18,6 +18,9 @@ use Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ProgrammeImportFromAPICommand extends Command implements LoggerAwareInterface
 {
     use LoggerAwareTrait;

@@ -9,12 +9,12 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class ProgrammeImportFromAPICommandTest extends KernelTestCase
 {
-    private CommandTester $commandTester;
-
     protected function runTest(): void
     {
         $this->markTestSkipped('Skipped test');
     }
+
+    private CommandTester $commandTester;
 
     public function setUp(): void
     {
@@ -46,6 +46,7 @@ class ProgrammeImportFromAPICommandTest extends KernelTestCase
                 'lastName' => 'Voinicu',
                 'cnp' => '5010911070069',
                 'email' => 'email@email.com',
+                'telephoneNr' => '0754281716'
             ],
         );
 

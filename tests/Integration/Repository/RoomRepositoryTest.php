@@ -25,12 +25,7 @@ class RoomRepositoryTest extends KernelTestCase
         $roomRepository = static::getContainer()->get(RoomRepository::class);
         $programmeRepository = static::getContainer()->get(ProgrammeRepository::class);
         $programme = $programmeRepository->findAll()[0];
-        $testRoom = $roomRepository->findFirstAvailable(
-            $programme->getStartTime(),
-            $programme->getEndTime(),
-            $programme->maxParticipants,
-            $programme->isOnline
-        );
+        $testRoom = $roomRepository->findFirstAvailable($programme);
         $this->assertIsObject($testRoom);
     }
 }

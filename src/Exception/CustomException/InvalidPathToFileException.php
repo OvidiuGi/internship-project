@@ -2,6 +2,9 @@
 
 namespace App\Exception\CustomException;
 
+/**
+ * @codeCoverageIgnore
+ */
 class InvalidPathToFileException extends \Exception
 {
     private string $pathToFile;

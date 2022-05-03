@@ -91,6 +91,9 @@
         ],
         "post-update-cmd": [
             "@auto-scripts"
+        ],
+        "test": [
+            "./bin/phpunit --coverage-html coverage --coverage-clover coverage.xml"
         ]
     },
     "conflict": {

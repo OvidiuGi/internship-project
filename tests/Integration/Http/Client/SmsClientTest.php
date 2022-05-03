@@ -9,11 +9,6 @@ use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
 
 class SmsClientTest extends KernelTestCase
 {
-    protected function runTest(): void
-    {
-        $this->markTestSkipped('Skipped test');
-    }
-
     private ?SmsClient $client;
 
     protected function setUp(): void

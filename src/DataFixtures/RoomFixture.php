@@ -6,6 +6,9 @@ use App\Entity\Room;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * @codeCoverageIgnore
+ */
 class RoomFixture extends Fixture
 {
     public function load(ObjectManager $manager)

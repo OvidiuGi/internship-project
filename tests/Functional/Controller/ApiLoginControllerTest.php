@@ -17,7 +17,7 @@ class ApiLoginControllerTest extends WebTestCase
         $password = 'Parola';
         $client = static::createClient();
 
-        $client->jsonRequest('POST', 'http://internship-project.local/api/login', [
+        $client->jsonRequest('POST', 'http://internship-project.local/api', [
             'username' => $username,
             'password' => $password,
             ]);
@@ -30,7 +30,7 @@ class ApiLoginControllerTest extends WebTestCase
         $password = 'Parola';
         $client = static::createClient();
 
-        $client->jsonRequest('POST', 'http://internship-project.local/api/login', [
+        $client->jsonRequest('POST', 'http://internship-project.local/api', [
             'username' => $username,
             'password' => $password,
         ]);

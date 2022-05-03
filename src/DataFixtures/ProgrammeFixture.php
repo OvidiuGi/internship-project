@@ -7,6 +7,9 @@ use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * @codeCoverageIgnore
+ */
 class ProgrammeFixture extends Fixture
 {
     public function load(ObjectManager $manager)

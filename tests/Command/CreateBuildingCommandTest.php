@@ -8,12 +8,12 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 class CreateBuildingCommandTest extends KernelTestCase
 {
-    private CommandTester $commandTester;
-
     protected function runTest(): void
     {
         $this->markTestSkipped('Skipped test');
     }
+
+    private CommandTester $commandTester;
 
     public function setUp(): void
     {

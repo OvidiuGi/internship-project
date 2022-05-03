@@ -18,7 +18,7 @@ class NewsletterControllerTest extends WebTestCase
         $username = 'my.email@server.com';
         $password = 'Parola';
         $client = static::createClient();
-        $client->jsonRequest('POST', 'http://internship-project.local/api/login', [
+        $client->jsonRequest('POST', 'http://internship-project.local/api', [
             'username' => $username,
             'password' => $password,
         ]);
@@ -41,30 +41,7 @@ class NewsletterControllerTest extends WebTestCase
         $username = 'my.email@server.com';
         $password = 'Parola';
         $client = static::createClient();
-        $client->jsonRequest('POST', 'http://internship-project.local/api/login', [
-            'username' => $username,
-            'password' => $password,
-        ]);
-        $this->assertResponseIsSuccessful();
-        $decodedContent = json_decode($client->getResponse()->getContent(), true);
-        $token = $decodedContent['token'];
-
-        $client->jsonRequest('POST', 'http://internship-project.local/api/newsletter/all', [
-            'body' => $body,
-        ], [
-            'HTTP_X-AUTH-TOKEN' => $token,
-        ]);
-        $this->assertResponseIsSuccessful();
-    }
-
-    public function testSendNewsletterToNonexistentUser(): void
-    {
-        $telephoneNr = '11111';
-        $body = 'Test message';
-        $username = 'my.email@server.com';
-        $password = 'Parola';
-        $client = static::createClient();
-        $client->jsonRequest('POST', 'http://internship-project.local/api/login', [
+        $client->jsonRequest('POST', 'http://internship-project.local/api', [
             'username' => $username,
             'password' => $password,
         ]);
@@ -73,11 +50,10 @@ class NewsletterControllerTest extends WebTestCase
         $token = $decodedContent['token'];
 
         $client->jsonRequest('POST', 'http://internship-project.local/api/newsletter', [
-            'receiver' => $telephoneNr,
             'body' => $body,
         ], [
             'HTTP_X-AUTH-TOKEN' => $token,
         ]);
-        $this->assertResponseStatusCodeSame(404);
+        $this->assertResponseIsSuccessful();
     }
 }
